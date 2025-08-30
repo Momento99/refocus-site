@@ -15,60 +15,51 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
   <style>
     :root{
-      --brand:#1A284E;--accent:#1AA3FF;--bg:#ffffff;--text:#0f172a;--muted:#6b7280;--card:#ffffff;--radius:18px;
-      --shadow:0 12px 40px rgba(17,24,39,.12);
+      --brand:#1A284E;--accent:#1AA3FF;--bg:#ffffff;--text:#0f172a;--muted:#6b7280;--card:#ffffff;--radius:18px;--shadow:0 12px 40px rgba(17,24,39,.12)
     }
     *{box-sizing:border-box}
     html{scroll-behavior:smooth}
     html,body{height:100%}
-    body{
-      margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);
-      background:url('background.jpg') no-repeat center/cover fixed;
-    }
-    /* Градиентная вуаль над фоном для читаемости */
-    body::before{
-      content:"";position:fixed;inset:0;pointer-events:none;
-      background:linear-gradient(180deg, rgba(26,40,78,.55) 0%, rgba(26,40,78,.35) 20%, rgba(26,40,78,.25) 60%, rgba(26,40,78,.4) 100%);
-      z-index:-1;
-    }
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:url('background.jpg') no-repeat center/cover fixed}
+    /* затемняющая вуаль для читаемости на тёмном фоне */
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(26,40,78,.55) 0%, rgba(26,40,78,.35) 20%, rgba(26,40,78,.25) 60%, rgba(26,40,78,.4) 100%);z-index:-1}
+
     .wrap{max-width:920px;margin:0 auto;padding:32px 20px}
-    /* HERO с эффектом стекла */
-    .hero{
-      border-radius:28px;background:rgba(255,255,255,0.85);backdrop-filter:saturate(1.1) blur(8px);
-      border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow);padding:26px 22px;position:relative;overflow:hidden
-    }
-    .hero::after{content:"";position:absolute;inset:auto -20% -60% -20%;height:160px;background:radial-gradient(60% 60% at 50% 0%, rgba(26,163,255,.25), rgba(26,163,255,0));filter:blur(30px)}
+
+    /* HERO */
+    .hero{border-radius:28px;background:rgba(255,255,255,0.85);backdrop-filter:saturate(1.1) blur(8px);border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow);padding:26px 22px;position:relative;overflow:hidden}
+    .hero::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-60%;height:160px;background:radial-gradient(60% 60% at 50% 0%, rgba(26,163,255,.25), rgba(26,163,255,0));filter:blur(30px)}
     header{display:flex;align-items:center;gap:16px}
     .logo-slot{width:72px;height:72px;border-radius:16px;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.06)}
-    .logo-slot img{width:100%;height:100%;object-fit:contain} 
-    .brand{font-family:Montserrat,Inter,sans-serif;font-weight:800;font-size:34px;letter-spacing:1px;color:var(--bg);
-      background:linear-gradient(92deg,#1A284E 0%,#25407d 60%,#1AA3FF 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+    .logo-slot img{width:100%;height:100%;object-fit:contain}
+    .brand{font-family:Montserrat,Inter,sans-serif;font-weight:800;font-size:34px;letter-spacing:1px;color:transparent;background:linear-gradient(92deg,#1A284E 0%,#25407d 60%,#1AA3FF 100%);-webkit-background-clip:text;background-clip:text}
     .tag{color:#2b364f;margin:6px 0 14px}
+
     .actions{display:grid;gap:12px;margin:16px 0 6px}
     @media(min-width:560px){.actions{grid-template-columns:repeat(3,1fr)}}
-    .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;cursor:pointer;font-weight:600;padding:14px 16px;border-radius:16px;transition:transform .12s ease,box-shadow .2s ease, background .2s ease; text-decoration:none}
+    .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;cursor:pointer;font-weight:600;padding:14px 16px;border-radius:16px;transition:transform .12s ease,box-shadow .2s ease, background .2s ease;text-decoration:none}
     .btn.primary{background:var(--brand);color:#fff}
     .btn.accent{background:var(--accent);color:#fff}
     .btn.outline{background:#fff;color:var(--brand);border:1px solid #e5e7eb}
     .btn:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(17,24,39,.18)}
-    .btn:active{transform:translateY(0)}
 
     .section{margin:42px 0}
     h2{margin:0 0 16px;font-size:24px;color:#fff;letter-spacing:.2px}
 
-    /* Карточки светлые на тёмном фоне */
+    /* Карточки филиалов */
     .branches{display:grid;gap:18px}
     .branch{background:rgba(255,255,255,.98);padding:18px;border-radius:var(--radius);border:1px solid #e5e7eb;color:#111;box-shadow:var(--shadow);opacity:0;transform:translateY(16px)}
     .branch h3{margin:0 0 6px;font-size:18px;color:var(--brand)}
-    .branch .meta{margin:0;color:#374151;line-height:1.5}
+    .branch .meta{margin:0 0 6px;color:#374151;line-height:1.5}
+    .branch .hours{font-size:14px;color:#555;margin:0}
     .links{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
-    .chip{display:inline-block;padding:10px 14px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .12s ease, box-shadow .2s ease, background .2s ease}
+    .chip{padding:10px 14px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .12s ease, box-shadow .2s ease, background .2s ease}
     .chip.map{background:#fff;border:1px solid #e5e7eb;color:var(--brand)}
     .chip.call{background:var(--brand);color:#fff}
     .chip.status{background:var(--accent);color:#fff}
     .chip:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(17,24,39,.18)}
 
-    /* Отзыв/форма */
+    /* Отзывы и FAQ */
     #review h2, #faq h2{color:#fff}
     .review{background:rgba(255,255,255,.98);padding:20px;border-radius:var(--radius);border:1px solid #e5e7eb;box-shadow:var(--shadow);opacity:0;transform:translateY(16px)}
     .row{display:grid;gap:12px}
@@ -78,8 +69,6 @@
     textarea{min-height:120px;resize:vertical}
     .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
     .note{color:#374151;font-size:13px;margin-top:8px}
-
-    /* FAQ карточки */
     #faq .branch{opacity:0;transform:translateY(16px)}
 
     /* Футер */
@@ -89,9 +78,7 @@
     .small{font-size:13px;color:#334155}
 
     /* Плавающая кнопка WhatsApp */
-    .fab{
-      position:fixed;right:16px;bottom:16px;height:56px;padding:0 18px;border-radius:999px;background:#25D366;color:#111;display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:50;transition:transform .15s ease, box-shadow .2s ease;opacity:.98
-    }
+    .fab{position:fixed;right:16px;bottom:16px;height:56px;padding:0 18px;border-radius:999px;background:#25D366;color:#111;display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:50;transition:transform .15s ease, box-shadow .2s ease;opacity:.98}
     .fab:hover{transform:translateY(-2px);box-shadow:0 18px 32px rgba(0,0,0,.3)}
 
     /* Анимации появления */
@@ -126,38 +113,42 @@
       <div class="branches">
         <div class="branch reveal">
           <h3>Кант</h3>
-          <p class="meta">ТЦ Мээрим, Улица Ленина, 90/1, цокольный этаж, Ц/08 бутик, Кант, Ысык-Атинский район, Чуйская область</p>
+          <p class="meta">ТЦ Мээрим, Улица Ленина, 90/1, цокольный этаж, отдел Ц/08</p>
+          <p class="hours">Будни: 10:00 – 18:00<br>Суббота: 10:00 – 18:00</p>
           <div class="links">
             <a class="chip map" href="https://go.2gis.com/eYyut" target="_blank" rel="noopener">Открыть в 2ГИС</a>
-            <a class="chip call" href="tel:+996705244966">Позвонить</a>
-            <a class="chip status" href="https://wa.me/996705244966?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кант. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+            <a class="chip call" href="tel:+996709838347">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996709838347?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кант. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
           </div>
         </div>
         <div class="branch reveal">
           <h3>Кара-Балта</h3>
-          <p class="meta">Улица Кожомбердиева, 273а, Кара-Балта, Жайылский район, Чуйская область</p>
+          <p class="meta">Улица Кожомбердиева, 273а</p>
+          <p class="hours">Будни: 9:00 – 17:00<br>Суббота: 9:00 – 16:00</p>
           <div class="links">
             <a class="chip map" href="https://go.2gis.com/MVKP2" target="_blank" rel="noopener">Открыть в 2ГИС</a>
-            <a class="chip call" href="tel:+996705244966">Позвонить</a>
-            <a class="chip status" href="https://wa.me/996705244966?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кара-Балта. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+            <a class="chip call" href="tel:+996552519451">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996552519451?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кара-Балта. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
           </div>
         </div>
         <div class="branch reveal">
           <h3>Беловодск</h3>
-          <p class="meta">Улица Фрунзе, 145, с. Беловодское, Московский район, Чуйская область</p>
+          <p class="meta">Улица Фрунзе, 145</p>
+          <p class="hours">Будни: 10:00 – 16:00<br>Суббота: 10:00 – 16:00</p>
           <div class="links">
             <a class="chip map" href="https://go.2gis.com/xujV8" target="_blank" rel="noopener">Открыть в 2ГИС</a>
-            <a class="chip call" href="tel:+996705244966">Позвонить</a>
-            <a class="chip status" href="https://wa.me/996705244966?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Беловодск. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+            <a class="chip call" href="tel:+996503140155">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996503140155?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Беловодск. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
           </div>
         </div>
         <div class="branch reveal">
           <h3>Сокулук</h3>
-          <p class="meta">Улица Ленина, 124г, с. Сокулук, Сокулукский район, Чуйская область</p>
+          <p class="meta">Улица Ленина, 124г</p>
+          <p class="hours">Будни: 9:00 – 17:00<br>Суббота: 9:00 – 16:00</p>
           <div class="links">
             <a class="chip map" href="https://go.2gis.com/WkO3v" target="_blank" rel="noopener">Открыть в 2ГИС</a>
-            <a class="chip call" href="tel:+996705244966">Позвонить</a>
-            <a class="chip status" href="https://wa.me/996705244966?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Сокулук. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+            <a class="chip call" href="tel:+996708811001">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996708811001?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Сокулук. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
           </div>
         </div>
       </div>
@@ -227,15 +218,15 @@
       </div>
       <div class="branch reveal">
         <h3>Какие линзы вы предлагаете?</h3>
-        <p class="meta">Мы работаем с прозрачными, фотохромными, антибликовыми и линзами с защитой от компьютера. Подбираем под ваши потребности.</p>
+        <p class="meta">Прозрачные, фотохромные, антибликовые, с защитой от компьютера — подбираем под ваши задачи.</p>
       </div>
       <div class="branch reveal">
         <h3>Можно ли оплатить частями?</h3>
-        <p class="meta">Да, вы можете внести аванс, а оставшуюся часть оплатить при получении готовых очков.</p>
+        <p class="meta">Да. Можно внести аванс, остальное — при получении очков.</p>
       </div>
       <div class="branch reveal">
         <h3>Есть ли гарантия?</h3>
-        <p class="meta">Да, мы предоставляем гарантию на линзы и оправы. Срок зависит от конкретного производителя.</p>
+        <p class="meta">Да. Гарантия на линзы и оправы, срок зависит от производителя.</p>
       </div>
     </section>
 
@@ -244,12 +235,12 @@
         <div>
           <strong>Контакты</strong>
           <div class="small">Тел: <a href="tel:+996705244966">+996 705 244 966</a></div>
-          <div class="small">E-mail: <a href="mailto:refocus.kg@gmail.com">refocus.kg@gmail.com</a></div>
+          <div class="small">E‑mail: <a href="mailto:refocus.kg@gmail.com">refocus.kg@gmail.com</a></div>
           <div class="small">Instagram: <a href="https://www.instagram.com/refocus.kg/" target="_blank" rel="noopener">@refocus.kg</a></div>
           <div class="small">WhatsApp: <a href="https://wa.me/996705244966" target="_blank" rel="noopener">написать</a></div>
         </div>
         <div>
-          <strong>График работы</strong>
+          <strong>График работы (общее)</strong>
           <div class="small">Пн‑Сб: 10:00 — 19:00</div>
           <div class="small">Вс: 11:00 — 17:00</div>
           <div class="small">Без записи, диагностика бесплатная</div>
@@ -259,7 +250,7 @@
   </div>
 
   <script>
-    // Mailto из формы
+    // Mailto из формы «Отзыв»
     (function(){
       var form = document.getElementById('reviewForm');
       if(!form) return;
@@ -285,7 +276,7 @@
       });
     })();
 
-    // Появление карточек при скролле
+    // Анимация появления карточек при скролле
     (function(){
       if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
         document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
