@@ -1,1 +1,294 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Refocus — мультиссылка</title>
+  <meta name="description" content="Refocus. Бесплатная компьютерная диагностика зрения. Кара-Балта, Беловодск, Сокулук, Кант. Приходите без записи." />
+  <meta property="og:title" content="Refocus" />
+  <meta property="og:description" content="Бесплатная диагностика зрения. Приходите без записи." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="logo.png" />
+  <meta name="theme-color" content="#1A284E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Montserrat:wght@700;800&display=swap" rel="stylesheet">
+  <style>
+    :root{
+      --brand:#1A284E;--accent:#1AA3FF;--bg:#ffffff;--text:#0f172a;--muted:#6b7280;--card:#ffffff;--radius:18px;--shadow:0 12px 40px rgba(17,24,39,.12)
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    html,body{height:100%}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--text);background:url('background.jpg') no-repeat center/cover fixed}
+    /* затемняющая вуаль для читаемости на тёмном фоне */
+    body::before{content:"";position:fixed;inset:0;pointer-events:none;background:linear-gradient(180deg, rgba(26,40,78,.55) 0%, rgba(26,40,78,.35) 20%, rgba(26,40,78,.25) 60%, rgba(26,40,78,.4) 100%);z-index:-1}
+
+    .wrap{max-width:920px;margin:0 auto;padding:32px 20px}
+
+    /* HERO */
+    .hero{border-radius:28px;background:rgba(255,255,255,0.85);backdrop-filter:saturate(1.1) blur(8px);border:1px solid rgba(255,255,255,.6);box-shadow:var(--shadow);padding:26px 22px;position:relative;overflow:hidden}
+    .hero::after{content:"";position:absolute;left:-20%;right:-20%;bottom:-60%;height:160px;background:radial-gradient(60% 60% at 50% 0%, rgba(26,163,255,.25), rgba(26,163,255,0));filter:blur(30px)}
+    header{display:flex;align-items:center;gap:16px}
+    .logo-slot{width:72px;height:72px;border-radius:16px;background:#fff;border:1px solid #e5e7eb;display:flex;align-items:center;justify-content:center;overflow:hidden;box-shadow:0 6px 18px rgba(0,0,0,.06)}
+    .logo-slot img{width:100%;height:100%;object-fit:contain}
+    .brand{font-family:Montserrat,Inter,sans-serif;font-weight:800;font-size:34px;letter-spacing:1px;color:transparent;background:linear-gradient(92deg,#1A284E 0%,#25407d 60%,#1AA3FF 100%);-webkit-background-clip:text;background-clip:text}
+    .tag{color:#2b364f;margin:6px 0 14px}
+
+    .actions{display:grid;gap:12px;margin:16px 0 6px}
+    @media(min-width:560px){.actions{grid-template-columns:repeat(3,1fr)}}
+    .btn{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;border:none;cursor:pointer;font-weight:600;padding:14px 16px;border-radius:16px;transition:transform .12s ease,box-shadow .2s ease, background .2s ease;text-decoration:none}
+    .btn.primary{background:var(--brand);color:#fff}
+    .btn.accent{background:var(--accent);color:#fff}
+    .btn.outline{background:#fff;color:var(--brand);border:1px solid #e5e7eb}
+    .btn:hover{transform:translateY(-2px);box-shadow:0 16px 28px rgba(17,24,39,.18)}
+
+    .section{margin:42px 0}
+    h2{margin:0 0 16px;font-size:24px;color:#fff;letter-spacing:.2px}
+
+    /* Карточки филиалов */
+    .branches{display:grid;gap:18px}
+    .branch{background:rgba(255,255,255,.98);padding:18px;border-radius:var(--radius);border:1px solid #e5e7eb;color:#111;box-shadow:var(--shadow);opacity:0;transform:translateY(16px)}
+    .branch h3{margin:0 0 6px;font-size:18px;color:var(--brand)}
+    .branch .meta{margin:0 0 6px;color:#374151;line-height:1.5}
+    .branch .hours{font-size:14px;color:#555;margin:0}
+    .links{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+    .chip{padding:10px 14px;border-radius:999px;font-weight:600;text-decoration:none;transition:transform .12s ease, box-shadow .2s ease, background .2s ease}
+    .chip.map{background:#fff;border:1px solid #e5e7eb;color:var(--brand)}
+    .chip.call{background:var(--brand);color:#fff}
+    .chip.status{background:var(--accent);color:#fff}
+    .chip:hover{transform:translateY(-1px);box-shadow:0 10px 20px rgba(17,24,39,.18)}
+
+    /* Отзывы и FAQ */
+    #review h2, #faq h2{color:#fff}
+    .review{background:rgba(255,255,255,.98);padding:20px;border-radius:var(--radius);border:1px solid #e5e7eb;box-shadow:var(--shadow);opacity:0;transform:translateY(16px)}
+    .row{display:grid;gap:12px}
+    @media(min-width:560px){.row{grid-template-columns:1fr 1fr}}
+    label{font-weight:600;font-size:14px;color:var(--brand)}
+    input,select,textarea{width:100%;padding:12px;border:1px solid #e5e7eb;border-radius:12px;font:inherit;background:#fff}
+    textarea{min-height:120px;resize:vertical}
+    .form-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}
+    .note{color:#374151;font-size:13px;margin-top:8px}
+    #faq .branch{opacity:0;transform:translateY(16px)}
+
+    /* Футер */
+    footer{margin-top:46px;background:rgba(255,255,255,0.94);border:1px solid #e5e7eb;border-radius:18px;padding:18px;box-shadow:var(--shadow);opacity:0;transform:translateY(16px)}
+    .footer-grid{display:grid;gap:12px}
+    @media(min-width:560px){.footer-grid{grid-template-columns:1fr 1fr}}
+    .small{font-size:13px;color:#334155}
+
+    /* Плавающая кнопка WhatsApp */
+    .fab{position:fixed;right:16px;bottom:16px;height:56px;padding:0 18px;border-radius:999px;background:#25D366;color:#111;display:flex;align-items:center;gap:10px;text-decoration:none;font-weight:700;box-shadow:0 12px 30px rgba(0,0,0,.25);z-index:50;transition:transform .15s ease, box-shadow .2s ease;opacity:.98}
+    .fab:hover{transform:translateY(-2px);box-shadow:0 18px 32px rgba(0,0,0,.3)}
+
+    /* Анимации появления */
+    @media (prefers-reduced-motion:no-preference){
+      .reveal.in{opacity:1!important;transform:none!important;transition:opacity .6s ease, transform .6s ease}
+      .brand{animation:fadeSlide .8s ease .05s both}
+      .hero{animation:fadeSlide .7s ease both}
+      @keyframes fadeSlide{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+    }
+  </style>
+</head>
+<body>
+  <a class="fab" href="https://wa.me/996705244966?text=Здравствуйте! Хотелось бы задать вопрос по подбору очков." target="_blank" rel="noopener">💬 WhatsApp</a>
+  <div class="wrap">
+    <div class="hero">
+      <header>
+        <div class="logo-slot"><img src="logo.png" alt="Refocus" loading="lazy"/></div>
+        <div>
+          <div class="brand">Refocus</div>
+          <div class="tag">Бесплатная компьютерная диагностика зрения</div>
+        </div>
+      </header>
+      <div class="actions">
+        <a class="btn primary" href="https://www.instagram.com/refocus.kg/" target="_blank" rel="noopener">Instagram</a>
+        <a class="btn accent" href="https://wa.me/996705244966" target="_blank" rel="noopener">Написать в WhatsApp</a>
+        <a class="btn outline" href="#review">Оставить отзыв</a>
+      </div>
+    </div>
+
+    <section class="section" id="branches">
+      <h2>Наши филиалы</h2>
+      <div class="branches">
+        <div class="branch reveal">
+          <h3>Кант</h3>
+          <p class="meta">ТЦ Мээрим, Улица Ленина, 90/1, цокольный этаж, отдел Ц/08</p>
+          <p class="hours">Будни: 10:00 – 18:00<br>Суббота: 10:00 – 18:00</p>
+          <div class="links">
+            <a class="chip map" href="https://go.2gis.com/eYyut" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+            <a class="chip call" href="tel:+996709838347">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996709838347?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кант. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+          </div>
+        </div>
+        <div class="branch reveal">
+          <h3>Кара-Балта</h3>
+          <p class="meta">Улица Кожомбердиева, 273а</p>
+          <p class="hours">Будни: 9:00 – 17:00<br>Суббота: 9:00 – 16:00</p>
+          <div class="links">
+            <a class="chip map" href="https://go.2gis.com/MVKP2" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+            <a class="chip call" href="tel:+996552519451">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996552519451?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Кара-Балта. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+          </div>
+        </div>
+        <div class="branch reveal">
+          <h3>Беловодск</h3>
+          <p class="meta">Улица Фрунзе, 145</p>
+          <p class="hours">Будни: 10:00 – 16:00<br>Суббота: 10:00 – 16:00</p>
+          <div class="links">
+            <a class="chip map" href="https://go.2gis.com/xujV8" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+            <a class="chip call" href="tel:+996503140155">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996503140155?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Беловодск. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+          </div>
+        </div>
+        <div class="branch reveal">
+          <h3>Сокулук</h3>
+          <p class="meta">Улица Ленина, 124г</p>
+          <p class="hours">Будни: 9:00 – 17:00<br>Суббота: 9:00 – 16:00</p>
+          <div class="links">
+            <a class="chip map" href="https://go.2gis.com/WkO3v" target="_blank" rel="noopener">Открыть в 2ГИС</a>
+            <a class="chip call" href="tel:+996708811001">Позвонить</a>
+            <a class="chip status" href="https://wa.me/996708811001?text=Здравствуйте! Хочу уточнить готовность моих очков в филиале Сокулук. Фамилия: ______." target="_blank" rel="noopener">Узнать готовность</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Оставить отзыв -->
+    <section class="section" id="review">
+      <h2>Оставить отзыв</h2>
+      <form class="review reveal" id="reviewForm">
+        <div class="row">
+          <div>
+            <label for="name">Ваше имя</label>
+            <input id="name" name="name" type="text" placeholder="Например: Асан" required>
+          </div>
+          <div>
+            <label for="phone">Телефон (необязательно)</label>
+            <input id="phone" name="phone" type="tel" placeholder="+996 ___ __ __ __">
+          </div>
+        </div>
+        <div class="row">
+          <div>
+            <label for="branch">Филиал</label>
+            <select id="branch" name="branch" required>
+              <option value="Кант">Кант</option>
+              <option value="Кара-Балта">Кара-Балта</option>
+              <option value="Беловодск">Беловодск</option>
+              <option value="Сокулук">Сокулук</option>
+            </select>
+          </div>
+          <div>
+            <label for="rating">Оценка</label>
+            <select id="rating" name="rating">
+              <option value="5">5 — отлично</option>
+              <option value="4">4 — хорошо</option>
+              <option value="3">3 — нормально</option>
+              <option value="2">2 — плохо</option>
+              <option value="1">1 — ужасно</option>
+            </select>
+          </div>
+        </div>
+        <div>
+          <label for="message">Комментарий</label>
+          <textarea id="message" name="message" placeholder="Что понравилось? Что улучшить?" required></textarea>
+        </div>
+        <div class="form-actions">
+          <button type="submit" class="btn primary">Отправить на e‑mail</button>
+          <a id="mailtoFallback" class="btn outline" href="mailto:refocus.kg@gmail.com?subject=Отзыв%20Refocus&body=Имя:%20%0AТелефон:%20%0AФилиал:%20%0AОценка:%20%0AКомментарий:%20" >Если не сработало</a>
+        </div>
+        <div class="note">Кнопка откроет ваше почтовое приложение с готовым письмом на <strong>refocus.kg@gmail.com</strong>. Проверьте поля и нажмите «Отправить».</div>
+      </form>
+    </section>
+
+    <!-- FAQ внизу -->
+    <section class="section" id="faq">
+      <h2>FAQ</h2>
+      <div class="branch reveal">
+        <h3>Нужна ли запись?</h3>
+        <p class="meta">Нет, вы можете прийти без записи в любой филиал. Диагностика проводится бесплатно.</p>
+      </div>
+      <div class="branch reveal">
+        <h3>Сколько стоит диагностика?</h3>
+        <p class="meta">Компьютерная диагностика зрения у нас полностью бесплатная.</p>
+      </div>
+      <div class="branch reveal">
+        <h3>Сколько времени занимает изготовление очков?</h3>
+        <p class="meta">Стандартные очки изготавливаются за 1–3 дня. Для сложных рецептов срок может составить до 7 дней.</p>
+      </div>
+      <div class="branch reveal">
+        <h3>Какие линзы вы предлагаете?</h3>
+        <p class="meta">Прозрачные, фотохромные, антибликовые, с защитой от компьютера — подбираем под ваши задачи.</p>
+      </div>
+      <div class="branch reveal">
+        <h3>Можно ли оплатить частями?</h3>
+        <p class="meta">Да. Можно внести аванс, остальное — при получении очков.</p>
+      </div>
+      <div class="branch reveal">
+        <h3>Есть ли гарантия?</h3>
+        <p class="meta">Да. Гарантия на линзы и оправы, срок зависит от производителя.</p>
+      </div>
+    </section>
+
+    <footer class="reveal">
+      <div class="footer-grid">
+        <div>
+          <strong>Контакты</strong>
+          <div class="small">Тел: <a href="tel:+996705244966">+996 705 244 966</a></div>
+          <div class="small">E‑mail: <a href="mailto:refocus.kg@gmail.com">refocus.kg@gmail.com</a></div>
+          <div class="small">Instagram: <a href="https://www.instagram.com/refocus.kg/" target="_blank" rel="noopener">@refocus.kg</a></div>
+          <div class="small">WhatsApp: <a href="https://wa.me/996705244966" target="_blank" rel="noopener">написать</a></div>
+        </div>
+        <div>
+          <strong>График работы (общее)</strong>
+          <div class="small">Пн‑Сб: 10:00 — 19:00</div>
+          <div class="small">Вс: 11:00 — 17:00</div>
+          <div class="small">Без записи, диагностика бесплатная</div>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    // Mailto из формы «Отзыв»
+    (function(){
+      var form = document.getElementById('reviewForm');
+      if(!form) return;
+      form.addEventListener('submit', function(e){
+        e.preventDefault();
+        var name = document.getElementById('name').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var branch = document.getElementById('branch').value;
+        var rating = document.getElementById('rating').value;
+        var message = document.getElementById('message').value.trim();
+        var subject = 'Отзыв Refocus — ' + branch + ' — ' + (rating ? ('оценка ' + rating + '/5') : 'без оценки');
+        var body = [
+          'Имя: ' + name,
+          (phone ? 'Телефон: ' + phone : null),
+          'Филиал: ' + branch,
+          (rating ? 'Оценка: ' + rating + '/5' : null),
+          '',
+          'Комментарий:',
+          message
+        ].filter(Boolean).join('\n');
+        var mailto = 'mailto:refocus.kg@gmail.com?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+        window.location.href = mailto;
+      });
+    })();
+
+    // Анимация появления карточек при скролле
+    (function(){
+      if(window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+        document.querySelectorAll('.reveal').forEach(function(el){el.classList.add('in')});
+        return;
+      }
+      var io = new IntersectionObserver(function(entries){
+        entries.forEach(function(ent){ if(ent.isIntersecting){ ent.target.classList.add('in'); io.unobserve(ent.target);} });
+      },{threshold:0.12, rootMargin:'0px 0px -40px 0px'});
+      document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
+    })();
+  </script>
+</body>
+</html>
+
 
