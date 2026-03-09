@@ -1,0 +1,617 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Удаление аккаунта ReFocus</title>
+  <meta
+    name="description"
+    content="Публичная страница для запроса удаления аккаунта мобильного приложения ReFocus."
+  />
+  <meta property="og:title" content="Удаление аккаунта ReFocus" />
+  <meta
+    property="og:description"
+    content="На этой странице вы можете запросить удаление аккаунта мобильного приложения ReFocus."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo-refocus.png" />
+  <meta name="theme-color" content="#1A284E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root{
+      --brand:#1A284E;
+      --brand-2:#243B74;
+      --accent:#1AA3FF;
+      --accent-2:#45D4FF;
+      --text:#0f172a;
+      --muted:#64748b;
+      --ok:#0f766e;
+      --warn:#92400e;
+      --radius:22px;
+      --shadow:0 18px 55px rgba(15,23,42,.18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:url("assets/background-main.jpg") no-repeat center/cover fixed;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(26,40,78,.58) 0%,
+          rgba(26,40,78,.34) 22%,
+          rgba(26,40,78,.22) 60%,
+          rgba(26,40,78,.44) 100%
+        );
+      z-index:-1;
+    }
+
+    .wrap{
+      max-width:920px;
+      margin:0 auto;
+      padding:32px 20px 44px;
+    }
+
+    .intro,
+    .card{
+      background:rgba(255,255,255,.92);
+      backdrop-filter:saturate(1.08) blur(8px);
+      border:1px solid rgba(255,255,255,.65);
+      box-shadow:var(--shadow);
+    }
+
+    .intro{
+      border-radius:30px;
+      padding:24px 22px;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+
+    .intro::after{
+      content:"";
+      position:absolute;
+      left:-20%;
+      right:-20%;
+      bottom:-60%;
+      height:180px;
+      background:radial-gradient(60% 60% at 50% 0%, rgba(26,163,255,.22), rgba(26,163,255,0));
+      filter:blur(30px);
+      pointer-events:none;
+    }
+
+    .intro-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(26,163,255,.16);
+      color:#0f4f7a;
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    h1,h2,h3{
+      margin:0 0 12px;
+      color:var(--brand);
+    }
+
+    h1{
+      font-size:30px;
+      line-height:1.15;
+    }
+
+    h2{
+      font-size:22px;
+      margin-top:2px;
+    }
+
+    h3{
+      font-size:17px;
+    }
+
+    p{
+      margin:0 0 12px;
+      line-height:1.68;
+    }
+
+    .lead{
+      color:#2b364f;
+      max-width:760px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .card{
+      border-radius:24px;
+      padding:22px;
+      margin-top:18px;
+    }
+
+    .info-grid{
+      display:grid;
+      gap:14px;
+      margin-top:14px;
+    }
+
+    @media(min-width:700px){
+      .info-grid{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .info-box{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+    }
+
+    .info-box.ok{
+      border-color:rgba(15,118,110,.16);
+      background:linear-gradient(180deg, rgba(15,118,110,.06), rgba(255,255,255,.96));
+    }
+
+    .info-box.warn{
+      border-color:rgba(146,64,14,.14);
+      background:linear-gradient(180deg, rgba(245,158,11,.08), rgba(255,255,255,.96));
+    }
+
+    ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.68;
+    }
+
+    .form-card{
+      margin-top:18px;
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:20px;
+      padding:18px;
+    }
+
+    .row{
+      display:grid;
+      gap:12px;
+      margin-bottom:12px;
+    }
+
+    @media(min-width:640px){
+      .row.two{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    label{
+      display:block;
+      font-weight:700;
+      font-size:14px;
+      color:var(--brand);
+      margin:0 0 8px;
+    }
+
+    input, textarea{
+      width:100%;
+      padding:13px 14px;
+      border:1px solid #dbeafe;
+      border-radius:14px;
+      font:inherit;
+      color:var(--text);
+      background:#fff;
+      outline:none;
+      transition:border-color .15s ease, box-shadow .15s ease;
+    }
+
+    input:focus, textarea:focus{
+      border-color:#7dd3fc;
+      box-shadow:0 0 0 4px rgba(56,189,248,.12);
+    }
+
+    textarea{
+      min-height:130px;
+      resize:vertical;
+    }
+
+    .check{
+      display:flex;
+      align-items:flex-start;
+      gap:10px;
+      margin:6px 0 0;
+      color:#334155;
+      line-height:1.6;
+    }
+
+    .check input{
+      width:18px;
+      height:18px;
+      margin-top:3px;
+      flex:0 0 auto;
+    }
+
+    .actions{
+      display:grid;
+      gap:12px;
+      margin-top:16px;
+    }
+
+    @media(min-width:640px){
+      .actions{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    .actions.secondary{
+      margin-top:12px;
+      grid-template-columns:1fr;
+    }
+
+    .btn{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      width:100%;
+      border:none;
+      cursor:pointer;
+      font-weight:800;
+      padding:14px 16px;
+      border-radius:16px;
+      transition:transform .12s ease, box-shadow .2s ease, background .2s ease, border-color .2s ease;
+      text-decoration:none;
+      font-size:15px;
+      text-align:center;
+    }
+
+    .btn.primary{
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+    }
+
+    .btn.outline{
+      background:#fff;
+      color:var(--brand);
+      border:1px solid #dbeafe;
+    }
+
+    .btn.ghost{
+      background:rgba(255,255,255,.92);
+      color:#0f4f7a;
+      border:1px solid rgba(26,163,255,.20);
+    }
+
+    .btn:hover,
+    .mini-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(17,24,39,.16);
+    }
+
+    .help{
+      margin-top:14px;
+      font-size:13px;
+      color:#475569;
+      line-height:1.65;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:16px;
+    }
+
+    .mini-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+      transition:transform .12s ease, box-shadow .2s ease;
+    }
+
+    .status{
+      margin-top:12px;
+      display:none;
+      border-radius:14px;
+      padding:12px 14px;
+      font-size:14px;
+      line-height:1.6;
+      border:1px solid #dbeafe;
+      background:#eff6ff;
+      color:#1e3a8a;
+    }
+
+    .status.show{
+      display:block;
+    }
+
+    .small{
+      font-size:13px;
+      color:#475569;
+      line-height:1.65;
+    }
+
+    @media (prefers-reduced-motion:no-preference){
+      .intro{animation:fadeSlide .7s ease both}
+      .card{animation:fadeSlide .8s ease .05s both}
+
+      @keyframes fadeSlide{
+        from{opacity:0;transform:translateY(10px)}
+        to{opacity:1;transform:none}
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="intro">
+      <div class="intro-content">
+        <div class="eyebrow">ReFocus Mobile · Запрос удаления аккаунта</div>
+        <h1>Страница запроса удаления аккаунта</h1>
+        <p class="lead">
+          Здесь вы можете отправить запрос на удаление аккаунта, который используется
+          в мобильном приложении ReFocus.
+        </p>
+        <p class="muted">
+          После обработки запроса аккаунт приложения и связанные с ним персональные данные
+          будут удалены или обезличены в соответствии с правилами хранения данных сервиса.
+        </p>
+      </div>
+    </section>
+
+    <section class="card">
+      <div class="info-grid">
+        <div class="info-box ok">
+          <h3>Что удаляется</h3>
+          <ul>
+            <li>аккаунт приложения ReFocus</li>
+            <li>данные авторизации и связанные идентификаторы входа</li>
+            <li>push-устройства и пользовательские мобильные настройки</li>
+            <li>активные пользовательские сессии</li>
+            <li>другие данные, напрямую связанные с app-account</li>
+          </ul>
+        </div>
+
+        <div class="info-box warn">
+          <h3>Что может сохраниться</h3>
+          <ul>
+            <li>обезличенные данные по заказам</li>
+            <li>обезличенные данные по оплатам</li>
+            <li>обезличенная операционная история</li>
+            <li>данные, которые требуется хранить по закону, для безопасности или предотвращения мошенничества</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="form-card">
+        <h2>Отправить запрос</h2>
+        <p class="small">
+          Для идентификации аккаунта укажите номер телефона, который использовался
+          при регистрации в приложении ReFocus.
+        </p>
+
+        <form id="deleteForm">
+          <div class="row two">
+            <div>
+              <label for="fullName">Имя и фамилия</label>
+              <input
+                id="fullName"
+                name="fullName"
+                type="text"
+                placeholder="Например: Иван Иванов"
+                required
+              />
+            </div>
+            <div>
+              <label for="phone">Телефон, привязанный к аккаунту</label>
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                placeholder="+996 ___ __ __ __"
+                required
+              />
+            </div>
+          </div>
+
+          <div class="row two">
+            <div>
+              <label for="email">E-mail для обратной связи (необязательно)</label>
+              <input
+                id="email"
+                name="email"
+                type="email"
+                placeholder="Например: you@example.com"
+              />
+            </div>
+            <div>
+              <label for="reason">Причина удаления (необязательно)</label>
+              <input
+                id="reason"
+                name="reason"
+                type="text"
+                placeholder="Например: больше не пользуюсь приложением"
+              />
+            </div>
+          </div>
+
+          <div class="row">
+            <div>
+              <label for="comment">Комментарий</label>
+              <textarea
+                id="comment"
+                name="comment"
+                placeholder="Если нужно, укажите дополнительные детали для поиска аккаунта."
+              ></textarea>
+            </div>
+          </div>
+
+          <label class="check">
+            <input type="checkbox" id="confirmDelete" required />
+            <span>
+              Я подтверждаю, что прошу удалить мой аккаунт ReFocus и понимаю,
+              что часть данных может сохраняться в обезличенном виде в случаях,
+              предусмотренных законом, требованиями безопасности или внутреннего учёта.
+            </span>
+          </label>
+
+          <div class="actions">
+            <button type="submit" class="btn primary">Отправить запрос на удаление</button>
+            <a
+              id="directMail"
+              class="btn outline"
+              href="mailto:refocus.kg@gmail.com?subject=Запрос%20на%20удаление%20аккаунта%20ReFocus"
+            >
+              Написать напрямую на e-mail
+            </a>
+          </div>
+
+          <div class="actions secondary">
+            <button type="button" class="btn ghost" id="copyEmailBtn">
+              Скопировать e-mail поддержки
+            </button>
+          </div>
+
+          <div id="statusBox" class="status"></div>
+
+          <div class="help">
+            После нажатия основной кнопки откроется почтовое приложение с готовым письмом
+            на адрес <strong>refocus.kg@gmail.com</strong>. Если почтовое приложение не открылось,
+            вы можете написать вручную на этот адрес или скопировать его кнопкой выше.
+          </div>
+        </form>
+      </div>
+
+      <div class="footer-links">
+        <a class="mini-link" href="index.html">Вернуться на главную</a>
+        <a class="mini-link" href="mailto:refocus.kg@gmail.com">Связаться с поддержкой</a>
+        <a class="mini-link" href="https://wa.me/996555244966" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    (function () {
+      var form = document.getElementById('deleteForm');
+      var statusBox = document.getElementById('statusBox');
+      var directMail = document.getElementById('directMail');
+      var copyEmailBtn = document.getElementById('copyEmailBtn');
+      var supportEmail = 'refocus.kg@gmail.com';
+
+      if (!form) return;
+
+      function showStatus(message) {
+        statusBox.className = 'status show';
+        statusBox.textContent = message;
+      }
+
+      function buildMailto() {
+        var fullName = document.getElementById('fullName').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var email = document.getElementById('email').value.trim();
+        var reason = document.getElementById('reason').value.trim();
+        var comment = document.getElementById('comment').value.trim();
+
+        var subject = 'Запрос на удаление аккаунта ReFocus';
+        var body = [
+          'Здравствуйте!',
+          '',
+          'Прошу удалить мой аккаунт в мобильном приложении ReFocus.',
+          '',
+          'Данные для идентификации:',
+          'Имя и фамилия: ' + fullName,
+          'Телефон: ' + phone,
+          (email ? 'E-mail: ' + email : null),
+          (reason ? 'Причина удаления: ' + reason : null),
+          '',
+          'Комментарий:',
+          (comment || '—'),
+          '',
+          'Подтверждаю, что это запрос на удаление моего аккаунта ReFocus.'
+        ].filter(Boolean).join('\n');
+
+        return 'mailto:' + supportEmail + '?subject=' + encodeURIComponent(subject) + '&body=' + encodeURIComponent(body);
+      }
+
+      function refreshDirectMailLink() {
+        directMail.href = buildMailto();
+      }
+
+      ['input', 'change'].forEach(function (eventName) {
+        form.addEventListener(eventName, refreshDirectMailLink);
+      });
+
+      form.addEventListener('submit', function (e) {
+        e.preventDefault();
+
+        var fullName = document.getElementById('fullName').value.trim();
+        var phone = document.getElementById('phone').value.trim();
+        var confirmDelete = document.getElementById('confirmDelete').checked;
+
+        if (!fullName || !phone) {
+          showStatus('Заполните имя и телефон, привязанный к аккаунту.');
+          return;
+        }
+
+        if (!confirmDelete) {
+          showStatus('Подтвердите запрос на удаление аккаунта.');
+          return;
+        }
+
+        showStatus('Сейчас откроется почтовое приложение с готовым письмом. Отправьте его, чтобы запрос ушёл в поддержку ReFocus.');
+        window.location.href = buildMailto();
+      });
+
+      if (copyEmailBtn) {
+        copyEmailBtn.addEventListener('click', function () {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(supportEmail).then(function () {
+              showStatus('E-mail поддержки скопирован: ' + supportEmail);
+            }).catch(function () {
+              showStatus('Не удалось автоматически скопировать e-mail. Напишите вручную на ' + supportEmail);
+            });
+          } else {
+            showStatus('Копирование не поддерживается в этом браузере. Напишите вручную на ' + supportEmail);
+          }
+        });
+      }
+
+      refreshDirectMailLink();
+    })();
+  </script>
+</body>
+</html>
