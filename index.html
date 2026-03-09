@@ -27,9 +27,7 @@
   <style>
     @font-face {
       font-family: "RefocusDisplay";
-      src:
-        url("fonts/refocus-display.woff2") format("woff2"),
-        url("fonts/refocus-display.woff") format("woff");
+      src: url("fonts/refocus-display.woff2") format("woff2");
       font-weight: 400;
       font-style: normal;
       font-display: swap;
@@ -161,7 +159,7 @@
     }
 
     @media(min-width:640px){
-      .actions{grid-template-columns:repeat(4,1fr)}
+      .actions{grid-template-columns:repeat(5,1fr)}
     }
 
     .btn{
@@ -467,6 +465,18 @@
       opacity:.98;
     }
 
+    @media (max-width: 760px){
+      .actions{
+        grid-template-columns:1fr 1fr;
+      }
+    }
+
+    @media (max-width: 480px){
+      .actions{
+        grid-template-columns:1fr;
+      }
+    }
+
     @media (prefers-reduced-motion:no-preference){
       .reveal.in{
         opacity:1!important;
@@ -509,6 +519,7 @@
         <a class="btn accent" href="https://wa.me/996705244966" target="_blank" rel="noopener">Написать в WhatsApp</a>
         <a class="btn outline" href="#review">Оставить отзыв</a>
         <a class="btn ghost" href="delete-account.html">Удаление аккаунта</a>
+        <a class="btn ghost" href="privacy.html">Privacy Policy</a>
       </div>
     </div>
 
@@ -651,6 +662,7 @@
           <div class="small">Instagram: <a href="https://www.instagram.com/refocus.kg/" target="_blank" rel="noopener">@refocus.kg</a></div>
           <div class="small">WhatsApp: <a href="https://wa.me/996705244966" target="_blank" rel="noopener">написать</a></div>
           <div class="small">Удаление аккаунта: <a href="delete-account.html">открыть страницу</a></div>
+          <div class="small">Политика конфиденциальности: <a href="privacy.html">открыть страницу</a></div>
         </div>
 
         <div>

@@ -1,0 +1,473 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Политика конфиденциальности ReFocus</title>
+  <meta
+    name="description"
+    content="Политика конфиденциальности мобильного приложения ReFocus."
+  />
+  <meta property="og:title" content="Политика конфиденциальности ReFocus" />
+  <meta
+    property="og:description"
+    content="Публичная политика конфиденциальности мобильного приложения ReFocus."
+  />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo-refocus.png" />
+  <meta name="theme-color" content="#1A284E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet"
+  >
+
+  <style>
+    :root{
+      --brand:#1A284E;
+      --brand-2:#243B74;
+      --accent:#1AA3FF;
+      --text:#0f172a;
+      --muted:#64748b;
+      --shadow:0 18px 55px rgba(15,23,42,.18);
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+
+    body{
+      margin:0;
+      font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+      color:var(--text);
+      background:url("assets/background-main.jpg") no-repeat center/cover fixed;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background:
+        linear-gradient(
+          180deg,
+          rgba(26,40,78,.58) 0%,
+          rgba(26,40,78,.34) 22%,
+          rgba(26,40,78,.22) 60%,
+          rgba(26,40,78,.44) 100%
+        );
+      z-index:-1;
+    }
+
+    .wrap{
+      max-width:980px;
+      margin:0 auto;
+      padding:32px 20px 44px;
+    }
+
+    .intro,
+    .section{
+      background:rgba(255,255,255,.92);
+      backdrop-filter:saturate(1.08) blur(8px);
+      border:1px solid rgba(255,255,255,.65);
+      box-shadow:var(--shadow);
+    }
+
+    .intro{
+      border-radius:30px;
+      padding:24px 22px;
+      position:relative;
+      overflow:hidden;
+      margin-bottom:20px;
+    }
+
+    .intro::after{
+      content:"";
+      position:absolute;
+      left:-20%;
+      right:-20%;
+      bottom:-60%;
+      height:180px;
+      background:radial-gradient(60% 60% at 50% 0%, rgba(26,163,255,.22), rgba(26,163,255,0));
+      filter:blur(30px);
+      pointer-events:none;
+    }
+
+    .intro-content{
+      position:relative;
+      z-index:1;
+    }
+
+    .eyebrow{
+      display:inline-flex;
+      align-items:center;
+      gap:8px;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(255,255,255,.88);
+      border:1px solid rgba(26,163,255,.16);
+      color:#0f4f7a;
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:12px;
+    }
+
+    h1,h2{
+      margin:0 0 12px;
+      color:var(--brand);
+    }
+
+    h1{
+      font-size:30px;
+      line-height:1.15;
+    }
+
+    h2{
+      font-size:22px;
+      margin-bottom:12px;
+    }
+
+    p{
+      margin:0 0 12px;
+      line-height:1.7;
+    }
+
+    .lead{
+      color:#2b364f;
+      max-width:780px;
+    }
+
+    .muted{
+      color:var(--muted);
+    }
+
+    .section{
+      border-radius:24px;
+      padding:22px;
+      margin-top:16px;
+    }
+
+    .section p:last-child,
+    .section ul:last-child{
+      margin-bottom:0;
+    }
+
+    ul{
+      margin:0;
+      padding-left:18px;
+      line-height:1.7;
+    }
+
+    li{
+      margin-bottom:10px;
+    }
+
+    .inline-strong{
+      font-weight:800;
+      color:#0f172a;
+    }
+
+    .badge{
+      display:inline-flex;
+      align-items:center;
+      padding:8px 12px;
+      border-radius:999px;
+      background:rgba(26,163,255,.10);
+      border:1px solid rgba(26,163,255,.18);
+      color:#0f4f7a;
+      font-size:13px;
+      font-weight:700;
+      margin-top:8px;
+    }
+
+    .footer-links{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+      margin-top:18px;
+    }
+
+    .mini-link{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      padding:10px 14px;
+      border-radius:999px;
+      border:1px solid #e5e7eb;
+      background:#fff;
+      color:var(--brand);
+      text-decoration:none;
+      font-weight:700;
+      transition:transform .12s ease, box-shadow .2s ease;
+    }
+
+    .mini-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(17,24,39,.16);
+    }
+
+    .contact-card{
+      background:#fff;
+      border:1px solid #e5e7eb;
+      border-radius:18px;
+      padding:16px;
+      margin-top:12px;
+    }
+
+    .contact-label{
+      font-size:12px;
+      color:#64748b;
+      margin-bottom:6px;
+    }
+
+    .contact-value{
+      font-size:16px;
+      font-weight:800;
+      color:#0f172a;
+      margin-bottom:12px;
+    }
+
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:10px;
+      border:none;
+      cursor:pointer;
+      font-weight:800;
+      padding:14px 16px;
+      border-radius:16px;
+      text-decoration:none;
+      font-size:15px;
+      background:linear-gradient(135deg, var(--brand), var(--brand-2));
+      color:#fff;
+      transition:transform .12s ease, box-shadow .2s ease;
+    }
+
+    .btn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 16px 28px rgba(17,24,39,.16);
+    }
+
+    @media (prefers-reduced-motion:no-preference){
+      .intro{animation:fadeSlide .7s ease both}
+      .section{animation:fadeSlide .8s ease .05s both}
+      @keyframes fadeSlide{
+        from{opacity:0;transform:translateY(10px)}
+        to{opacity:1;transform:none}
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="intro">
+      <div class="intro-content">
+        <div class="eyebrow">ReFocus Mobile · Политика конфиденциальности</div>
+        <h1>Политика конфиденциальности</h1>
+        <p class="lead">
+          Этот документ описывает, какие данные мобильное приложение ReFocus может
+          собирать, как они используются, как хранятся и как удаляются.
+        </p>
+        <p class="muted">
+          Используя приложение ReFocus, пользователь соглашается с обработкой данных
+          в объёме, необходимом для работы функций приложения, входа в аккаунт,
+          отображения заказов, истории зрения, сервисных уведомлений и поддержки.
+        </p>
+        <div class="badge">Дата вступления в силу: 09.03.2026</div>
+      </div>
+    </section>
+
+    <section class="section">
+      <h2>1. Общие положения</h2>
+      <p>
+        Настоящая Политика конфиденциальности применяется к мобильному приложению
+        ReFocus и связанным с ним сервисам.
+      </p>
+      <p>
+        Мы обрабатываем только те данные, которые необходимы для работы аккаунта,
+        авторизации пользователя, отображения информации внутри приложения,
+        поддержки пользователей, обеспечения безопасности и выполнения требований закона.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>2. Какие данные мы можем собирать</h2>
+      <ul>
+        <li>
+          <span class="inline-strong">Данные аккаунта и входа:</span>
+          номер телефона, данные подтверждения входа, сведения о верификации,
+          технические идентификаторы авторизации и сессий.
+        </li>
+        <li>
+          <span class="inline-strong">Пользовательские и сервисные данные:</span>
+          пользовательские настройки, сведения о сессиях, служебные журналы и
+          минимально необходимые технические данные для стабильной работы приложения.
+        </li>
+        <li>
+          <span class="inline-strong">Данные о заказах и истории зрения:</span>
+          информация, отображаемая в аккаунте пользователя, включая историю заказов,
+          статусы заказов, историю зрения, параметры линз и иные связанные данные,
+          если они доступны в профиле пользователя.
+        </li>
+        <li>
+          <span class="inline-strong">Коммуникационные данные:</span>
+          обращения в поддержку, запросы на удаление аккаунта и иные данные,
+          которые пользователь добровольно указывает в сообщениях и формах.
+        </li>
+        <li>
+          <span class="inline-strong">Технические данные устройства и приложения:</span>
+          данные, необходимые для безопасности, стабильной работы и корректной авторизации.
+        </li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>3. Для чего мы используем данные</h2>
+      <ul>
+        <li>для создания и обслуживания аккаунта пользователя;</li>
+        <li>для входа в приложение и подтверждения личности пользователя;</li>
+        <li>для отображения заказов, истории зрения и связанных данных;</li>
+        <li>для синхронизации пользовательских настроек и состояния аккаунта;</li>
+        <li>для обработки обращений в поддержку и запросов на удаление аккаунта;</li>
+        <li>для обеспечения безопасности, предотвращения мошенничества и злоупотреблений;</li>
+        <li>для соблюдения применимых требований законодательства.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>4. Подтверждение номера телефона</h2>
+      <p>
+        Для входа в приложение может использоваться подтверждение номера телефона
+        через одноразовый код. Такой код может доставляться через интегрированные
+        коммуникационные сервисы, включая WhatsApp, если это предусмотрено логикой приложения.
+      </p>
+      <p>
+        Эти данные используются только для аутентификации, безопасности аккаунта,
+        предотвращения несанкционированного доступа и обслуживания входа в приложение.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>5. Передача данных третьим лицам</h2>
+      <p>Мы не продаём персональные данные пользователей.</p>
+      <p>
+        Данные могут передаваться ограниченному кругу поставщиков инфраструктуры и сервисов
+        только в объёме, необходимом для работы приложения, например:
+      </p>
+      <ul>
+        <li>поставщикам хостинга, базы данных, авторизации и серверной инфраструктуры;</li>
+        <li>сервисам доставки кодов подтверждения и служебных сообщений;</li>
+        <li>сервисам, необходимым для поддержки, безопасности и стабильности работы приложения;</li>
+        <li>государственным органам или иным лицам, если это требуется по закону.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>6. Хранение и защита данных</h2>
+      <p>
+        Мы принимаем разумные организационные и технические меры для защиты данных
+        от несанкционированного доступа, изменения, утраты или уничтожения.
+      </p>
+      <p>
+        Доступ к данным ограничивается в пределах, необходимых для работы сервиса,
+        поддержки пользователей, обеспечения безопасности и исполнения обязательств.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>7. Сроки хранения данных</h2>
+      <p>
+        Данные хранятся только столько, сколько это необходимо для работы приложения,
+        обслуживания аккаунта, разрешения споров, предотвращения мошенничества
+        и соблюдения требований законодательства.
+      </p>
+      <p>
+        Разные категории данных могут храниться разное время в зависимости от их назначения
+        и применимых правовых требований.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>8. Удаление аккаунта и данных</h2>
+      <p>
+        Пользователь может запросить удаление аккаунта ReFocus.
+      </p>
+      <p>
+        При удалении аккаунта удаляются или деактивируются данные, напрямую связанные
+        с app-account, включая данные авторизации, связанные идентификаторы входа,
+        пользовательские сессии, мобильные настройки и иные данные, подлежащие удалению
+        в рамках сценария удаления аккаунта.
+      </p>
+      <p>
+        Часть данных может сохраняться в обезличенном виде либо храниться далее,
+        если это необходимо для бухгалтерского учёта, информационной безопасности,
+        предотвращения мошенничества, разрешения споров или соблюдения требований законодательства.
+      </p>
+      <p>
+        Запрос на удаление аккаунта можно отправить через мобильное приложение ReFocus
+        или через отдельную публичную страницу удаления аккаунта на официальном сайте.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>9. Права пользователя</h2>
+      <ul>
+        <li>получать информацию о том, как обрабатываются данные;</li>
+        <li>запрашивать исправление неточных или устаревших данных;</li>
+        <li>запрашивать удаление аккаунта и связанных данных в предусмотренном объёме;</li>
+        <li>обращаться в поддержку по вопросам конфиденциальности и обработки данных.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>10. Дети</h2>
+      <p>
+        Приложение ReFocus не предназначено для самостоятельного использования детьми
+        в случаях, когда по применимому законодательству требуется согласие родителя
+        или иного законного представителя.
+      </p>
+      <p>
+        Если вы считаете, что данные ребёнка были предоставлены без необходимых оснований,
+        свяжитесь с нами.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>11. Изменения политики</h2>
+      <p>
+        Мы можем обновлять настоящую Политику конфиденциальности при изменении
+        функциональности приложения, требований законодательства, способов обработки данных
+        или инфраструктуры сервиса.
+      </p>
+      <p>
+        Актуальная версия политики публикуется внутри приложения и на официальном сайте ReFocus.
+      </p>
+    </section>
+
+    <section class="section">
+      <h2>12. Контакты</h2>
+      <p>
+        Если у вас есть вопросы по конфиденциальности, обработке данных или удалению аккаунта,
+        свяжитесь с нами:
+      </p>
+
+      <div class="contact-card">
+        <div class="contact-label">E-mail поддержки</div>
+        <div class="contact-value">refocus.kg@gmail.com</div>
+        <a class="btn" href="mailto:refocus.kg@gmail.com?subject=Вопрос%20по%20политике%20конфиденциальности%20ReFocus">
+          Написать в поддержку
+        </a>
+      </div>
+
+      <div class="footer-links">
+        <a class="mini-link" href="index.html">Вернуться на главную</a>
+        <a class="mini-link" href="delete-account.html">Удаление аккаунта</a>
+        <a class="mini-link" href="https://wa.me/996555244966" target="_blank" rel="noopener">WhatsApp</a>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
