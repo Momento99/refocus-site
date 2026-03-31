@@ -30,8 +30,102 @@
     }
 
     *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-    html{scroll-behavior:smooth;}
-    body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background:#0F172A;}
+    html{scroll-behavior:smooth;background:#07101e;}
+    body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background:transparent;}
+
+    /* Wave canvas sits behind everything */
+    section, .quick-nav-section, footer { position:relative; z-index:1; background:transparent !important; }
+
+    /* Section dividers become visible wave-reveal strips */
+    .section-divider { height:90px !important; background:transparent !important; position:relative; z-index:1; }
+
+    /* ── Brand font ── */
+    .brand-font { font-family:"RefocusDisplay",sans-serif; }
+
+    /* ── Frosted glass base (used everywhere) ── */
+    .glass {
+      background: rgba(7,16,30,0.76);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.09);
+    }
+
+    /* ── Card readability over wave background ────────────── */
+    /* Feature cards */
+    .app-feat-card {
+      background: rgba(7,16,30,0.78) !important;
+      border-color: rgba(34,211,238,0.14) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+    }
+    /* Stage items — frosted glass, slightly lighter blur */
+    .stage-item:nth-child(odd) {
+      background: rgba(7,16,30,0.75) !important;
+      border-color: rgba(255,255,255,0.08) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+    .stage-item:nth-child(even) {
+      background: rgba(7,16,30,0.80) !important;
+      border-color: rgba(34,211,238,0.10) !important;
+      backdrop-filter: blur(12px) !important;
+      -webkit-backdrop-filter: blur(12px) !important;
+    }
+    /* Screen visual container — frosted */
+    .screen-visual {
+      background: rgba(7,16,30,0.72) !important;
+      border-color: rgba(34,211,238,0.14) !important;
+      backdrop-filter: blur(16px) !important;
+      -webkit-backdrop-filter: blur(16px) !important;
+    }
+    /* Screen UI cards inside visuals */
+    .screen-ui-card {
+      background: rgba(7,16,30,0.82) !important;
+      border-color: rgba(255,255,255,0.10) !important;
+      backdrop-filter: blur(10px) !important;
+      -webkit-backdrop-filter: blur(10px) !important;
+    }
+    /* Quick nav cards */
+    .quick-nav-card {
+      background: rgba(7,16,30,0.78) !important;
+      backdrop-filter: blur(14px) !important;
+      -webkit-backdrop-filter: blur(14px) !important;
+    }
+
+    /* ── Hero frosted glass text panel ── */
+    .hero-text-glass {
+      background: rgba(7,16,30,0.55);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 28px;
+      padding: 44px 40px;
+    }
+
+    /* ── CTA card ── */
+    .cta-card {
+      display: inline-block;
+      max-width: 680px;
+      width: 100%;
+      padding: 56px 48px;
+      border-radius: 32px;
+      background: rgba(7,16,30,0.72);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(34,211,238,0.22);
+      box-shadow: 0 0 60px rgba(34,211,238,0.08), 0 30px 60px rgba(0,0,0,0.4);
+      position: relative;
+      z-index: 1;
+    }
+    .cta-card::before {
+      content: '';
+      position: absolute; inset: 0;
+      border-radius: 32px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.06), transparent 60%);
+      pointer-events: none;
+    }
+    .app-cta .cta-card h2 { margin-top: 0; }
+    @media(max-width:600px) { .cta-card { padding: 36px 24px; } }
 
     /* Навигация управляется через js/nav.js */
 
@@ -75,10 +169,7 @@
     .reveal-scale.active{opacity:1;transform:scale(1);}
 
     /* ── Hero ── */
-    .app-hero{padding:120px 22px 60px;min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
-    .app-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 40%,rgba(34,211,238,0.08),transparent 60%),radial-gradient(circle at 70% 80%,rgba(6,182,212,0.06),transparent 50%);pointer-events:none;}
-    .app-hero-grid{position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);background-size:60px 60px;animation:gridShift 25s linear infinite;pointer-events:none;}
-    @keyframes gridShift{0%{transform:translate(0,0);}100%{transform:translate(60px,60px);}}
+    .app-hero{padding:120px 22px 80px;min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
 
     .app-hero-content{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;}
 
@@ -129,7 +220,6 @@
 
     /* ── Features Section ── */
     .app-features{padding:80px 22px;position:relative;}
-    .app-features::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 10% 20%,rgba(34,211,238,0.06),transparent 60%),radial-gradient(circle at 90% 80%,rgba(6,182,212,0.05),transparent 50%);pointer-events:none;}
     .app-features-header{text-align:center;margin-bottom:60px;position:relative;z-index:1;}
     .app-features-header h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 16px;letter-spacing:-0.02em;}
     .app-features-header p{font-size:18px;color:var(--text-secondary);max-width:600px;margin:0 auto;}
@@ -237,14 +327,11 @@
 
     /* ── CTA Section ── */
     .app-cta{padding:80px 22px;text-align:center;position:relative;}
-    .app-cta::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,0.08),transparent 60%);pointer-events:none;}
-    .app-cta h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 20px;letter-spacing:-0.02em;position:relative;z-index:1;}
-    .app-cta p{font-size:18px;color:var(--text-secondary);max-width:550px;margin:0 auto 40px;position:relative;z-index:1;}
-    .app-cta .btn-download{position:relative;z-index:1;}
+    .app-cta h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 20px;letter-spacing:-0.02em;}
+    .app-cta p{font-size:18px;color:var(--text-secondary);max-width:550px;margin:0 auto 40px;}
 
     /* ── Detailed Screens Section ── */
     .app-screens{padding:80px 22px;position:relative;overflow:hidden;}
-    .app-screens::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%);pointer-events:none;}
     .app-screens-header{text-align:center;margin-bottom:60px;position:relative;z-index:2;}
     .app-screens-header h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 16px;letter-spacing:-0.02em;}
     .app-screens-header p{font-size:18px;color:var(--text-secondary);max-width:600px;margin:0 auto;}
@@ -380,23 +467,22 @@
 
   <!-- Hero -->
   <section class="app-hero">
-    <div class="app-hero-grid"></div>
     <div class="app-hero-content">
-      <div>
-        <div class="app-hero-badge reveal">
+      <div class="hero-text-glass reveal">
+        <div class="app-hero-badge" style="margin-bottom:20px;">
           <span class="app-hero-badge-dot"></span>
           Мобильное приложение
         </div>
-        <h1 class="reveal" style="transition-delay:.06s;">Ваш личный<br>кабинет в<br><span class="gradient-text brand-font">REFOCUS</span></h1>
-        <p class="app-hero-desc reveal" style="transition-delay:.12s;">Следите за заказами, узнавайте о готовности очков, просматривайте историю параметров зрения и контролируйте бонусы — всё в одном приложении.</p>
-        <div class="app-hero-buttons reveal" style="transition-delay:.18s;">
+        <h1 style="transition-delay:.06s;">Ваш личный<br>кабинет в<br><span class="gradient-text brand-font">REFOCUS</span></h1>
+        <p class="app-hero-desc" style="transition-delay:.12s;">Следите за заказами, узнавайте о готовности очков, просматривайте историю параметров зрения и контролируйте бонусы — всё в одном приложении.</p>
+        <div class="app-hero-buttons" style="transition-delay:.18s;">
           <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="btn-download">
             <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
             Скачать для Android
           </a>
           <a href="#stages" class="btn-demo">Посмотреть этапы</a>
         </div>
-        <p class="app-hero-sub reveal" style="transition-delay:.24s;">Бесплатно &middot; Вход по номеру телефона &middot; Без пароля</p>
+        <p class="app-hero-sub" style="transition-delay:.24s;">Бесплатно &middot; Вход по номеру телефона &middot; Без пароля</p>
       </div>
       <div class="app-hero-phone reveal-right" style="transition-delay:.15s;">
         <div class="hero-phone-glow"></div>
@@ -780,12 +866,15 @@
 
   <!-- CTA -->
   <section class="app-cta">
-    <h2 class="reveal">Скачайте <span class="gradient-text brand-font">REFOCUS</span> сейчас</h2>
-    <p class="reveal" style="transition-delay:.06s;">Бесплатное приложение. Вход по номеру телефона. Весь сервис <span class="brand-font">REFOCUS</span> — в вашем кармане.</p>
-    <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="btn-download reveal-scale" style="transition-delay:.12s;">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Скачать для Android
-    </a>
+    <div class="cta-card reveal-scale">
+      <h2>Скачайте <span class="gradient-text brand-font">REFOCUS</span> сейчас</h2>
+      <p style="font-size:18px;color:#94A3B8;max-width:480px;margin:0 auto 36px;line-height:1.6;">Бесплатное приложение. Вход по номеру телефона. Весь сервис <span class="brand-font">REFOCUS</span> — в вашем кармане.</p>
+      <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="btn-download" style="margin:0 auto;">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+        Скачать для Android
+      </a>
+      <p style="margin:20px 0 0;font-size:13px;color:#475569;">Бесплатно &middot; Android &middot; Без пароля</p>
+    </div>
   </section>
 
   <!-- Footer -->
@@ -841,5 +930,6 @@
       });
     });
   </script>
+  <script src="js/wave-bg.js"></script>
 </body>
 </html>

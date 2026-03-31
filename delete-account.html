@@ -30,26 +30,15 @@
     }
 
     *{box-sizing:border-box;}
-    html{scroll-behavior:smooth;}
+    html{scroll-behavior:smooth;background:#07101e;}
     body{
       margin:0; font-family:'Manrope',-apple-system,sans-serif;
-      color:var(--text-main); background:var(--brand-dark); line-height:1.6;
+      color:var(--text-main); background:transparent; line-height:1.6;
       letter-spacing:-0.02em; padding-top:var(--nav-height);
     }
-    
-    /* Background pattern exactly like app.html */
-    body::before {
-      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
-      background: radial-gradient(circle at 30% 40%, rgba(34,211,238,0.08), transparent 60%),
-                  radial-gradient(circle at 70% 80%, rgba(6,182,212,0.06), transparent 50%);
-      pointer-events:none; z-index:-2;
-    }
-    body::after {
-      content:''; position:fixed; top:0; left:0; width:100%; height:100%;
-      background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),
-                       linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);
-      background-size:60px 60px; pointer-events:none; z-index:-1;
-    }
+
+    /* Wave canvas sits behind everything */
+    section, .wrap { position:relative; z-index:1; }
 
     /* Навигация управляется через js/nav.js */
 
@@ -72,9 +61,9 @@
     @media(min-width: 640px) { .info-grid { grid-template-columns: 1fr 1fr; } }
     
     .info-box {
-      background: rgba(255,255,255,0.03); backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.08); border-radius: 24px; padding: 32px;
-      box-shadow: 0 10px 30px rgba(0,0,0,0.2); transition: all .4s var(--ease-spring);
+      background: rgba(7,16,30,0.78); backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.10); border-radius: 24px; padding: 32px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.3); transition: all .4s var(--ease-spring);
     }
     .info-box:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); border-color: rgba(255,255,255,0.15); }
     .info-box h3 { display: flex; align-items: center; gap: 10px; font-size: 18px; font-weight: 800; margin: 0 0 16px; color: #FFFFFF; }
@@ -91,8 +80,9 @@
 
     /* Form Card */
     .form-card {
-      background: rgba(255,255,255,0.02); border: 1px solid rgba(255,255,255,0.06); border-radius: 28px;
-      padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.3); animation: fadeUp 1s var(--ease-spring);
+      background: rgba(7,16,30,0.82); backdrop-filter: blur(16px); -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255,255,255,0.09); border-radius: 28px;
+      padding: 40px; box-shadow: 0 20px 60px rgba(0,0,0,0.4); animation: fadeUp 1s var(--ease-spring);
     }
     .form-card h2 { font-size: 26px; font-weight: 800; color: #FFFFFF; margin: 0 0 8px; letter-spacing: -0.01em; }
     .form-card > p.small { font-size: 15px; color: #94A3B8; margin: 0 0 28px; }
@@ -307,6 +297,7 @@
     </section>
   </div>
 
+  <script src="js/wave-bg.js"></script>
   <script>
     (function () {
       var form = document.getElementById('deleteForm');
