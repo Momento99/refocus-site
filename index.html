@@ -2063,13 +2063,17 @@
     .own-brand-feat-icon .bicon svg { width: 22px; height: 22px; stroke: white; }
 
     /* Inline brand-font mentions — keep same font but don't enlarge */
+    .brand-font {
+      font-family: "RefocusDisplay", sans-serif;
+      font-weight: 400;
+      letter-spacing: 0.06em;
+    }
     p .brand-font, li .brand-font,
     .review-text .brand-font, .text-subhead .brand-font,
     .faq-answer .brand-font, .loyalty-note .brand-font,
     .step-card p .brand-font, .branch-info .brand-font {
       font-size: inherit;
-      font-weight: 700;
-      letter-spacing: 0.02em;
+      letter-spacing: 0.04em;
     }
 
     /* Varied star ratings */
@@ -2344,7 +2348,8 @@
   </header>
 
   <!-- Quick Navigation -->
-  <div class="quick-nav-section">
+  <div class="quick-nav-section" style="padding-top:12px;">
+    <p style="text-align:center;font-size:12px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#94A3B8;margin:0 0 16px;">Быстрый переход</p>
     <div class="quick-nav-grid">
       <a href="#features" class="quick-nav-card">
         <div class="feature-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="7"/><polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"/></svg></div>

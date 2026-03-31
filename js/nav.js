@@ -212,6 +212,80 @@
       #globalNav .nav-links { display: none !important; }
       #globalNav .nav-sep   { display: none !important; }
     }
+
+    /* ── Гамбургер ───────────────────────────────────── */
+    #rfHamburger {
+      display: none;
+      flex-direction: column;
+      justify-content: center;
+      gap: 5px;
+      width: 36px;
+      height: 36px;
+      padding: 6px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-radius: 8px;
+      transition: background 0.2s;
+      flex-shrink: 0;
+    }
+    #rfHamburger:hover { background: rgba(255,255,255,0.08); }
+    #rfHamburger span {
+      display: block;
+      height: 2px;
+      background: rgba(255,255,255,0.85);
+      border-radius: 2px;
+      transition: all 0.3s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    #rfHamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    #rfHamburger.open span:nth-child(2) { opacity: 0; transform: scaleX(0); }
+    #rfHamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    @media (max-width: 734px) {
+      #rfHamburger { display: flex !important; }
+    }
+
+    /* ── Мобильное меню ──────────────────────────────── */
+    #rfMobileMenu {
+      display: none;
+      position: fixed;
+      top: 60px;
+      left: 0; right: 0;
+      background: #0F172A;
+      border-bottom: 1px solid rgba(34,211,238,0.15);
+      z-index: 9997;
+      padding: 8px 16px 20px;
+      flex-direction: column;
+      gap: 2px;
+      box-shadow: 0 12px 40px rgba(0,0,0,0.4);
+    }
+    #rfMobileMenu.open { display: flex; }
+
+    .rf-mm-link {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 14px 12px;
+      font-family: "Manrope", -apple-system, BlinkMacSystemFont, sans-serif;
+      font-size: 16px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      text-decoration: none;
+      border-radius: 12px;
+      transition: background 0.2s, color 0.2s;
+      letter-spacing: -0.01em;
+    }
+    .rf-mm-link:hover { background: rgba(255,255,255,0.06); color: #fff; }
+    .rf-mm-link.active { color: #22D3EE; font-weight: 700; }
+    .rf-mm-icon {
+      width: 34px; height: 34px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 9px;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .rf-mm-link.active .rf-mm-icon { background: rgba(34,211,238,0.12); }
+    .rf-mm-divider { height: 1px; background: rgba(255,255,255,0.06); margin: 4px 0; }
   `;
 
   var style = document.createElement('style');
@@ -237,8 +311,26 @@
           '<a href="delete-account.html" class="nav-link" data-page="delete-account">Удаление аккаунта</a>' +
           '<a href="franchise.html"      class="nav-link" data-page="franchise">Франшиза</a>' +
         '</div>' +
+        '<button id="rfHamburger" aria-label="Меню">' +
+          '<span></span><span></span><span></span>' +
+        '</button>' +
       '</div>' +
-    '</nav>';
+    '</nav>' +
+    '<div id="rfMobileMenu">' +
+      '<a href="index.html" class="rf-mm-link" data-page="index">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Главная' +
+      '</a>' +
+      '<a href="app.html" class="rf-mm-link" data-page="app">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>Приложение' +
+      '</a>' +
+      '<a href="franchise.html" class="rf-mm-link" data-page="franchise">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg></span>Франшиза' +
+      '</a>' +
+      '<div class="rf-mm-divider"></div>' +
+      '<a href="delete-account.html" class="rf-mm-link" data-page="delete-account">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><line x1="17" y1="11" x2="23" y2="11"/></svg></span>Удаление аккаунта' +
+      '</a>' +
+    '</div>';
 
   document.body.insertAdjacentHTML('afterbegin', html);
 
@@ -289,5 +381,43 @@
       activeLink.classList.add('nav-pulsing');
     }, 1400);
   }
+
+  /* ─────────────────────────────────────────────────────────
+     Активная страница в мобильном меню
+  ───────────────────────────────────────────────────────── */
+  var mobileMenu  = document.getElementById('rfMobileMenu');
+  var hamburger   = document.getElementById('rfHamburger');
+  var mmLinks     = mobileMenu.querySelectorAll('.rf-mm-link[data-page]');
+
+  for (var j = 0; j < mmLinks.length; j++) {
+    if (mmLinks[j].getAttribute('data-page') === page) {
+      mmLinks[j].classList.add('active');
+    }
+  }
+
+  /* ─────────────────────────────────────────────────────────
+     Гамбургер: открыть / закрыть
+  ───────────────────────────────────────────────────────── */
+  hamburger.addEventListener('click', function () {
+    var isOpen = mobileMenu.classList.toggle('open');
+    hamburger.classList.toggle('open', isOpen);
+    hamburger.setAttribute('aria-expanded', isOpen);
+  });
+
+  /* Закрыть при клике на ссылку */
+  for (var k = 0; k < mmLinks.length; k++) {
+    mmLinks[k].addEventListener('click', function () {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    });
+  }
+
+  /* Закрыть при клике вне меню */
+  document.addEventListener('click', function (e) {
+    if (!navEl.contains(e.target) && !mobileMenu.contains(e.target)) {
+      mobileMenu.classList.remove('open');
+      hamburger.classList.remove('open');
+    }
+  });
 
 })();
