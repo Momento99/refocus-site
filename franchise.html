@@ -32,9 +32,16 @@
     }
 
     *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-    html{scroll-behavior:smooth;background-color:var(--brand-dark);}
+    /* html background matches canvas so there's no colour flash on load */
+    html{scroll-behavior:smooth;background-color:#07101e;}
 
-    body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:white;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background-color:var(--brand-dark);}
+    body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:white;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background-color:transparent;}
+
+    /* All sections sit above the wave canvas (z-index:0) */
+    .hero-bright,.dark-section,.tech-ticker,.global-footer{position:relative;z-index:1;}
+    /* Remove per-section solid backgrounds so canvas shows through */
+    .dark-section{background:transparent!important;}
+    #partner-mega{background:transparent!important;}
 
     #globalCanvas{position:fixed;top:0;left:0;width:100vw;height:100vh;z-index:9998;pointer-events:none;}
 
@@ -1166,5 +1173,6 @@
       resize(); animate();
     }
   </script>
+  <script src="js/wave-bg.js"></script>
 </body>
 </html>
