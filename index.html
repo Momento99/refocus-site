@@ -578,6 +578,39 @@
       .eye-pupil { width: 20px; height: 20px; }
     }
 
+    /* ── MOBILE PERFORMANCE ─────────────────────────────────── */
+    @keyframes spinRing2D {
+      0%   { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+
+    @media (max-width: 768px) {
+      /* Убираем 3D — главная причина торможения */
+      .hero-eye-container {
+        transform-style: flat !important;
+        transition: none !important;
+      }
+      .eye-ring {
+        transform-style: flat !important;
+      }
+      /* 2D-вращение вместо 3D — намного легче для GPU */
+      .eye-ring-outer  { animation: spinRing2D 30s linear infinite !important; }
+      .eye-ring-middle { animation: spinRing2D 20s linear infinite reverse !important; }
+      .eye-ring-inner  { animation: spinRing2D 14s linear infinite !important; }
+      /* backdrop-filter — самый тяжёлый CSS на мобильных */
+      .eye-core {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(255,255,255,0.88) !important;
+      }
+      /* Прячем второстепенные элементы */
+      .eye-particles  { display: none !important; }
+      .eye-scan-beam  { display: none !important; }
+      .eye-aura       { animation: none !important; }
+      /* Канвас не нужен на мобильном */
+      #globalCanvas   { display: none !important; }
+    }
+
     /* --- Features Grid --- */
     .features-section {
       background: transparent;
@@ -3140,18 +3173,18 @@
       // Back to top - initial check
       if (window.scrollY > 600 && backToTopBtn) backToTopBtn.classList.add('visible');
 
-      // Parallax floating decorations
-      const decos = document.querySelectorAll('.deco');
-      if (decos.length) {
-        function updateParallax() {
-          const scrollY = window.pageYOffset;
-          decos.forEach((d, i) => {
-            const speed = 0.02 + (i * 0.01);
-            d.style.transform = `translateY(${scrollY * speed}px)`;
-          });
-          requestAnimationFrame(updateParallax);
+      // Parallax floating decorations — только на десктопе
+      if (window.innerWidth > 768) {
+        const decos = document.querySelectorAll('.deco');
+        if (decos.length) {
+          window.addEventListener('scroll', () => {
+            const scrollY = window.pageYOffset;
+            decos.forEach((d, i) => {
+              const speed = 0.02 + (i * 0.01);
+              d.style.transform = `translateY(${scrollY * speed}px)`;
+            });
+          }, { passive: true });
         }
-        updateParallax();
       }
 
       // Simple Parallax effect for Hero Graphic
@@ -3172,7 +3205,7 @@
     // Interactive Canvas: Blueprint & Smooth Light Trail
     // ==========================================
     const canvas = document.getElementById('globalCanvas');
-    if (canvas) {
+    if (canvas && window.innerWidth > 768) {
       const ctx = canvas.getContext('2d', { alpha: true });
       let width, height;
       
