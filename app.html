@@ -1,0 +1,845 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Приложение ReFocus — Личный кабинет клиента</title>
+  <meta name="description" content="Мобильное приложение ReFocus. Отслеживайте заказы, историю очков, параметры зрения и бонусы. Скачайте бесплатно." />
+  <meta property="og:title" content="Приложение ReFocus" />
+  <meta property="og:description" content="Ваш цифровой личный кабинет в сети оптик <span class="brand-font">REFOCUS</span>." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo-refocus.png" />
+  <meta name="theme-color" content="#0F172A" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face { font-family:"RefocusDisplay"; src:url("fonts/refocus-display.woff2") format("woff2"); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-SemiBold.ttf') format('truetype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+
+    :root {
+      --brand-dark:#0F172A; --brand-accent:#22D3EE;
+      --text-secondary:#94A3B8; --text-muted:#64748B;
+      --ease-spring:cubic-bezier(0.16,1,0.3,1);
+      --nav-height:60px;
+    }
+
+    *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
+    html{scroll-behavior:smooth;}
+    body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background:#0F172A;}
+
+    /* Навигация управляется через js/nav.js */
+
+    /* ── Utilities ── */
+    .gradient-text{background:linear-gradient(135deg,#22D3EE,#06B6D4,#0EA5E9);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+    .section-container{max-width:1060px;margin:0 auto;padding:0 22px;}
+    .section-divider{height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,0.1),transparent);max-width:1060px;margin:0 auto;}
+
+    /* ── Quick Nav ── */
+    .quick-nav-section { padding: 48px 22px; max-width: 1060px; margin: 0 auto; position: relative; z-index: 10; }
+    .quick-nav-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    @media (max-width: 860px) { .quick-nav-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; } }
+    @media (max-width: 480px) { .quick-nav-grid { grid-template-columns: 1fr; } }
+    .quick-nav-card {
+      display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px;
+      padding: 24px 16px; border-radius: 20px;
+      background: linear-gradient(145deg, rgba(34,211,238,0.1), rgba(34,211,238,0.02)); 
+      border: 1px solid rgba(34,211,238,0.25);
+      box-shadow: 0 8px 32px rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.1);
+      text-decoration: none; color: #fff; transition: all 0.4s var(--ease-spring);
+      backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+    }
+    .quick-nav-card:hover {
+      border-color: rgba(34,211,238,0.6); background: linear-gradient(145deg, rgba(34,211,238,0.15), rgba(34,211,238,0.05));
+      transform: translateY(-6px) scale(1.02); box-shadow: 0 15px 40px rgba(34,211,238,0.3);
+    }
+    .quick-nav-icon { font-size: 28px; line-height: 1; margin-bottom: 4px; transition: transform 0.4s var(--ease-spring); }
+    .quick-nav-card:hover .quick-nav-icon { transform: scale(1.15) translateY(-2px); }
+    .quick-nav-icon svg { width: 28px; height: 28px; stroke: #22D3EE; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .quick-nav-title { font-size: 15px; font-weight: 700; text-align: center; letter-spacing: -0.01em; color: #fff; }
+    .quick-nav-sub { font-size: 12px; color: var(--brand-accent); opacity: 0.8; text-align: center; }
+
+    /* Reveals */
+    .reveal{opacity:0;transform:translateY(30px);transition:all .8s var(--ease-spring);}
+    .reveal.active{opacity:1;transform:translateY(0);}
+    .reveal-left{opacity:0;transform:translateX(-40px);transition:all .8s var(--ease-spring);}
+    .reveal-left.active{opacity:1;transform:translateX(0);}
+    .reveal-right{opacity:0;transform:translateX(40px);transition:all .8s var(--ease-spring);}
+    .reveal-right.active{opacity:1;transform:translateX(0);}
+    .reveal-scale{opacity:0;transform:scale(0.88);transition:all .8s var(--ease-spring);}
+    .reveal-scale.active{opacity:1;transform:scale(1);}
+
+    /* ── Hero ── */
+    .app-hero{padding:120px 22px 60px;min-height:90vh;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;}
+    .app-hero::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 30% 40%,rgba(34,211,238,0.08),transparent 60%),radial-gradient(circle at 70% 80%,rgba(6,182,212,0.06),transparent 50%);pointer-events:none;}
+    .app-hero-grid{position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);background-size:60px 60px;animation:gridShift 25s linear infinite;pointer-events:none;}
+    @keyframes gridShift{0%{transform:translate(0,0);}100%{transform:translate(60px,60px);}}
+
+    .app-hero-content{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;}
+
+    .app-hero-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 18px;border-radius:99px;background:rgba(34,211,238,0.1);border:1px solid rgba(34,211,238,0.2);font-size:13px;font-weight:700;color:var(--brand-accent);margin-bottom:24px;}
+    .app-hero-badge-dot{width:8px;height:8px;border-radius:50%;background:#22D3EE;animation:pulseDot 2s ease-out infinite;}
+    @keyframes pulseDot{0%{box-shadow:0 0 0 0 rgba(34,211,238,0.6);}60%{box-shadow:0 0 0 7px rgba(34,211,238,0);}100%{box-shadow:0 0 0 0 rgba(34,211,238,0);}}
+
+    .app-hero h1{font-size:clamp(40px,6vw,64px);font-weight:800;line-height:1.08;letter-spacing:-0.03em;margin:0 0 24px;}
+    .app-hero-desc{font-size:19px;color:var(--text-secondary);line-height:1.6;margin:0 0 40px;max-width:480px;}
+
+    .app-hero-buttons{display:flex;gap:16px;flex-wrap:wrap;}
+    .btn-download{display:inline-flex;align-items:center;gap:12px;padding:18px 36px;border-radius:16px;background:var(--brand-accent);color:#0F172A;text-decoration:none;font-size:17px;font-weight:700;transition:all .4s var(--ease-spring);box-shadow:0 10px 30px rgba(34,211,238,0.25);position:relative;overflow:hidden;}
+    .btn-download::before{content:'';position:absolute;top:0;left:-100%;width:100%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,0.25),transparent);transition:left .5s;}
+    .btn-download:hover{transform:translateY(-3px) scale(1.03);box-shadow:0 20px 50px rgba(34,211,238,0.4);}
+    .btn-download:hover::before{left:100%;}
+    .btn-demo{display:inline-flex;align-items:center;gap:8px;padding:18px 36px;border-radius:16px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.1);color:#fff;text-decoration:none;font-size:17px;font-weight:600;transition:all .4s var(--ease-spring);}
+    .btn-demo:hover{background:rgba(255,255,255,0.1);transform:translateY(-2px);}
+    .app-hero-sub{font-size:13px;color:var(--text-muted);margin-top:16px;}
+
+    /* Phone mockup in hero */
+    .app-hero-phone{display:flex;justify-content:center;align-items:center;position:relative;}
+    .hero-phone-glow{position:absolute;width:400px;height:400px;background:radial-gradient(circle,rgba(34,211,238,0.15),transparent 70%);border-radius:50%;animation:pulseGlow 4s ease-in-out infinite alternate;pointer-events:none;}
+    @keyframes pulseGlow{0%{transform:scale(0.9);opacity:0.6;}100%{transform:scale(1.1);opacity:1;}}
+
+    .hero-phone{width:280px;height:580px;background:linear-gradient(145deg,#1a1a2e,#0F172A);border-radius:24px;border:3px solid rgba(255,255,255,0.12);position:relative;box-shadow:0 40px 80px rgba(0,0,0,0.5),0 0 0 1px rgba(255,255,255,0.05),inset 0 2px 4px rgba(255,255,255,0.1);overflow:hidden;animation:phoneFloat 6s ease-in-out infinite;}
+    @keyframes phoneFloat{0%,100%{transform:translateY(0) rotateY(-5deg) rotateX(2deg);}50%{transform:translateY(-12px) rotateY(-5deg) rotateX(2deg);}}
+    .hero-phone-screen{position:absolute;top:3px;left:3px;right:3px;bottom:3px;border-radius:21px;background:linear-gradient(180deg,#0F172A,#1E293B);overflow:hidden;display:flex;flex-direction:column;align-items:center;padding:0;}
+    .hero-phone-brand{font-family:"RefocusDisplay",sans-serif;font-size:22px;color:#fff;margin-bottom:6px;}
+    .hero-phone-tagline{font-size:11px;color:#64748B;margin-bottom:24px;}
+    .hero-phone-card{width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:14px;margin-bottom:10px;}
+    .hero-phone-card-label{font-size:10px;color:#64748B;text-transform:uppercase;letter-spacing:0.05em;margin-bottom:6px;}
+    .hero-phone-card-value{font-size:17px;font-weight:700;color:#fff;}
+    .hero-phone-card-value .cyan{color:#22D3EE;}
+    .hero-phone-progress{width:100%;height:4px;background:rgba(255,255,255,0.1);border-radius:2px;margin-top:8px;overflow:hidden;}
+    .hero-phone-progress-fill{height:100%;width:65%;background:linear-gradient(90deg,#22D3EE,#06B6D4);border-radius:2px;}
+    .hero-phone-mini-row{width:100%;display:flex;gap:6px;margin-top:4px;}
+    .hero-phone-mini{flex:1;background:rgba(255,255,255,0.04);border:1px solid rgba(255,255,255,0.06);border-radius:12px;padding:10px 8px;text-align:center;}
+    .hero-phone-mini-icon{font-size:18px;margin-bottom:4px;}
+    .hero-phone-mini-label{font-size:9px;color:#94A3B8;}
+
+    @media(max-width:860px){
+      .app-hero-content{grid-template-columns:1fr;text-align:center;}
+      .app-hero-desc{margin-left:auto;margin-right:auto;}
+      .app-hero-buttons{justify-content:center;}
+      .app-hero-phone{order:-1;}
+      .hero-phone{width:240px;height:480px;}
+    }
+
+    /* ── Features Section ── */
+    .app-features{padding:80px 22px;position:relative;}
+    .app-features::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 10% 20%,rgba(34,211,238,0.06),transparent 60%),radial-gradient(circle at 90% 80%,rgba(6,182,212,0.05),transparent 50%);pointer-events:none;}
+    .app-features-header{text-align:center;margin-bottom:60px;position:relative;z-index:1;}
+    .app-features-header h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 16px;letter-spacing:-0.02em;}
+    .app-features-header p{font-size:18px;color:var(--text-secondary);max-width:600px;margin:0 auto;}
+
+    .app-features-grid{max-width:1060px;margin:0 auto;display:grid;grid-template-columns:repeat(3,1fr);gap:24px;position:relative;z-index:2;}
+    .app-feat-card{background:linear-gradient(145deg,rgba(255,255,255,0.05),rgba(255,255,255,0.01));border:1px solid rgba(255,255,255,0.07);border-radius:24px;padding:36px 28px;transition:all .5s var(--ease-spring);position:relative;overflow:hidden;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);}
+    .app-feat-card:hover{transform:translateY(-6px);border-color:rgba(34,211,238,0.3);box-shadow:0 20px 50px rgba(34,211,238,0.08);}
+    .app-feat-card::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#22D3EE,#06B6D4);opacity:0;transition:opacity .4s;transform-origin:left;transform:scaleX(0);transition:transform .5s var(--ease-spring),opacity .3s;}
+    .app-feat-card:hover::before{opacity:1;transform:scaleX(1);}
+    .app-feat-icon {
+      width: 46px; height: 46px; border-radius: 50%;
+      background: linear-gradient(135deg, #22D3EE, #06B6D4);
+      display: flex; align-items: center; justify-content: center;
+      box-shadow: 0 6px 18px rgba(34,211,238,0.35);
+      margin-bottom: 20px; transition: transform 0.3s, box-shadow 0.3s;
+    }
+    .app-feat-card:hover .app-feat-icon { transform: scale(1.1); box-shadow: 0 8px 28px rgba(34,211,238,0.5); }
+    .app-feat-icon svg { width: 22px; height: 22px; stroke: #fff; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .app-feat-card h3{font-size:20px;font-weight:700;margin:0 0 10px;color:#fff;}
+    .app-feat-card p{font-size:15px;color:var(--text-secondary);margin:0;line-height:1.6;}
+    @media(max-width:768px){.app-features-grid{grid-template-columns:1fr;max-width:500px;margin-left:auto;margin-right:auto;}}
+
+    /* ── Video Stages Section ── */
+    .app-stages{padding:60px 22px;position:relative;}
+    .app-stages-header{text-align:center;margin-bottom:50px;}
+    .app-stages-header h2{font-size:clamp(28px,4vw,44px);font-weight:800;margin:0 0 12px;letter-spacing:-0.02em;}
+    .app-stages-header p{font-size:16px;color:var(--text-secondary);max-width:520px;margin:0 auto;}
+
+    .stage-item{
+      max-width:1040px;
+      margin:0 auto 44px;
+      display:grid;
+      grid-template-columns:300px 1fr;
+      gap:50px;
+      align-items:center;
+      padding:40px 48px;
+      border-radius:32px;
+      transition:all .4s var(--ease-spring);
+      position:relative;
+    }
+    .stage-item:not(:last-child)::after {
+      content: ''; position: absolute; bottom: -36px; left: 50%; transform: translateX(-50%);
+      width: 24px; height: 24px;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='%2322D3EE' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12 4v16M19 13l-7 7-7-7'/%3E%3C/svg%3E");
+      background-size: contain; background-repeat: no-repeat;
+      animation: floatArrow 1.5s ease-in-out infinite; z-index: 10;
+    }
+    @keyframes floatArrow {
+      0%, 100% { transform: translate(-50%, 0); opacity: 0.6; }
+      50% { transform: translate(-50%, 8px); opacity: 1; filter: drop-shadow(0 0 8px rgba(34,211,238,0.6)); }
+    }
+    .stage-item:nth-child(odd){background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.04);}
+    .stage-item:nth-child(even){direction:rtl;background:rgba(15,23,42,0.4);border:1px solid rgba(255,255,255,0.02);}
+    .stage-item:nth-child(even)>*{direction:ltr;}
+    .stage-item:last-child{margin-bottom:0;}
+
+    .stage-video-wrap{
+      border-radius:24px;
+      overflow:hidden;
+      background:rgba(255,255,255,0.03);
+      border:1px solid rgba(255,255,255,0.1);
+      position:relative;
+      aspect-ratio:9/16;
+      box-shadow:0 24px 60px rgba(0,0,0,0.4), 0 0 0 1px rgba(34,211,238,0.08);
+    }
+    .stage-video-wrap video{width:100%;height:100%;object-fit:cover;display:block;}
+    .stage-video-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:linear-gradient(135deg,rgba(34,211,238,0.05),rgba(15,23,42,0.8));font-size:48px;}
+
+    .stage-info{padding-top:8px;}
+    .stage-info .stage-number{
+      display:inline-flex;align-items:center;justify-content:center;
+      width:36px;height:36px;border-radius:50%;
+      background:rgba(34,211,238,0.1);border:2px solid rgba(34,211,238,0.35);
+      color:var(--brand-accent);font-size:14px;font-weight:800;margin-bottom:14px;
+    }
+    .stage-info h3{font-size:24px;font-weight:800;margin:0 0 10px;letter-spacing:-0.01em;}
+    .stage-info p{font-size:15px;color:var(--text-secondary);line-height:1.7;margin:0 0 16px;}
+    .stage-info ul{padding:0;list-style:none;margin:0;display:flex;flex-direction:column;gap:0;}
+    .stage-info ul li{
+      font-size:14px;color:var(--text-secondary);
+      padding:9px 12px;
+      display:flex;align-items:flex-start;gap:10px;
+      border-bottom:1px solid rgba(255,255,255,0.05);
+      line-height:1.5;
+    }
+    .stage-info ul li:last-child{border-bottom:none;}
+    .stage-info ul li::before{content:'';width:5px;height:5px;border-radius:50%;background:var(--brand-accent);margin-top:6px;flex-shrink:0;}
+
+    .stage-info .stage-detail{
+      margin-top:16px;
+      padding:14px 16px;
+      background:rgba(34,211,238,0.05);
+      border:1px solid rgba(34,211,238,0.12);
+      border-radius:14px;
+      font-size:13px;
+      color:rgba(255,255,255,0.5);
+      line-height:1.6;
+    }
+
+    @media(max-width:860px){
+      .stage-item{padding:24px;border-radius:24px;gap:32px;}
+      .stage-item,.stage-item:nth-child(even){grid-template-columns:1fr;direction:ltr;}
+      .stage-video-wrap{max-width:260px;margin:0 auto;}
+    }
+
+    /* ── CTA Section ── */
+    .app-cta{padding:80px 22px;text-align:center;position:relative;}
+    .app-cta::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background:radial-gradient(circle at 50% 50%,rgba(34,211,238,0.08),transparent 60%);pointer-events:none;}
+    .app-cta h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 20px;letter-spacing:-0.02em;position:relative;z-index:1;}
+    .app-cta p{font-size:18px;color:var(--text-secondary);max-width:550px;margin:0 auto 40px;position:relative;z-index:1;}
+    .app-cta .btn-download{position:relative;z-index:1;}
+
+    /* ── Detailed Screens Section ── */
+    .app-screens{padding:80px 22px;position:relative;overflow:hidden;}
+    .app-screens::before{content:'';position:absolute;top:0;left:0;width:100%;height:100%;background-image:linear-gradient(rgba(34,211,238,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(34,211,238,0.03) 1px,transparent 1px);background-size:60px 60px;mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%);-webkit-mask-image:radial-gradient(ellipse at center,black 0%,transparent 70%);pointer-events:none;}
+    .app-screens-header{text-align:center;margin-bottom:60px;position:relative;z-index:2;}
+    .app-screens-header h2{font-size:clamp(32px,5vw,48px);font-weight:800;margin:0 0 16px;letter-spacing:-0.02em;}
+    .app-screens-header p{font-size:18px;color:var(--text-secondary);max-width:600px;margin:0 auto;}
+
+    .screen-block{max-width:1060px;margin:0 auto 80px;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;position:relative;z-index:2;}
+    .screen-block:last-child{margin-bottom:0;}
+    .screen-block:nth-child(odd){direction:rtl;}
+    .screen-block:nth-child(odd)>*{direction:ltr;}
+
+    .screen-visual{border-radius:24px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);position:relative;padding:40px;display:flex;align-items:center;justify-content:center;min-height:400px;}
+    .screen-visual-glow{position:absolute;width:250px;height:250px;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;}
+    .screen-visual-icon{font-size:120px;opacity:0.12;position:absolute;z-index:0;}
+
+    /* Fake UI cards inside visual */
+    .screen-ui{position:relative;z-index:1;width:100%;max-width:320px;}
+    .screen-ui-card{background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.08);border-radius:16px;padding:20px;margin-bottom:12px;backdrop-filter:blur(10px);}
+    .screen-ui-card:last-child{margin-bottom:0;}
+    .screen-ui-label{font-size:10px;color:#64748B;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:8px;}
+    .screen-ui-value{font-size:20px;font-weight:700;color:#fff;}
+    .screen-ui-value .cyan{color:#22D3EE;}
+    .screen-ui-row{display:flex;gap:12px;}
+    .screen-ui-row .screen-ui-card{flex:1;}
+    .screen-ui-bar{height:6px;border-radius:3px;background:rgba(255,255,255,0.08);margin-top:10px;overflow:hidden;}
+    .screen-ui-bar-fill{height:100%;border-radius:3px;}
+    .screen-ui-bar-cyan{background:linear-gradient(90deg,#22D3EE,#06B6D4);}
+    .screen-ui-bar-green{background:linear-gradient(90deg,#10B981,#059669);}
+    .screen-ui-bar-amber{background:linear-gradient(90deg,#F59E0B,#D97706);}
+    .screen-ui-mini{font-size:13px;color:#94A3B8;margin-top:6px;}
+    .screen-ui-badge{display:inline-block;font-size:11px;font-weight:700;padding:4px 10px;border-radius:99px;margin-top:8px;}
+    .screen-ui-badge-stable{background:rgba(16,185,129,0.15);color:#10B981;}
+    .screen-ui-badge-change{background:rgba(245,158,11,0.15);color:#F59E0B;}
+
+    .screen-text h3{font-size:32px;font-weight:800;margin:0 0 16px;letter-spacing:-0.01em;}
+    .screen-text p{font-size:16px;color:var(--text-secondary);line-height:1.7;margin:0 0 24px;}
+    .screen-text ul{list-style:none;padding:0;margin:0;}
+    .screen-text ul li{font-size:15px;color:var(--text-secondary);padding:8px 0;display:flex;align-items:flex-start;gap:12px;line-height:1.5;}
+    .screen-text ul li::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--brand-accent);margin-top:8px;flex-shrink:0;}
+
+    /* Timeline dots for vision screen */
+    .vision-timeline{display:flex;gap:16px;margin-top:16px;}
+    .vision-dot{display:flex;flex-direction:column;align-items:center;gap:6px;}
+    .vision-dot-circle{width:12px;height:12px;border-radius:50%;border:2px solid rgba(34,211,238,0.4);}
+    .vision-dot-circle.active{background:#22D3EE;border-color:#22D3EE;}
+    .vision-dot-label{font-size:9px;color:#64748B;}
+
+    @media(max-width:860px){
+      .screen-block,.screen-block:nth-child(odd){grid-template-columns:1fr;direction:ltr;gap:40px;}
+      .screen-block:nth-child(odd)>*{direction:ltr;}
+      .screen-visual{min-height:300px;padding:28px;}
+    }
+
+    /* ── Footer ── */
+    .app-footer{padding:40px 22px;text-align:center;font-size:12px;color:var(--text-muted);border-top:1px solid rgba(255,255,255,0.06);}
+    .app-footer a{color:var(--brand-accent);text-decoration:none;}
+
+    /* ── Back to Top ── */
+    .back-to-top{position:fixed;bottom:24px;right:24px;width:44px;height:44px;border-radius:50%;background:rgba(30,41,59,0.9);backdrop-filter:blur(12px);border:1px solid rgba(255,255,255,0.1);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:98;opacity:0;transform:translateY(20px);transition:all .4s var(--ease-spring);box-shadow:0 4px 16px rgba(0,0,0,0.3);pointer-events:none;}
+    .back-to-top.visible{opacity:1;transform:translateY(0);pointer-events:auto;}
+    .back-to-top:hover{transform:translateY(-3px);border-color:rgba(34,211,238,0.3);}
+    .back-to-top svg{width:20px;height:20px;color:#fff;}
+    /* ── GLOBAL ICON UNIFICATION ── */
+    .bicon,
+    .quick-nav-icon,
+    .review-avatar,
+    .step-number,
+    .lens-pricing-section-tag .bicon,
+    .own-brand-feat-icon .bicon,
+    .branch-info div span,
+    .lp-cat-icon,
+    .lp-item-icon-wrap {
+      width: 48px !important;
+      height: 48px !important;
+      min-width: 48px;
+      border-radius: 50% !important;
+      background: linear-gradient(135deg, #22D3EE, #06B6D4) !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      box-shadow: 0 6px 18px rgba(34,211,238,0.35) !important;
+      border: none !important;
+      color: #fff !important;
+      font-size: 18px !important;
+      font-weight: 700 !important;
+    }
+    
+    .bicon svg,
+    .quick-nav-icon svg,
+    .review-avatar svg,
+    .step-number svg,
+    .lens-pricing-section-tag .bicon svg,
+    .own-brand-feat-icon .bicon svg,
+    .branch-info div span svg,
+    .lp-cat-icon svg,
+    .lp-item-icon-wrap svg {
+      stroke: #fff !important;
+      fill: none !important;
+      width: 24px !important;
+      height: 24px !important;
+      stroke-width: 2 !important;
+    }
+
+    /* Fix internal reset for nesting */
+    .app-feat-icon .bicon,
+    .quick-nav-icon .bicon {
+      background: none !important;
+      box-shadow: none !important;
+      width: auto !important;
+      height: auto !important;
+      min-width: 0 !important;
+    }
+
+    /* Pulse CTA for app navigation */
+    .nav-cta.pulse {
+      animation: pulseBrandCta 2s infinite;
+    }
+    @keyframes pulseBrandCta {
+      0% { box-shadow: 0 0 0 0 rgba(34,211,238, 0.4); }
+      70% { box-shadow: 0 0 0 10px rgba(34,211,238, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,211,238, 0); }
+    }
+
+    /* Ensure Quick Nav card text contrasts properly in dark mode */
+    .quick-nav-card {
+      background: linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02));
+      border: 1px solid rgba(255,255,255,0.1);
+    }
+    .quick-nav-card:hover { border-color: rgba(34,211,238,0.6); }
+  </style>
+</head>
+<body>
+
+  <script src="js/nav.js"></script>
+
+  <!-- Hero -->
+  <section class="app-hero">
+    <div class="app-hero-grid"></div>
+    <div class="app-hero-content">
+      <div>
+        <div class="app-hero-badge reveal">
+          <span class="app-hero-badge-dot"></span>
+          Мобильное приложение
+        </div>
+        <h1 class="reveal" style="transition-delay:.06s;">Ваш личный<br>кабинет в<br><span class="gradient-text brand-font">REFOCUS</span></h1>
+        <p class="app-hero-desc reveal" style="transition-delay:.12s;">Следите за заказами, узнавайте о готовности очков, просматривайте историю параметров зрения и контролируйте бонусы — всё в одном приложении.</p>
+        <div class="app-hero-buttons reveal" style="transition-delay:.18s;">
+          <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="btn-download">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+            Скачать для Android
+          </a>
+          <a href="#stages" class="btn-demo">Посмотреть этапы</a>
+        </div>
+        <p class="app-hero-sub reveal" style="transition-delay:.24s;">Бесплатно &middot; Вход по номеру телефона &middot; Без пароля</p>
+      </div>
+      <div class="app-hero-phone reveal-right" style="transition-delay:.15s;">
+        <div class="hero-phone-glow"></div>
+        <div class="hero-phone">
+          <div class="hero-phone-screen">
+            <img src="assets/app-screen.png" alt="Приложение REFOCUS" style="width:100%;height:100%;object-fit:cover;border-radius:21px;">
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Quick Navigation -->
+  <div class="quick-nav-section">
+    <div class="quick-nav-grid">
+      <a href="#features" class="quick-nav-card reveal">
+        <div class="quick-nav-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="quick-nav-title">Возможности</div>
+        <div class="quick-nav-sub">Функции кабинета</div>
+      </a>
+      <a href="#stages" class="quick-nav-card reveal" style="transition-delay:.06s;">
+        <div class="quick-nav-icon"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg></div>
+        <div class="quick-nav-title">Этапы заказа</div>
+        <div class="quick-nav-sub">От визита до выдачи</div>
+      </a>
+      <a href="#screens" class="quick-nav-card reveal" style="transition-delay:.12s;">
+        <div class="quick-nav-icon"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg></div>
+        <div class="quick-nav-title">Разделы</div>
+        <div class="quick-nav-sub">Внутри приложения</div>
+      </a>
+      <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="quick-nav-card reveal" style="transition-delay:.18s;">
+        <div class="quick-nav-icon"><svg viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div>
+        <div class="quick-nav-title">Скачать</div>
+        <div class="quick-nav-sub">Android версия</div>
+      </a>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- Features -->
+  <section id="features" class="app-features">
+    <div class="app-features-header">
+      <h2 class="reveal">Всё что нужно — <span class="gradient-text">в одном месте</span></h2>
+      <p class="reveal" style="transition-delay:.06s;">Цифровой личный кабинет клиента сети оптик <span class="brand-font">REFOCUS</span></p>
+    </div>
+    <div class="app-features-grid">
+      <div class="app-feat-card reveal-left">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2" ry="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></div>
+        <h3>Быстрый вход</h3>
+        <p>Войдите по номеру телефона за несколько секунд. Без паролей, без сложной регистрации.</p>
+      </div>
+      <div class="app-feat-card reveal" style="transition-delay:.06s;">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg></div>
+        <h3>Статус заказа</h3>
+        <p>Видите, на каком этапе ваши очки, в реальном времени. Больше не нужно звонить в оптику.</p>
+      </div>
+      <div class="app-feat-card reveal-right" style="transition-delay:.12s;">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path><path d="M13.73 21a2 2 0 0 1-3.46 0"></path></svg></div>
+        <h3>Уведомления</h3>
+        <p>Получайте сообщение, когда очки готовы к выдаче. Без лишних звонков и ожидания.</p>
+      </div>
+      <div class="app-feat-card reveal-left" style="transition-delay:.06s;">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><circle cx="6" cy="19" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.5 8h7a2 2 0 0 1 2 2l1 5H6l1-5a2 2 0 0 1 2-2z"/><path d="M6 14l-2-8h-2"/></svg></div>
+        <h3>История очков</h3>
+        <p>Все ваши заказы и очки сохранены. Удобный доступ к прошлым покупкам в любое время.</p>
+      </div>
+      <div class="app-feat-card reveal" style="transition-delay:.12s;">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg></div>
+        <h3>Параметры зрения</h3>
+        <p>Наглядная история параметров по прошлым заказам. Смотрите динамику изменений.</p>
+      </div>
+      <div class="app-feat-card reveal-right" style="transition-delay:.18s;">
+        <div class="app-feat-icon"><svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg></div>
+        <h3>Бонусы</h3>
+        <p>Контролируйте бонусный баланс и возвращайтесь за новыми покупками с выгодой.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Video Stages -->
+  <section id="stages" class="app-stages">
+    <div class="app-stages-header">
+      <h2 class="reveal">7 этапов вашего <span class="gradient-text">заказа</span></h2>
+      <p class="reveal" style="transition-delay:.06s;">Вот как приложение сопровождает вас от первого визита до готовых очков</p>
+    </div>
+
+    <!-- Stage 0 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-left">
+        <video src="assets/videos/stage-00-welcome.mp4" playsinline muted loop preload="metadata" poster="" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-right">
+        <div class="stage-number">0</div>
+        <h3>Добро пожаловать</h3>
+        <p>Фирменный экран приветствия вводит вас в цифровую экосистему <span class="brand-font">REFOCUS</span>. Вход по номеру телефона занимает несколько секунд — без пароля, без сложной регистрации. Приложение сразу узнаёт вас и открывает ваш личный кабинет.</p>
+        <ul>
+          <li>Премиальная брендовая подача с первого экрана</li>
+          <li>Авторизация по SMS-коду — быстро и безопасно</li>
+          <li>Сессия запоминается, повторный вход не нужен</li>
+          <li>Поддержка Android и iOS</li>
+        </ul>
+        <div class="stage-detail">Первый запуск занимает около 10 секунд. После входа все ваши заказы, параметры зрения и бонусы уже доступны.</div>
+      </div>
+    </div>
+
+    <!-- Stage 1 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-right">
+        <video src="assets/videos/stage-01.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-left">
+        <div class="stage-number">1</div>
+        <h3>Заказ оформлен</h3>
+        <p>Как только заказ оформлен в оптике, он мгновенно появляется в вашем приложении. Вы видите все детали: выбранные линзы, оправу, итоговую сумму и дату ожидаемой готовности.</p>
+        <ul>
+          <li>Заказ появляется автоматически — без ручного ввода</li>
+          <li>Все детали и характеристики в одном экране</li>
+          <li>Визуальная шкала прогресса изготовления</li>
+          <li>Оплата и остаток долга тоже отображаются</li>
+        </ul>
+        <div class="stage-detail">Больше не нужно звонить в оптику и спрашивать «как дела с моим заказом» — всё видно прямо здесь.</div>
+      </div>
+    </div>
+
+    <!-- Stage 2 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-left">
+        <video src="assets/videos/stage-02.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-right">
+        <div class="stage-number">2</div>
+        <h3>Диагностика проведена</h3>
+        <p>Результаты компьютерной проверки зрения сохраняются в вашем профиле. Вы видите параметры по каждому глазу в понятном формате — без медицинского жаргона.</p>
+        <ul>
+          <li>Сфера, цилиндр и ось для правого и левого глаза</li>
+          <li>История изменений по всем визитам</li>
+          <li>Наглядная динамика — улучшилось или нет</li>
+          <li>Рецепт доступен в приложении в любой момент</li>
+        </ul>
+        <div class="stage-detail">Храните все рецепты в одном месте. Полезно, когда нужно заказать линзы повторно или показать параметры другому специалисту.</div>
+      </div>
+    </div>
+
+    <!-- Stage 3 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-right">
+        <video src="assets/videos/stage-03.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-left">
+        <div class="stage-number">3</div>
+        <h3>Линзы подобраны</h3>
+        <p>Тип и характеристики линз зафиксированы. В приложении отображается, что именно будет изготовлено — тип покрытия, категория линз и совместимость с рецептом.</p>
+        <ul>
+          <li>Название и категория выбранных линз</li>
+          <li>Покрытие: антиблик, фотохром, Blue Light и др.</li>
+          <li>Статус «линзы подобраны» обновляется онлайн</li>
+          <li>Описание без медицинского жаргона</li>
+        </ul>
+        <div class="stage-detail">Если что-то нужно изменить до начала изготовления — самое время. Свяжитесь с нами через приложение.</div>
+      </div>
+    </div>
+
+    <!-- Stage 4 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-left">
+        <video src="assets/videos/stage-04.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-right">
+        <div class="stage-number">4</div>
+        <h3>Заказ в производстве</h3>
+        <p>Ваши очки изготавливаются. Приложение показывает актуальный прогресс и примерные сроки, чтобы вы могли планировать своё время без лишнего беспокойства.</p>
+        <ul>
+          <li>Визуальная шкала выполнения по этапам</li>
+          <li>Ориентировочная дата готовности</li>
+          <li>Статус обновляется в режиме реального времени</li>
+          <li>Никаких звонков «а когда будет?» — всё видно</li>
+        </ul>
+        <div class="stage-detail">Стандартные прозрачные линзы изготавливаются за 1–3 дня. Сложные рецепты и специальные линзы — до 7 рабочих дней.</div>
+      </div>
+    </div>
+
+    <!-- Stage 5 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-right">
+        <video src="assets/videos/stage-05.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-left">
+        <div class="stage-number">5</div>
+        <h3>Контроль качества</h3>
+        <p>Перед выдачей готовые очки проходят финальную проверку. Специалист сверяет параметры линз с вашим рецептом и убеждается, что оправа подогнана правильно.</p>
+        <ul>
+          <li>Измерение оптических параметров готовых линз</li>
+          <li>Контроль посадки и подгонки оправы</li>
+          <li>Сравнение с исходным рецептом</li>
+          <li>Статус «контроль пройден» появляется в приложении</li>
+        </ul>
+        <div class="stage-detail">Этот этап гарантирует, что вы получите именно то, что заказывали. Мы не выдаём очки без прохождения контроля качества.</div>
+      </div>
+    </div>
+
+    <!-- Stage 6 -->
+    <div class="stage-item">
+      <div class="stage-video-wrap reveal-left">
+        <video src="assets/videos/stage-06.mp4" playsinline muted loop preload="metadata" onclick="this.paused?this.play():this.pause()"></video>
+      </div>
+      <div class="stage-info reveal-right">
+        <div class="stage-number">6</div>
+        <h3>Очки готовы!</h3>
+        <p>Вы получаете push-уведомление: очки готовы к выдаче. Приходите в удобное время в течение рабочих часов — очереди нет. После получения заказ переходит в историю.</p>
+        <ul>
+          <li>Push-уведомление приходит мгновенно</li>
+          <li>Заказ переходит в раздел «История»</li>
+          <li>Бонусные баллы начисляются автоматически</li>
+          <li>Параметры зрения сохранены для следующего раза</li>
+        </ul>
+        <div class="stage-detail">Все ваши предыдущие заказы и рецепты всегда доступны в истории. Повторный заказ — в два касания.</div>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- Detailed Screens -->
+  <section id="screens" class="app-screens">
+    <div class="app-screens-header section-container">
+      <h2 class="reveal">Что ещё внутри <span class="gradient-text">приложения</span></h2>
+      <p class="reveal" style="transition-delay:.06s;">Помимо отслеживания заказа, в приложении <span class="brand-font">REFOCUS</span> есть полноценные разделы для вашего удобства</p>
+    </div>
+
+    <!-- Моё зрение -->
+    <div class="screen-block">
+      <div class="screen-visual reveal-left">
+        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(34,211,238,0.25),transparent 70%);top:20%;left:20%;"></div>
+        <div class="screen-visual-icon">👁️</div>
+        <div class="screen-ui">
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Правый глаз (OD)</div>
+            <div class="screen-ui-value">SPH <span class="cyan">−2.25</span> &nbsp; CYL <span class="cyan">−0.75</span></div>
+            <div class="screen-ui-mini">AX 180° &middot; PD 32</div>
+            <div class="screen-ui-badge screen-ui-badge-stable">Стабильно</div>
+          </div>
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Левый глаз (OS)</div>
+            <div class="screen-ui-value">SPH <span class="cyan">−1.75</span> &nbsp; CYL <span class="cyan">−0.50</span></div>
+            <div class="screen-ui-mini">AX 175° &middot; PD 31</div>
+            <div class="screen-ui-badge screen-ui-badge-change">Изменение −0.25</div>
+          </div>
+          <div class="vision-timeline">
+            <div class="vision-dot"><div class="vision-dot-circle"></div><div class="vision-dot-label">2024</div></div>
+            <div class="vision-dot"><div class="vision-dot-circle"></div><div class="vision-dot-label">2025</div></div>
+            <div class="vision-dot"><div class="vision-dot-circle active"></div><div class="vision-dot-label">2026</div></div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-text reveal-right">
+        <h3>Моё зрение</h3>
+        <p>Вся история параметров зрения, собранная из ваших прошлых заказов, — в наглядном формате. Это не медицинская карта, а удобная сводка данных, которые <span class="brand-font">REFOCUS</span> фиксирует при каждом визите.</p>
+        <ul>
+          <li>Параметры по каждому глазу отдельно: SPH, CYL, AX, PD</li>
+          <li>Хронология изменений — видно, как менялись показатели от визита к визиту</li>
+          <li>Индикаторы стабильности: зелёная метка «Стабильно» или жёлтая «Изменение» с указанием разницы</li>
+          <li>Удобно показать офтальмологу на следующем приёме для полной картины</li>
+          <li>Данные берутся автоматически из оформленных заказов — вводить ничего не нужно</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Мои очки -->
+    <div class="screen-block">
+      <div class="screen-visual reveal-right">
+        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(14,165,233,0.25),transparent 70%);top:30%;right:20%;"></div>
+        <div class="screen-visual-icon">👓</div>
+        <div class="screen-ui">
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Последний заказ</div>
+            <div class="screen-ui-value">Ray-Ban Aviator</div>
+            <div class="screen-ui-mini">Линзы: Essilor Crizal &middot; 15.01.2026</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:100%"></div></div>
+            <div class="screen-ui-mini" style="color:#10B981;">Готов ✓</div>
+          </div>
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Предыдущий заказ</div>
+            <div class="screen-ui-value">Oakley Holbrook</div>
+            <div class="screen-ui-mini">Линзы: Hoya BlueControl &middot; 08.06.2025</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-green" style="width:100%"></div></div>
+            <div class="screen-ui-mini" style="color:#10B981;">Получен ✓</div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-text reveal-left">
+        <h3>Мои очки</h3>
+        <p>Полная история ваших покупок в сети <span class="brand-font">REFOCUS</span>. Каждый заказ сохраняется навсегда — оправа, тип линз, дата оформления и параметры зрения на момент покупки.</p>
+        <ul>
+          <li>Все прошлые заказы в одном списке с датами и деталями</li>
+          <li>Название оправы и тип установленных линз</li>
+          <li>Статус каждого заказа: оформлен, в производстве, готов, получен</li>
+          <li>Удобно при повторном заказе — не нужно вспоминать, что было в прошлый раз</li>
+          <li>Архив пополняется автоматически при каждом новом заказе</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Бонусы -->
+    <div class="screen-block">
+      <div class="screen-visual reveal-left">
+        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(245,158,11,0.2),transparent 70%);bottom:20%;left:25%;"></div>
+        <div class="screen-visual-icon">⭐</div>
+        <div class="screen-ui">
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Бонусный баланс</div>
+            <div class="screen-ui-value" style="font-size:28px;"><span class="cyan">1 250</span> бонусов</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-amber" style="width:62%"></div></div>
+            <div class="screen-ui-mini">До следующего уровня: 750 бонусов</div>
+          </div>
+          <div class="screen-ui-row">
+            <div class="screen-ui-card" style="text-align:center;">
+              <div class="screen-ui-label">Начислено</div>
+              <div class="screen-ui-value" style="color:#10B981;">+350</div>
+              <div class="screen-ui-mini">за последний заказ</div>
+            </div>
+            <div class="screen-ui-card" style="text-align:center;">
+              <div class="screen-ui-label">Потрачено</div>
+              <div class="screen-ui-value" style="color:#F59E0B;">−200</div>
+              <div class="screen-ui-mini">скидка на оправу</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-text reveal-right">
+        <h3>Бонусы</h3>
+        <p>Прозрачная бонусная система <span class="brand-font">REFOCUS</span>. Вы всегда видите, сколько бонусов накоплено, за что они начислены и как их можно использовать при следующей покупке.</p>
+        <ul>
+          <li>Текущий баланс бонусов на главном экране</li>
+          <li>История начислений и списаний с датами</li>
+          <li>Бонусы начисляются за каждый завершённый заказ</li>
+          <li>Используйте бонусы как скидку на оправу, линзы или аксессуары</li>
+          <li>Мотивация возвращаться — чем больше заказов, тем больше выгода</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Прайс-лист -->
+    <div class="screen-block">
+      <div class="screen-visual reveal-right">
+        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(34,211,238,0.2),transparent 70%);top:25%;right:25%;"></div>
+        <div class="screen-visual-icon">💰</div>
+        <div class="screen-ui">
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Однофокальные линзы</div>
+            <div class="screen-ui-value">от <span class="cyan">1 200</span> сом</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:30%"></div></div>
+          </div>
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Прогрессивные линзы</div>
+            <div class="screen-ui-value">от <span class="cyan">6 500</span> сом</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:75%"></div></div>
+          </div>
+          <div class="screen-ui-card">
+            <div class="screen-ui-label">Фотохромные линзы</div>
+            <div class="screen-ui-value">от <span class="cyan">3 800</span> сом</div>
+            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:50%"></div></div>
+          </div>
+        </div>
+      </div>
+      <div class="screen-text reveal-left">
+        <h3>Прайс-лист</h3>
+        <p>Быстрый доступ к актуальным ценам на линзы прямо в приложении. Ознакомьтесь с категориями и стоимостью до визита в оптику.</p>
+        <ul>
+          <li>Категории линз с ценами: однофокальные, бифокальные, прогрессивные, фотохромные</li>
+          <li>Цены всегда актуальные — обновляются из базы <span class="brand-font">REFOCUS</span></li>
+          <li>Подробный прайс-лист с полным ассортиментом — <a href="index.html#lens-pricing" style="color:var(--brand-accent);text-decoration:underline;">на главной странице</a></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <div class="section-divider"></div>
+
+  <!-- CTA -->
+  <section class="app-cta">
+    <h2 class="reveal">Скачайте <span class="gradient-text brand-font">REFOCUS</span> сейчас</h2>
+    <p class="reveal" style="transition-delay:.06s;">Бесплатное приложение. Вход по номеру телефона. Весь сервис <span class="brand-font">REFOCUS</span> — в вашем кармане.</p>
+    <a href="https://expo.dev/accounts/boka9966/projects/refocus-mobile/builds/33ab6de9-81c5-4152-986c-8daa54a54641" target="_blank" class="btn-download reveal-scale" style="transition-delay:.12s;">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Скачать для Android
+    </a>
+  </section>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <p>&copy; 2026 <span class="brand-font">REFOCUS</span>. Все права защищены. <a href="index.html">На главную</a> &middot; <a href="franchise.html">Франшиза</a> &middot; <a href="privacy.html">Конфиденциальность</a></p>
+  </footer>
+
+  <!-- Back to Top -->
+  <button class="back-to-top" id="backToTop" aria-label="Наверх">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      // Reveal observer
+      const revealClasses = ['.reveal','.reveal-left','.reveal-right','.reveal-scale'];
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) entry.target.classList.add('active');
+        });
+      }, { threshold: 0.08, rootMargin: "0px 0px -30px 0px" });
+      revealClasses.forEach(cls => document.querySelectorAll(cls).forEach(el => observer.observe(el)));
+
+      // Autoplay videos when visible
+      const videoObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          const video = entry.target.querySelector('video');
+          if (!video) return;
+          if (entry.isIntersecting) { video.play().catch(() => {}); }
+          else { video.pause(); }
+        });
+      }, { threshold: 0.3 });
+      document.querySelectorAll('.stage-video-wrap').forEach(el => videoObserver.observe(el));
+
+      // Back to top
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 600) btn.classList.add('visible');
+        else btn.classList.remove('visible');
+      });
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+      // Nav shadow on scroll
+      const nav = document.querySelector('.global-nav');
+      window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+          nav.style.background = 'rgba(15,23,42,0.95)';
+          nav.style.boxShadow = '0 4px 20px rgba(0,0,0,0.2)';
+        } else {
+          nav.style.background = 'rgba(15,23,42,0.85)';
+          nav.style.boxShadow = 'none';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
