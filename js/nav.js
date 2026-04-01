@@ -181,6 +181,7 @@
     #globalNav .nav-links .nav-link:nth-child(2) { animation: rfFadeUp .4s ease 0.52s forwards; }
     #globalNav .nav-links .nav-link:nth-child(3) { animation: rfFadeUp .4s ease 0.60s forwards; }
     #globalNav .nav-links .nav-link:nth-child(4) { animation: rfFadeUp .4s ease 0.68s forwards; }
+    #globalNav .nav-links .nav-link:nth-child(5) { animation: rfFadeUp .4s ease 0.76s forwards; }
 
     /* Hover */
     #globalNav .nav-link:hover {
@@ -307,9 +308,10 @@
         '<span class="nav-sep"></span>' +
         '<div class="nav-links">' +
           '<a href="index.html"          class="nav-link" data-page="index">Главная</a>' +
+          '<a href="about.html"          class="nav-link" data-page="about">О нас</a>' +
           '<a href="app.html"            class="nav-link" data-page="app">Приложение</a>' +
-          '<a href="delete-account.html" class="nav-link" data-page="delete-account">Удаление аккаунта</a>' +
           '<a href="franchise.html"      class="nav-link" data-page="franchise">Франшиза</a>' +
+          '<a href="delete-account.html" class="nav-link" data-page="delete-account">Удаление аккаунта</a>' +
         '</div>' +
         '<button id="rfHamburger" aria-label="Меню">' +
           '<span></span><span></span><span></span>' +
@@ -319,6 +321,9 @@
     '<div id="rfMobileMenu">' +
       '<a href="index.html" class="rf-mm-link" data-page="index">' +
         '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg></span>Главная' +
+      '</a>' +
+      '<a href="about.html" class="rf-mm-link" data-page="about">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/></svg></span>О нас' +
       '</a>' +
       '<a href="app.html" class="rf-mm-link" data-page="app">' +
         '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg></span>Приложение' +

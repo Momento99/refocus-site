@@ -1,0 +1,902 @@
+<!doctype html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>О компании — ReFocus</title>
+  <meta name="description" content="ReFocus — технологичная сеть оптик в Кыргызстане. Наша история, миссия, ценности и команда." />
+  <meta property="og:title" content="О компании — ReFocus" />
+  <meta property="og:description" content="Сеть оптик нового поколения. Бесплатная диагностика, собственное приложение и AI-контроль качества." />
+  <meta property="og:type" content="website" />
+  <meta property="og:image" content="assets/logo-refocus.png" />
+  <meta name="theme-color" content="#07101e" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    @font-face { font-family:"RefocusDisplay"; src:url("fonts/refocus-display.woff2") format("woff2"); font-weight:400; font-style:normal; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Medium.ttf') format('truetype'); font-weight:500; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-SemiBold.ttf') format('truetype'); font-weight:600; font-display:swap; }
+    @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Bold.ttf') format('truetype'); font-weight:700; font-display:swap; }
+
+    :root {
+      --brand-dark: #0F172A;
+      --brand-accent: #22D3EE;
+      --text-secondary: #94A3B8;
+      --text-muted: #64748B;
+      --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
+      --nav-height: 60px;
+    }
+
+    * { box-sizing: border-box; -webkit-font-smoothing: antialiased; }
+    html { scroll-behavior: smooth; background: #07101e; }
+    body {
+      margin: 0;
+      font-family: 'Manrope', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      color: #fff;
+      line-height: 1.5;
+      font-weight: 400;
+      letter-spacing: -0.022em;
+      overflow-x: hidden;
+      background: transparent;
+    }
+
+    section, footer { position: relative; z-index: 1; }
+
+    /* ── Brand ── */
+    .brand-font { font-family: "RefocusDisplay", sans-serif; }
+    .gradient-text {
+      background: linear-gradient(135deg, #22D3EE, #06B6D4, #0EA5E9);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .cyan { color: #22D3EE; }
+
+    /* ── Reveal animations ── */
+    .reveal        { opacity:0; transform:translateY(32px);   transition: opacity .85s var(--ease-spring), transform .85s var(--ease-spring); }
+    .reveal-left   { opacity:0; transform:translateX(-44px);  transition: opacity .85s var(--ease-spring), transform .85s var(--ease-spring); }
+    .reveal-right  { opacity:0; transform:translateX(44px);   transition: opacity .85s var(--ease-spring), transform .85s var(--ease-spring); }
+    .reveal-scale  { opacity:0; transform:scale(0.88);        transition: opacity .85s var(--ease-spring), transform .85s var(--ease-spring); }
+    .reveal.active, .reveal-left.active, .reveal-right.active, .reveal-scale.active {
+      opacity: 1; transform: none;
+    }
+
+    /* ── Badge ── */
+    .badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      padding: 8px 18px; border-radius: 99px;
+      background: rgba(34,211,238,0.1);
+      border: 1px solid rgba(34,211,238,0.22);
+      font-size: 13px; font-weight: 700; color: var(--brand-accent);
+      margin-bottom: 24px;
+    }
+    .badge-dot {
+      width: 8px; height: 8px; border-radius: 50%; background: #22D3EE;
+      animation: pulseDot 2s ease-out infinite;
+    }
+    @keyframes pulseDot {
+      0%   { box-shadow: 0 0 0 0 rgba(34,211,238,0.6); }
+      60%  { box-shadow: 0 0 0 7px rgba(34,211,238,0); }
+      100% { box-shadow: 0 0 0 0 rgba(34,211,238,0); }
+    }
+
+    /* ─────────────────────────────────────────
+       HERO
+    ───────────────────────────────────────── */
+    .about-hero {
+      padding: 140px 24px 100px;
+      min-height: 85vh;
+      display: flex; align-items: center; justify-content: center;
+      position: relative; overflow: hidden; text-align: center;
+    }
+    .about-hero-content {
+      max-width: 760px; margin: 0 auto;
+      position: relative; z-index: 2;
+    }
+    .about-hero h1 {
+      font-size: clamp(44px, 7vw, 80px);
+      font-weight: 800; line-height: 1.06;
+      letter-spacing: -0.035em;
+      margin: 0 0 28px;
+    }
+    .about-hero-desc {
+      font-size: clamp(17px, 2.5vw, 22px);
+      color: var(--text-secondary);
+      line-height: 1.65; margin: 0 0 48px;
+      max-width: 600px; margin-left: auto; margin-right: auto;
+    }
+    .about-hero-btns {
+      display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 17px 34px; border-radius: 14px;
+      background: var(--brand-accent); color: #0F172A;
+      text-decoration: none; font-size: 16px; font-weight: 700;
+      transition: all .4s var(--ease-spring);
+      box-shadow: 0 10px 30px rgba(34,211,238,0.25);
+      position: relative; overflow: hidden;
+    }
+    .btn-primary::before {
+      content: ''; position: absolute; top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.28), transparent);
+      transition: left .5s;
+    }
+    .btn-primary:hover { transform: translateY(-3px) scale(1.03); box-shadow: 0 20px 50px rgba(34,211,238,0.4); }
+    .btn-primary:hover::before { left: 100%; }
+    .btn-outline {
+      display: inline-flex; align-items: center; gap: 10px;
+      padding: 17px 34px; border-radius: 14px;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(255,255,255,0.1);
+      color: #fff; text-decoration: none;
+      font-size: 16px; font-weight: 600;
+      transition: all .4s var(--ease-spring);
+    }
+    .btn-outline:hover { background: rgba(255,255,255,0.1); transform: translateY(-2px); }
+
+    /* Hero scroll indicator */
+    .hero-scroll {
+      position: absolute; bottom: 36px; left: 50%;
+      transform: translateX(-50%);
+      display: flex; flex-direction: column; align-items: center; gap: 8px;
+      color: rgba(255,255,255,0.3); font-size: 12px; font-weight: 500;
+      letter-spacing: 0.08em; text-transform: uppercase;
+      animation: heroScrollBounce 2.5s ease-in-out infinite;
+    }
+    @keyframes heroScrollBounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); opacity: 0.4; }
+      50%       { transform: translateX(-50%) translateY(6px); opacity: 0.7; }
+    }
+    .hero-scroll svg { stroke: rgba(34,211,238,0.5); }
+
+    /* Hero glow orbs */
+    .hero-glow-1 {
+      position: absolute; width: 700px; height: 700px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,211,238,0.07), transparent 65%);
+      top: -200px; left: 50%; transform: translateX(-50%);
+      pointer-events: none;
+    }
+    .hero-glow-2 {
+      position: absolute; width: 500px; height: 500px; border-radius: 50%;
+      background: radial-gradient(circle, rgba(6,182,212,0.05), transparent 65%);
+      bottom: 0; right: -100px;
+      pointer-events: none;
+    }
+
+    /* ─────────────────────────────────────────
+       STATS BAR
+    ───────────────────────────────────────── */
+    .stats-bar {
+      padding: 0 24px 40px;
+      position: relative; z-index: 1;
+    }
+    .stats-bar-inner {
+      max-width: 900px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      gap: 1px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 20px; overflow: hidden;
+      border: 1px solid rgba(34,211,238,0.1);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+    }
+    .stat-item {
+      background: rgba(7,16,30,0.7);
+      padding: 28px 20px;
+      text-align: center;
+      transition: background .3s;
+    }
+    .stat-item:hover { background: rgba(34,211,238,0.05); }
+    .stat-num {
+      font-size: clamp(28px, 4vw, 40px);
+      font-weight: 800; letter-spacing: -0.03em;
+      line-height: 1;
+      background: linear-gradient(135deg, #22D3EE, #06B6D4);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+    .stat-lbl {
+      font-size: 13px; color: var(--text-secondary);
+      margin-top: 8px; line-height: 1.4;
+    }
+    @media (max-width: 600px) {
+      .stats-bar-inner { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    /* ─────────────────────────────────────────
+       SECTION COMMON
+    ───────────────────────────────────────── */
+    .section-label {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.12em;
+      text-transform: uppercase; color: var(--brand-accent);
+      margin-bottom: 16px;
+    }
+    .section-head {
+      max-width: 1060px; margin: 0 auto;
+      padding: 0 24px; text-align: center; margin-bottom: 48px;
+    }
+    .section-head h2 {
+      font-size: clamp(32px, 5vw, 52px);
+      font-weight: 800; letter-spacing: -0.025em;
+      margin: 0 0 18px; line-height: 1.1;
+    }
+    .section-head p {
+      font-size: 18px; color: var(--text-secondary);
+      line-height: 1.65; max-width: 580px; margin: 0 auto;
+    }
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(34,211,238,0.12), transparent);
+      max-width: 1060px; margin: 0 auto;
+    }
+
+    /* ─────────────────────────────────────────
+       MISSION CARDS
+    ───────────────────────────────────────── */
+    .mission-section { padding: 56px 24px; }
+    .mission-grid {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px;
+    }
+    .mission-card {
+      background: rgba(7,16,30,0.65);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(34,211,238,0.1);
+      border-radius: 24px; padding: 40px 32px;
+      transition: all .5s var(--ease-spring);
+      position: relative; overflow: hidden;
+    }
+    .mission-card::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 2px;
+      background: linear-gradient(90deg, #22D3EE, #06B6D4);
+      transform: scaleX(0); transform-origin: left;
+      transition: transform .5s var(--ease-spring);
+    }
+    .mission-card:hover { transform: translateY(-6px); border-color: rgba(34,211,238,0.28); box-shadow: 0 24px 60px rgba(34,211,238,0.07); }
+    .mission-card:hover::before { transform: scaleX(1); }
+    .mission-icon {
+      width: 52px; height: 52px; border-radius: 14px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.15), rgba(6,182,212,0.08));
+      border: 1px solid rgba(34,211,238,0.2);
+      display: flex; align-items: center; justify-content: center;
+      margin-bottom: 24px;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .mission-card:hover .mission-icon { transform: scale(1.1); box-shadow: 0 8px 24px rgba(34,211,238,0.25); }
+    .mission-icon svg { stroke: #22D3EE; fill: none; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+    .mission-card h3 { font-size: 20px; font-weight: 700; margin: 0 0 14px; }
+    .mission-card p  { font-size: 15px; color: var(--text-secondary); line-height: 1.65; margin: 0; }
+    @media (max-width: 860px) { .mission-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 860px) and (min-width: 540px) { .mission-grid { grid-template-columns: repeat(2, 1fr); } }
+
+    /* ─────────────────────────────────────────
+       TIMELINE
+    ───────────────────────────────────────── */
+    .timeline-section { padding: 56px 24px; }
+    .timeline {
+      max-width: 860px; margin: 0 auto;
+      position: relative;
+    }
+    /* Central vertical line */
+    .timeline::before {
+      content: '';
+      position: absolute; top: 0; bottom: 0; left: 50%;
+      width: 1px; transform: translateX(-50%);
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(34,211,238,0.25) 8%,
+        rgba(34,211,238,0.25) 92%,
+        transparent 100%
+      );
+    }
+    .tl-item {
+      display: grid;
+      grid-template-columns: 1fr 60px 1fr;
+      gap: 0; margin-bottom: 56px; align-items: start;
+    }
+    .tl-item:last-child { margin-bottom: 0; }
+    /* Left card */
+    .tl-item:nth-child(odd)  .tl-card { grid-column: 1; text-align: right; padding-right: 40px; }
+    .tl-item:nth-child(odd)  .tl-dot  { grid-column: 2; }
+    .tl-item:nth-child(odd)  .tl-empty{ grid-column: 3; }
+    /* Right card */
+    .tl-item:nth-child(even) .tl-empty{ grid-column: 1; }
+    .tl-item:nth-child(even) .tl-dot  { grid-column: 2; }
+    .tl-item:nth-child(even) .tl-card { grid-column: 3; text-align: left; padding-left: 40px; }
+
+    .tl-dot {
+      display: flex; align-items: flex-start; justify-content: center;
+      padding-top: 20px;
+    }
+    .tl-dot-inner {
+      width: 16px; height: 16px; border-radius: 50%;
+      background: #22D3EE;
+      border: 3px solid #07101e;
+      box-shadow: 0 0 0 2px rgba(34,211,238,0.4), 0 0 20px rgba(34,211,238,0.3);
+      flex-shrink: 0;
+    }
+
+    .tl-card {
+      background: rgba(7,16,30,0.65);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(34,211,238,0.1);
+      border-radius: 20px; padding: 28px 28px;
+      transition: all .4s var(--ease-spring);
+    }
+    .tl-card:hover {
+      border-color: rgba(34,211,238,0.28);
+      box-shadow: 0 16px 48px rgba(34,211,238,0.06);
+      transform: translateY(-3px);
+    }
+    .tl-year {
+      font-size: 12px; font-weight: 700; letter-spacing: 0.1em;
+      text-transform: uppercase; color: var(--brand-accent);
+      margin-bottom: 8px;
+    }
+    .tl-card h3 { font-size: 18px; font-weight: 700; margin: 0 0 10px; line-height: 1.3; }
+    .tl-card p  { font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin: 0; }
+
+    /* Mobile timeline — single column */
+    @media (max-width: 640px) {
+      .timeline::before { left: 18px; }
+      .tl-item { grid-template-columns: 36px 1fr; gap: 0; }
+      .tl-item:nth-child(odd)  .tl-card,
+      .tl-item:nth-child(even) .tl-card  { grid-column: 2; text-align: left; padding: 0 0 0 20px; }
+      .tl-item:nth-child(odd)  .tl-dot,
+      .tl-item:nth-child(even) .tl-dot   { grid-column: 1; }
+      .tl-item:nth-child(odd)  .tl-empty,
+      .tl-item:nth-child(even) .tl-empty { display: none; }
+      .tl-dot { padding-top: 18px; justify-content: flex-start; padding-left: 10px; }
+    }
+
+    /* ─────────────────────────────────────────
+       TECH SECTION
+    ───────────────────────────────────────── */
+    .tech-section { padding: 56px 24px; }
+    .tech-grid {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px;
+    }
+    .tech-card {
+      background: rgba(7,16,30,0.65);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 24px; padding: 36px;
+      display: grid; grid-template-columns: 56px 1fr; gap: 24px; align-items: start;
+      transition: all .5s var(--ease-spring);
+    }
+    .tech-card:hover { border-color: rgba(34,211,238,0.22); transform: translateY(-4px); box-shadow: 0 20px 50px rgba(34,211,238,0.06); }
+    .tech-card-icon {
+      width: 56px; height: 56px; border-radius: 16px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.12), rgba(6,182,212,0.06));
+      border: 1px solid rgba(34,211,238,0.18);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: transform .3s, box-shadow .3s;
+    }
+    .tech-card:hover .tech-card-icon { transform: scale(1.08); box-shadow: 0 8px 24px rgba(34,211,238,0.2); }
+    .tech-card-icon svg { stroke: #22D3EE; fill: none; stroke-width: 1.75; stroke-linecap: round; stroke-linejoin: round; width: 26px; height: 26px; }
+    .tech-card-body h3 { font-size: 18px; font-weight: 700; margin: 0 0 10px; }
+    .tech-card-body p  { font-size: 14px; color: var(--text-secondary); line-height: 1.65; margin: 0; }
+    @media (max-width: 700px) { .tech-grid { grid-template-columns: 1fr; } }
+
+    /* ─────────────────────────────────────────
+       GEOGRAPHY SECTION
+    ───────────────────────────────────────── */
+    .geo-section { padding: 56px 24px; }
+    .geo-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center;
+    }
+    .geo-text h2 {
+      font-size: clamp(30px, 4.5vw, 46px);
+      font-weight: 800; letter-spacing: -0.025em;
+      margin: 0 0 20px; line-height: 1.1;
+    }
+    .geo-text p { font-size: 16px; color: var(--text-secondary); line-height: 1.7; margin: 0 0 32px; }
+    .geo-list { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 12px; }
+    .geo-list li {
+      display: flex; align-items: center; gap: 14px;
+      padding: 14px 18px; border-radius: 14px;
+      background: rgba(34,211,238,0.04);
+      border: 1px solid rgba(34,211,238,0.1);
+      font-size: 15px; font-weight: 600;
+      transition: all .3s;
+    }
+    .geo-list li:hover { background: rgba(34,211,238,0.08); border-color: rgba(34,211,238,0.22); transform: translateX(4px); }
+    .geo-dot { width: 10px; height: 10px; border-radius: 50%; background: #22D3EE; flex-shrink: 0; box-shadow: 0 0 10px rgba(34,211,238,0.5); }
+    .geo-map {
+      background: rgba(7,16,30,0.65);
+      backdrop-filter: blur(18px); -webkit-backdrop-filter: blur(18px);
+      border: 1px solid rgba(34,211,238,0.12);
+      border-radius: 24px; overflow: hidden;
+      aspect-ratio: 4/3;
+      display: flex; align-items: center; justify-content: center;
+      position: relative;
+    }
+    .geo-map img { width: 100%; height: 100%; object-fit: cover; opacity: 0.75; }
+    .geo-map-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(34,211,238,0.04), transparent 60%);
+      pointer-events: none;
+    }
+    @media (max-width: 768px) { .geo-inner { grid-template-columns: 1fr; gap: 40px; } }
+
+    /* ─────────────────────────────────────────
+       CTA
+    ───────────────────────────────────────── */
+    .about-cta {
+      padding: 56px 24px 72px;
+      text-align: center; position: relative; z-index: 1;
+    }
+    .about-cta-card {
+      max-width: 660px; margin: 0 auto;
+      background: rgba(7,16,30,0.72);
+      backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(34,211,238,0.2);
+      border-radius: 32px; padding: 60px 48px;
+      box-shadow: 0 0 80px rgba(34,211,238,0.06), 0 40px 80px rgba(0,0,0,0.4);
+      position: relative; overflow: hidden;
+    }
+    .about-cta-card::before {
+      content: ''; position: absolute; inset: 0; border-radius: 32px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.06), transparent 55%);
+      pointer-events: none;
+    }
+    .about-cta-card h2 {
+      font-size: clamp(28px, 4vw, 40px); font-weight: 800;
+      letter-spacing: -0.025em; margin: 0 0 16px;
+    }
+    .about-cta-card p { font-size: 17px; color: var(--text-secondary); line-height: 1.6; margin: 0 0 40px; }
+    .about-cta-btns { display: flex; gap: 16px; justify-content: center; flex-wrap: wrap; }
+    @media (max-width: 500px) { .about-cta-card { padding: 40px 24px; } }
+
+    /* ─────────────────────────────────────────
+       FOOTER
+    ───────────────────────────────────────── */
+    .about-footer {
+      border-top: 1px solid rgba(255,255,255,0.06);
+      padding: 48px 24px 40px;
+    }
+    .footer-inner {
+      max-width: 1060px; margin: 0 auto;
+      display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 40px;
+    }
+    .footer-col-brand .brand-name {
+      font-family: "RefocusDisplay", sans-serif;
+      font-size: 22px; color: #fff; margin-bottom: 12px; display: block;
+    }
+    .footer-col-brand p { font-size: 14px; color: var(--text-muted); line-height: 1.6; margin: 0; max-width: 220px; }
+    .footer-col h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: rgba(255,255,255,0.4); margin: 0 0 16px; }
+    .footer-col ul { list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a { font-size: 14px; color: var(--text-secondary); text-decoration: none; transition: color .2s; }
+    .footer-col ul li a:hover { color: var(--brand-accent); }
+    .footer-legal {
+      max-width: 1060px; margin: 32px auto 0;
+      padding-top: 24px; border-top: 1px solid rgba(255,255,255,0.06);
+      display: flex; justify-content: space-between; align-items: center;
+      font-size: 13px; color: var(--text-muted); flex-wrap: wrap; gap: 12px;
+    }
+    .footer-legal a { color: var(--text-muted); text-decoration: none; transition: color .2s; }
+    .footer-legal a:hover { color: var(--brand-accent); }
+    @media (max-width: 700px) {
+      .footer-inner { grid-template-columns: 1fr; gap: 32px; }
+      .footer-legal { flex-direction: column; align-items: flex-start; }
+    }
+
+    /* ── Back to top ── */
+    .back-to-top {
+      position: fixed; bottom: 90px; right: 24px;
+      width: 44px; height: 44px; border-radius: 50%;
+      background: rgba(7,16,30,0.85);
+      backdrop-filter: blur(12px);
+      border: 1px solid rgba(34,211,238,0.2);
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer; z-index: 98;
+      opacity: 0; transform: translateY(20px);
+      transition: all .4s var(--ease-spring);
+      box-shadow: 0 4px 16px rgba(0,0,0,0.3);
+      pointer-events: none;
+    }
+    .back-to-top.visible { opacity: 1; transform: translateY(0); pointer-events: auto; }
+    .back-to-top:hover { border-color: rgba(34,211,238,0.5); box-shadow: 0 8px 24px rgba(34,211,238,0.15); }
+    .back-to-top svg { stroke: #22D3EE; }
+  </style>
+</head>
+
+<body>
+  <script src="js/nav.js"></script>
+  <script src="js/wave-bg.js"></script>
+
+  <!-- ══════════════════════════════════════
+       HERO
+  ════════════════════════════════════════ -->
+  <section class="about-hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="about-hero-content">
+      <div class="badge reveal" style="transition-delay:.05s;">
+        <span class="badge-dot"></span>
+        О компании
+      </div>
+      <h1 class="reveal" style="transition-delay:.12s;">
+        Мы — <span class="gradient-text brand-font">REFOCUS</span>
+      </h1>
+      <p class="about-hero-desc reveal" style="transition-delay:.2s;">
+        Сеть оптик нового поколения в Кыргызстане. Технологии, которые делают заботу о зрении простой, доступной и прозрачной — для каждого.
+      </p>
+      <div class="about-hero-btns reveal-scale" style="transition-delay:.28s;">
+        <a href="index.html#branches" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Найти филиал
+        </a>
+        <a href="app.html" class="btn-outline">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+          Приложение
+        </a>
+      </div>
+    </div>
+    <div class="hero-scroll">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke-width="2"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       STATS BAR
+  ════════════════════════════════════════ -->
+  <div class="stats-bar">
+    <div class="stats-bar-inner reveal-scale" style="transition-delay:.1s;">
+      <div class="stat-item">
+        <div class="stat-num"><span data-count="5">0</span></div>
+        <div class="stat-lbl">Филиалов в стране</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span data-count="10000" data-suffix="+">0</span></div>
+        <div class="stat-lbl">Клиентов</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span data-count="15000" data-suffix="+">0</span></div>
+        <div class="stat-lbl">Очков изготовлено</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num"><span data-count="3">0</span></div>
+        <div class="stat-lbl">Года на рынке</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       МИССИЯ
+  ════════════════════════════════════════ -->
+  <section class="mission-section">
+    <div class="section-head">
+      <div class="section-label reveal">Наша цель</div>
+      <h2 class="reveal" style="transition-delay:.06s;">
+        Оптика, которую <span class="gradient-text">строит AI</span>
+      </h2>
+      <p class="reveal" style="transition-delay:.12s;">
+        Мы первыми в Кыргызстане применяем искусственный интеллект не как маркетинговый термин, а как рабочий инструмент — в каждом заказе, каждом филиале, каждый день.
+      </p>
+    </div>
+    <div class="mission-grid">
+      <div class="mission-card reveal-left" style="transition-delay:.06s;">
+        <div class="mission-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+        </div>
+        <h3>Доступность без барьеров</h3>
+        <p>Бесплатная компьютерная диагностика зрения без записи в любом филиале. AI-система подбирает рекомендации по результатам диагностики — быстро и точно, без субъективности.</p>
+      </div>
+      <div class="mission-card reveal" style="transition-delay:.12s;">
+        <div class="mission-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <h3>AI-аналитика продаж</h3>
+        <p>Алгоритм анализирует спрос по филиалам, прогнозирует запасы и выявляет тренды. Мы знаем, какие оправы и линзы нужны в каждом городе — ещё до того, как клиент об этом спросил.</p>
+      </div>
+      <div class="mission-card reveal-right" style="transition-delay:.18s;">
+        <div class="mission-icon">
+          <svg width="24" height="24" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        </div>
+        <h3>Прозрачность и контроль</h3>
+        <p>AI проверяет каждую изготовленную линзу перед выдачей — оптические параметры сверяются с рецептом автоматически. Клиент получает именно то, что заказал. Без исключений.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       TIMELINE
+  ════════════════════════════════════════ -->
+  <section class="timeline-section">
+    <div class="section-head">
+      <div class="section-label reveal">Наш путь</div>
+      <h2 class="reveal" style="transition-delay:.06s;">
+        Как мы <span class="gradient-text">выросли</span>
+      </h2>
+      <p class="reveal" style="transition-delay:.12s;">
+        Начали в Сокулуке в 2022-м. Каждый год — новый город, новые технологии. Сегодня — пять точек и флагманский филиал в Токмоке.
+      </p>
+    </div>
+
+    <div class="timeline">
+
+      <div class="tl-item">
+        <div class="tl-card reveal-left" style="transition-delay:.05s;">
+          <div class="tl-year">2022</div>
+          <h3>Первый шаг — Сокулук</h3>
+          <p>Открытие первого филиала в Сокулуке. Бесплатная диагностика, современное оборудование, принцип «без записи» — с первого же дня работы.</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-empty"></div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-card reveal-right" style="transition-delay:.1s;">
+          <div class="tl-year">2023</div>
+          <h3>Беловодск и собственная CRM</h3>
+          <p>Второй филиал — в Беловодске. Запустили собственную CRM-систему: все заказы, клиенты и рецепты синхронизированы между точками в реальном времени.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-card reveal-left" style="transition-delay:.15s;">
+          <div class="tl-year">2024</div>
+          <h3>Кара-Балта и приложение</h3>
+          <p>Третий филиал — в Кара-Балте. В том же году запустили мобильное приложение <span class="brand-font">REFOCUS</span>: статус заказа, история очков, параметры зрения, бонусы.</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-empty"></div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-card reveal-right" style="transition-delay:.2s;">
+          <div class="tl-year">2025</div>
+          <h3>Кант и AI-контроль</h3>
+          <p>Четвёртый филиал открылся в Канте. Внедрили AI-модуль контроля качества — алгоритм автоматически проверяет соответствие линз рецепту перед выдачей.</p>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-card reveal-left" style="transition-delay:.25s;">
+          <div class="tl-year">2026</div>
+          <h3>Токмок — флагман</h3>
+          <p>Открытие флагманского филиала в Токмоке — самого технологичного в сети. Здесь сосредоточены все наработки пяти лет: AI-аналитика, полный цикл производства и шоурум оправ <span class="brand-font">REFOCUS</span>.</p>
+        </div>
+        <div class="tl-dot"><div class="tl-dot-inner"></div></div>
+        <div class="tl-empty"></div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       ЧТО ДЕЛАЕТ НАС ДРУГИМИ
+  ════════════════════════════════════════ -->
+  <section class="tech-section">
+    <div class="section-head">
+      <div class="section-label reveal">Технологический стек</div>
+      <h2 class="reveal" style="transition-delay:.06s;">
+        Обычная оптика — прилавок.<br><span class="gradient-text">REFOCUS — платформа.</span>
+      </h2>
+      <p class="reveal" style="transition-delay:.12s;">
+        Искусственный интеллект встроен в каждый процесс — от диагностики до выдачи готовых очков. Это не будущее, это уже работает.
+      </p>
+    </div>
+    <div class="tech-grid">
+
+      <div class="tech-card reveal-left" style="transition-delay:.06s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>AI-аналитика продаж</h3>
+          <p>Алгоритм в реальном времени анализирует продажи по каждому филиалу, выявляет тренды и прогнозирует спрос. Руководство видит картину по всей сети — не в конце месяца, а прямо сейчас.</p>
+        </div>
+      </div>
+
+      <div class="tech-card reveal-right" style="transition-delay:.1s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14"/><path d="M4.93 4.93a10 10 0 0 0 0 14.14"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07"/><path d="M8.46 8.46a5 5 0 0 0 0 7.07"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>AI-контроль качества линз</h3>
+          <p>Перед выдачей каждой пары очков алгоритм сверяет оптические параметры изготовленных линз с рецептом клиента. Человеческий фактор исключён — мы не выдаём то, что не соответствует стандарту.</p>
+        </div>
+      </div>
+
+      <div class="tech-card reveal-left" style="transition-delay:.14s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>AI-персонализация сервиса</h3>
+          <p>На основе истории заказов и параметров зрения система формирует персональные рекомендации для каждого клиента. Специалист заранее знает, что предложить — ещё до разговора.</p>
+        </div>
+      </div>
+
+      <div class="tech-card reveal-right" style="transition-delay:.18s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>Собственная CRM и POS</h3>
+          <p>Все заказы, клиенты и рецепты — в единой платформе, синхронизированной между всеми филиалами. Никаких Excel-файлов, никаких потерянных данных. AI-модуль выявляет аномалии и сигнализирует об ошибках.</p>
+        </div>
+      </div>
+
+      <div class="tech-card reveal-left" style="transition-delay:.22s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>Мобильное приложение</h3>
+          <p>Личный кабинет клиента: статус заказа в реальном времени, история очков, параметры зрения, бонусная программа. AI-уведомления приходят именно тогда, когда нужно — не раньше и не позже.</p>
+        </div>
+      </div>
+
+      <div class="tech-card reveal-right" style="transition-delay:.26s;">
+        <div class="tech-card-icon">
+          <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+        </div>
+        <div class="tech-card-body">
+          <h3>Собственный бренд оправ</h3>
+          <p>Линейка оправ <span class="brand-font">REFOCUS</span> — разработана под нашим именем, без посредников. AI-анализ продаж определяет, какие модели нужны рынку следующего сезона.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       ФИЛИАЛЫ / ГЕОГРАФИЯ
+  ════════════════════════════════════════ -->
+  <section class="geo-section">
+    <div class="geo-inner">
+      <div class="geo-text reveal-left">
+        <div class="section-label">Наша география</div>
+        <h2>Пять городов. <span class="gradient-text">Один стандарт.</span></h2>
+        <p>Каждый филиал работает по единым стандартам сервиса и технологий. Где бы вы ни обратились — оборудование, подход и качество одинаковые.</p>
+        <ul class="geo-list">
+          <li><span class="geo-dot"></span>Сокулук — первый, 2022</li>
+          <li><span class="geo-dot"></span>Беловодск — 2023</li>
+          <li><span class="geo-dot"></span>Кара-Балта — 2024</li>
+          <li><span class="geo-dot"></span>Кант — 2025</li>
+          <li><span class="geo-dot"></span>Токмок — флагман, 2026</li>
+        </ul>
+      </div>
+      <div class="geo-map reveal-right" style="transition-delay:.1s;">
+        <img src="assets/map-placeholder.jpg" alt="Карта филиалов">
+        <div class="geo-map-overlay"></div>
+      </div>
+    </div>
+  </section>
+
+  <div class="divider"></div>
+
+  <!-- ══════════════════════════════════════
+       CTA
+  ════════════════════════════════════════ -->
+  <section class="about-cta">
+    <div class="about-cta-card reveal-scale">
+      <div class="badge" style="margin-bottom:24px;">
+        <span class="badge-dot"></span>
+        Приходите к нам
+      </div>
+      <h2>Убедитесь <span class="gradient-text">сами</span></h2>
+      <p>Бесплатная диагностика, без записи, в любой день. Привезём — выдадим. Всё остальное возьмёт на себя <span class="brand-font">REFOCUS</span>.</p>
+      <div class="about-cta-btns">
+        <a href="index.html#branches" class="btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+          Найти ближайший филиал
+        </a>
+        <a href="app.html" class="btn-outline">
+          Скачать приложение
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══════════════════════════════════════
+       FOOTER
+  ════════════════════════════════════════ -->
+  <footer class="about-footer">
+    <div class="footer-inner">
+      <div class="footer-col footer-col-brand">
+        <span class="brand-name">REFOCUS</span>
+        <p>Технологичная сеть оптик с собственной CRM, мобильным приложением и AI-контролем качества.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Навигация</h4>
+        <ul>
+          <li><a href="index.html">Главная</a></li>
+          <li><a href="about.html">О компании</a></li>
+          <li><a href="app.html">Приложение</a></li>
+          <li><a href="franchise.html">Франшиза</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Контакты</h4>
+        <ul>
+          <li><a href="tel:+996705244966">+996 705 244 966</a></li>
+          <li><a href="mailto:refocus.kg@gmail.com">refocus.kg@gmail.com</a></li>
+          <li><a href="https://www.instagram.com/refocus.kg/" target="_blank">@refocus.kg</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-legal">
+      <div>Copyright © 2026 <span class="brand-font">REFOCUS</span>. Все права защищены.</div>
+      <div style="display:flex;gap:16px;">
+        <a href="privacy.html">Конфиденциальность</a>
+        <a href="delete-account.html">Удаление аккаунта</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Back to top -->
+  <button class="back-to-top" id="backToTop" aria-label="Наверх">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
+  </button>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+      // ── Reveal on scroll ──────────────────────────────────
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+      document.querySelectorAll('.reveal,.reveal-left,.reveal-right,.reveal-scale')
+        .forEach(el => observer.observe(el));
+
+      // ── Stat counter animation ────────────────────────────
+      const counters = document.querySelectorAll('[data-count]');
+      const countObserver = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (!e.isIntersecting) return;
+          const el = e.target;
+          const target = +el.dataset.count;
+          const suffix = el.dataset.suffix || '';
+          const duration = 1600;
+          const start = performance.now();
+          function step(now) {
+            const p = Math.min((now - start) / duration, 1);
+            // ease-out cubic
+            const eased = 1 - Math.pow(1 - p, 3);
+            const val = Math.round(eased * target);
+            el.textContent = val.toLocaleString('ru') + suffix;
+            if (p < 1) requestAnimationFrame(step);
+          }
+          requestAnimationFrame(step);
+          countObserver.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(el => countObserver.observe(el));
+
+      // ── Back to top ───────────────────────────────────────
+      const btn = document.getElementById('backToTop');
+      window.addEventListener('scroll', () => {
+        btn.classList.toggle('visible', window.scrollY > 600);
+      }, { passive: true });
+      btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+    });
+  </script>
+</body>
+</html>

@@ -342,6 +342,7 @@
     .screen-block:nth-child(odd)>*{direction:ltr;}
 
     .screen-visual{border-radius:24px;overflow:hidden;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);position:relative;padding:40px;display:flex;align-items:center;justify-content:center;min-height:400px;}
+    .screen-shot{width:100%;height:100%;object-fit:contain;border-radius:16px;display:block;}
     .screen-visual-glow{position:absolute;width:250px;height:250px;border-radius:50%;filter:blur(80px);opacity:0.15;pointer-events:none;}
     .screen-visual-icon{font-size:120px;opacity:0.12;position:absolute;z-index:0;}
 
@@ -364,6 +365,14 @@
     .screen-ui-badge-stable{background:rgba(16,185,129,0.15);color:#10B981;}
     .screen-ui-badge-change{background:rgba(245,158,11,0.15);color:#F59E0B;}
 
+    .screen-text{
+      background: rgba(7, 16, 30, 0.6);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 36px;
+      border: 1px solid rgba(34, 211, 238, 0.08);
+    }
     .screen-text h3{font-size:32px;font-weight:800;margin:0 0 16px;letter-spacing:-0.01em;}
     .screen-text p{font-size:16px;color:var(--text-secondary);line-height:1.7;margin:0 0 24px;}
     .screen-text ul{list-style:none;padding:0;margin:0;}
@@ -718,37 +727,19 @@
     <!-- Моё зрение -->
     <div class="screen-block">
       <div class="screen-visual reveal-left">
-        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(34,211,238,0.25),transparent 70%);top:20%;left:20%;"></div>
-        <div class="screen-visual-icon">👁️</div>
-        <div class="screen-ui">
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Правый глаз (OD)</div>
-            <div class="screen-ui-value">SPH <span class="cyan">−2.25</span> &nbsp; CYL <span class="cyan">−0.75</span></div>
-            <div class="screen-ui-mini">AX 180° &middot; PD 32</div>
-            <div class="screen-ui-badge screen-ui-badge-stable">Стабильно</div>
-          </div>
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Левый глаз (OS)</div>
-            <div class="screen-ui-value">SPH <span class="cyan">−1.75</span> &nbsp; CYL <span class="cyan">−0.50</span></div>
-            <div class="screen-ui-mini">AX 175° &middot; PD 31</div>
-            <div class="screen-ui-badge screen-ui-badge-change">Изменение −0.25</div>
-          </div>
-          <div class="vision-timeline">
-            <div class="vision-dot"><div class="vision-dot-circle"></div><div class="vision-dot-label">2024</div></div>
-            <div class="vision-dot"><div class="vision-dot-circle"></div><div class="vision-dot-label">2025</div></div>
-            <div class="vision-dot"><div class="vision-dot-circle active"></div><div class="vision-dot-label">2026</div></div>
-          </div>
-        </div>
+        <img src="assets/screens/screen-vision.jpg" alt="Моё зрение" class="screen-shot">
       </div>
       <div class="screen-text reveal-right">
         <h3>Моё зрение</h3>
-        <p>Вся история параметров зрения, собранная из ваших прошлых заказов, — в наглядном формате. Это не медицинская карта, а удобная сводка данных, которые <span class="brand-font">REFOCUS</span> фиксирует при каждом визите.</p>
+        <p>Вся история параметров зрения, собранная из ваших прошлых заказов, — в наглядном и понятном формате. Это не медицинская карта, а удобная сводка данных, которые <span class="brand-font">REFOCUS</span> фиксирует при каждом вашем визите в оптику.</p>
+        <p>Когда вы приходите снова, специалист сразу видит динамику — изменилось ли зрение, и насколько. А вы сами можете отслеживать это прямо в телефоне, без запросов в регистратуру.</p>
         <ul>
           <li>Параметры по каждому глазу отдельно: SPH, CYL, AX, PD</li>
           <li>Хронология изменений — видно, как менялись показатели от визита к визиту</li>
           <li>Индикаторы стабильности: зелёная метка «Стабильно» или жёлтая «Изменение» с указанием разницы</li>
-          <li>Удобно показать офтальмологу на следующем приёме для полной картины</li>
+          <li>Удобно показать офтальмологу или другому специалисту — вся история уже собрана</li>
           <li>Данные берутся автоматически из оформленных заказов — вводить ничего не нужно</li>
+          <li>Доступно сразу после входа — актуально даже без интернета, если данные загружены</li>
         </ul>
       </div>
     </div>
@@ -756,34 +747,19 @@
     <!-- Мои очки -->
     <div class="screen-block">
       <div class="screen-visual reveal-right">
-        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(14,165,233,0.25),transparent 70%);top:30%;right:20%;"></div>
-        <div class="screen-visual-icon">👓</div>
-        <div class="screen-ui">
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Последний заказ</div>
-            <div class="screen-ui-value">Ray-Ban Aviator</div>
-            <div class="screen-ui-mini">Линзы: Essilor Crizal &middot; 15.01.2026</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:100%"></div></div>
-            <div class="screen-ui-mini" style="color:#10B981;">Готов ✓</div>
-          </div>
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Предыдущий заказ</div>
-            <div class="screen-ui-value">Oakley Holbrook</div>
-            <div class="screen-ui-mini">Линзы: Hoya BlueControl &middot; 08.06.2025</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-green" style="width:100%"></div></div>
-            <div class="screen-ui-mini" style="color:#10B981;">Получен ✓</div>
-          </div>
-        </div>
+        <img src="assets/screens/screen-glasses.jpg" alt="Мои очки" class="screen-shot">
       </div>
       <div class="screen-text reveal-left">
         <h3>Мои очки</h3>
         <p>Полная история ваших покупок в сети <span class="brand-font">REFOCUS</span>. Каждый заказ сохраняется навсегда — оправа, тип линз, дата оформления и параметры зрения на момент покупки.</p>
+        <p>Захотели повторить прошлые очки или уточнить, какие линзы стояли два года назад? Всё есть — открываете архив и смотрите. Никаких звонков, никаких бумажных чеков.</p>
         <ul>
-          <li>Все прошлые заказы в одном списке с датами и деталями</li>
-          <li>Название оправы и тип установленных линз</li>
-          <li>Статус каждого заказа: оформлен, в производстве, готов, получен</li>
-          <li>Удобно при повторном заказе — не нужно вспоминать, что было в прошлый раз</li>
-          <li>Архив пополняется автоматически при каждом новом заказе</li>
+          <li>Все прошлые заказы в одном списке с датами, оправами и линзами</li>
+          <li>Статус каждого заказа в реальном времени: оформлен, в производстве, готов, получен</li>
+          <li>Параметры зрения на момент каждого заказа — удобно для сравнения</li>
+          <li>Повторный заказ упрощён: специалист видит вашу историю сразу при обращении</li>
+          <li>Архив пополняется автоматически — вы ничего не ведёте вручную</li>
+          <li>Работает без звонков в оптику: вся информация доступна в любой момент</li>
         </ul>
       </div>
     </div>
@@ -791,38 +767,19 @@
     <!-- Бонусы -->
     <div class="screen-block">
       <div class="screen-visual reveal-left">
-        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(245,158,11,0.2),transparent 70%);bottom:20%;left:25%;"></div>
-        <div class="screen-visual-icon">⭐</div>
-        <div class="screen-ui">
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Бонусный баланс</div>
-            <div class="screen-ui-value" style="font-size:28px;"><span class="cyan">1 250</span> бонусов</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-amber" style="width:62%"></div></div>
-            <div class="screen-ui-mini">До следующего уровня: 750 бонусов</div>
-          </div>
-          <div class="screen-ui-row">
-            <div class="screen-ui-card" style="text-align:center;">
-              <div class="screen-ui-label">Начислено</div>
-              <div class="screen-ui-value" style="color:#10B981;">+350</div>
-              <div class="screen-ui-mini">за последний заказ</div>
-            </div>
-            <div class="screen-ui-card" style="text-align:center;">
-              <div class="screen-ui-label">Потрачено</div>
-              <div class="screen-ui-value" style="color:#F59E0B;">−200</div>
-              <div class="screen-ui-mini">скидка на оправу</div>
-            </div>
-          </div>
-        </div>
+        <img src="assets/screens/screen-bonuses.jpg" alt="Бонусы" class="screen-shot">
       </div>
       <div class="screen-text reveal-right">
         <h3>Бонусы</h3>
         <p>Прозрачная бонусная система <span class="brand-font">REFOCUS</span>. Вы всегда видите, сколько бонусов накоплено, за что они начислены и как их можно использовать при следующей покупке.</p>
+        <p>Никаких бумажных карточек и «куда-то делись баллы». Всё начисляется автоматически и отображается в приложении — в любой момент знаете, сколько у вас есть и на что хватит.</p>
         <ul>
-          <li>Текущий баланс бонусов на главном экране</li>
-          <li>История начислений и списаний с датами</li>
-          <li>Бонусы начисляются за каждый завершённый заказ</li>
-          <li>Используйте бонусы как скидку на оправу, линзы или аксессуары</li>
-          <li>Мотивация возвращаться — чем больше заказов, тем больше выгода</li>
+          <li>Текущий баланс бонусов — виден сразу при открытии раздела</li>
+          <li>История начислений и списаний с датами и суммами</li>
+          <li>Бонусы начисляются автоматически за каждый завершённый заказ</li>
+          <li>Используйте накопленное как скидку на оправу, линзы или аксессуары</li>
+          <li>Прогресс до следующего уровня — видно, сколько осталось до новых привилегий</li>
+          <li>Бонусы не сгорают — накапливайте в своём темпе</li>
         </ul>
       </div>
     </div>
@@ -830,32 +787,17 @@
     <!-- Прайс-лист -->
     <div class="screen-block">
       <div class="screen-visual reveal-right">
-        <div class="screen-visual-glow" style="background:radial-gradient(circle,rgba(34,211,238,0.2),transparent 70%);top:25%;right:25%;"></div>
-        <div class="screen-visual-icon">💰</div>
-        <div class="screen-ui">
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Однофокальные линзы</div>
-            <div class="screen-ui-value">от <span class="cyan">1 200</span> сом</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:30%"></div></div>
-          </div>
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Прогрессивные линзы</div>
-            <div class="screen-ui-value">от <span class="cyan">6 500</span> сом</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:75%"></div></div>
-          </div>
-          <div class="screen-ui-card">
-            <div class="screen-ui-label">Фотохромные линзы</div>
-            <div class="screen-ui-value">от <span class="cyan">3 800</span> сом</div>
-            <div class="screen-ui-bar"><div class="screen-ui-bar-fill screen-ui-bar-cyan" style="width:50%"></div></div>
-          </div>
-        </div>
+        <img src="assets/screens/screen-prices.jpg" alt="Прайс-лист" class="screen-shot">
       </div>
       <div class="screen-text reveal-left">
         <h3>Прайс-лист</h3>
-        <p>Быстрый доступ к актуальным ценам на линзы прямо в приложении. Ознакомьтесь с категориями и стоимостью до визита в оптику.</p>
+        <p>Актуальные цены на линзы — прямо в вашем телефоне, без необходимости ехать в оптику или звонить. Удобно, когда нужно быстро понять, во сколько обойдётся тот или иной вариант.</p>
+        <p>Перед визитом к нам вы уже знаете примерную стоимость — можно спланировать бюджет и прийти с чётким пониманием, что выбрать. Это экономит и ваше время, и время специалиста.</p>
         <ul>
           <li>Категории линз с ценами: однофокальные, бифокальные, прогрессивные, фотохромные</li>
-          <li>Цены всегда актуальные — обновляются из базы <span class="brand-font">REFOCUS</span></li>
+          <li>Антибликовые и Blue Light-покрытия — отдельный раздел с ценами</li>
+          <li>Цены всегда актуальные — синхронизируются с базой <span class="brand-font">REFOCUS</span></li>
+          <li>Можно ориентироваться ещё до визита — никаких сюрпризов на месте</li>
           <li>Подробный прайс-лист с полным ассортиментом — <a href="index.html#lens-pricing" style="color:var(--brand-accent);text-decoration:underline;">на главной странице</a></li>
         </ul>
       </div>
