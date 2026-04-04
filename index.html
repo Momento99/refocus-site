@@ -2587,6 +2587,78 @@
     @media (max-width: 480px) {
       .stats-grid { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════════════════════════════
+       ГЛОБАЛЬНЫЕ МОБИЛЬНЫЕ УЛУЧШЕНИЯ (≤ 734px)
+       ═══════════════════════════════════════════ */
+    @media (max-width: 734px) {
+      /* Hero */
+      .hero { padding: 76px 18px 28px; min-height: auto; }
+      .hero p { font-size: 17px; margin-bottom: 32px; }
+      .hero-buttons { flex-direction: column; align-items: center; gap: 10px; }
+      .hero-buttons .btn { width: 100%; max-width: 320px; justify-content: center; }
+
+      /* Section containers */
+      .section-container { padding: 40px 18px; }
+
+      /* Quick nav карточки */
+      .quick-nav-card { padding: 16px 10px; gap: 8px; border-radius: 14px; }
+      .quick-nav-title { font-size: 13px; }
+      .quick-nav-sub { font-size: 11px; }
+
+      /* Feature cards */
+      .features-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; padding: 0 18px; }
+      .feature-card { padding: 16px 14px; gap: 8px; border-radius: 16px; }
+
+      /* App section */
+      .app-container { gap: 32px; }
+      .app-visual { order: 1; }
+      .phone-mockup { width: 200px; height: 420px; }
+      .app-info h2 { font-size: 28px; }
+      .app-info > p { font-size: 15px; }
+      .app-store-buttons-main { flex-direction: row; justify-content: center; }
+      .store-btn-main { flex: 1; max-width: 160px; padding: 11px 12px; gap: 8px; }
+      .store-btn-main-name { font-size: 14px; }
+      .store-btn-main-sub { font-size: 9px; }
+      .store-btn-main-icon { width: 22px; height: 22px; }
+      .store-btn-main-icon svg { width: 20px !important; height: 20px !important; }
+
+      /* Steps */
+      .steps-grid { grid-template-columns: repeat(2, 1fr); gap: 32px; }
+      .steps-grid::before { display: none; }
+      .step-number { width: 64px; height: 64px; font-size: 24px; }
+
+      /* Reviews */
+      .reviews-grid { grid-template-columns: 1fr; max-width: 400px; margin-left: auto; margin-right: auto; }
+
+      /* Stats */
+      .stat-number { font-size: 32px; }
+      .stat-label { font-size: 13px; }
+
+      /* Typography */
+      .text-headline { font-size: 34px; }
+      .text-headline-2 { font-size: 26px; }
+      .text-subhead { font-size: 16px; }
+    }
+
+    @media (max-width: 480px) {
+      /* Hero */
+      .hero { padding: 72px 16px 24px; }
+      .hero h1 { font-size: 32px; }
+      .hero p { font-size: 16px; }
+
+      /* Features → 1 колонка на очень узких */
+      .features-grid { grid-template-columns: 1fr; max-width: 340px; margin-left: auto; margin-right: auto; }
+
+      /* Steps → 1 колонка */
+      .steps-grid { grid-template-columns: 1fr; gap: 24px; max-width: 300px; margin-left: auto; margin-right: auto; }
+
+      /* Section padding */
+      .section-container { padding: 32px 16px; }
+
+      /* Quick nav → 1 колонка */
+      .quick-nav-grid { grid-template-columns: repeat(2, 1fr); }
+    }
   </style>
   <section class="stats-section">
     <canvas class="section-wave"></canvas>

@@ -555,6 +555,55 @@
       border: 1px solid rgba(255,255,255,0.1);
     }
     .quick-nav-card:hover { border-color: rgba(34,211,238,0.6); }
+
+    /* ═══════════════════════════════════════════
+       app.html — МОБИЛЬНЫЕ УЛУЧШЕНИЯ (≤ 734px)
+       ═══════════════════════════════════════════ */
+    @media(max-width:734px){
+      /* Feature cards */
+      .app-features{ padding:48px 16px; }
+      .app-features-header p { font-size:15px; }
+      .app-feat-card { padding:24px 20px; border-radius:18px; }
+      .app-feat-card h3 { font-size:17px; }
+      .app-feat-card p { font-size:14px; }
+
+      /* Stages */
+      .app-stages { padding:40px 16px; }
+      .stage-item { padding:20px 16px; gap:20px; border-radius:20px; }
+      .stage-video-wrap { max-width:200px; }
+      .stage-info h3 { font-size:19px; }
+      .stage-info p { font-size:14px; }
+      .stage-info ul li { font-size:13px; }
+
+      /* CTA */
+      .app-cta { padding:48px 16px; }
+      .app-cta p { font-size:15px; }
+      .cta-card { padding:32px 20px; }
+
+      /* Screens section */
+      .app-screens { padding:48px 16px; }
+      .app-screens-header p { font-size:15px; }
+      .screen-block { gap:28px; margin-bottom:48px; }
+      .screen-text { padding:24px 20px; }
+      .screen-text h3 { font-size:22px; }
+      .screen-text p { font-size:14px; }
+      .screen-text ul li { font-size:14px; }
+
+      /* Quick nav */
+      .quick-nav-section { padding:28px 16px; }
+      .quick-nav-grid { gap:10px; }
+      .quick-nav-card { padding:16px 10px; border-radius:14px; }
+      .quick-nav-title { font-size:13px; }
+      .quick-nav-sub { font-size:11px; }
+      .quick-nav-arrow { margin-top:4px; }
+    }
+
+    @media(max-width:480px){
+      .app-features-grid { max-width:100%; }
+      .app-feat-card { padding:20px 16px; }
+      .stage-video-wrap { max-width:160px; }
+      .app-hero-sub { font-size:11px; }
+    }
   </style>
 </head>
 <body>

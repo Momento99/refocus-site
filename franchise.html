@@ -490,6 +490,73 @@
       .partner-dashboard { grid-template-columns: 1fr; }
       .partner-criteria-grid { grid-template-columns: 1fr; }
     }
+
+    /* ═══════════════════════════════════════════
+       franchise.html — МОБИЛЬНЫЕ УЛУЧШЕНИЯ (≤ 734px)
+       ═══════════════════════════════════════════ */
+    @media(max-width:734px){
+      /* Hero — главная проблема: 180px отступ сверху */
+      .hero { padding:82px 18px 56px; min-height:auto; }
+      .hero h1 { font-size:clamp(28px,8vw,44px); margin-bottom:20px; }
+      .hero p.hero-sub { font-size:16px; margin-bottom:28px; }
+      .hero-badge { font-size:12px; padding:8px 16px; margin-bottom:20px; }
+
+      /* Hero stats */
+      .hero-stats { padding:20px 16px; gap:12px; border-radius:20px; margin-bottom:28px; flex-wrap:wrap; }
+      .hero-stat { min-width:calc(50% - 12px); padding:0 12px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:12px; }
+      .hero-stat:nth-child(odd) { border-right:1px solid rgba(255,255,255,0.06); }
+      .hero-stat:nth-last-child(-n+2) { border-bottom:none; padding-bottom:0; }
+      .hero-stat .stat-num { font-size:30px; }
+      .hero-stat .stat-label { font-size:11px; }
+
+      /* Hero buttons */
+      .hero-buttons { flex-direction:column; align-items:center; gap:10px; }
+      .hero-buttons .btn { width:100%; max-width:320px; justify-content:center; padding:14px 24px; font-size:16px; }
+
+      /* Sections */
+      .section-title { font-size:clamp(24px,6vw,34px) !important; }
+      .section-sub { font-size:15px !important; }
+
+      /* About */
+      .about-lead { font-size:16px !important; }
+      .about-grid { gap:24px; }
+
+      /* Feature cards */
+      .feature-card { padding:24px 18px; border-radius:18px; }
+      .feature-card h3 { font-size:17px; }
+      .feature-card p { font-size:13px; }
+
+      /* Format cards */
+      .format-card { padding:28px 20px; border-radius:20px; }
+      .format-title { font-size:20px !important; }
+
+      /* Invest blocks */
+      .invest-block { padding:24px 18px; border-radius:18px; }
+
+      /* Dark cards */
+      .dark-card { padding:24px 18px; }
+      .dark-card h3 { font-size:17px; }
+
+      /* Launch circuit */
+      .launch-circuit { grid-template-columns:repeat(2,1fr); gap:12px; }
+      .launch-step { padding:16px 12px; border-radius:14px; }
+
+      /* Contact form */
+      .contact-grid { gap:24px; }
+      .form-group input,
+      .form-group textarea,
+      .form-group select { font-size:16px; } /* Предотвращает zoom на iOS */
+    }
+
+    @media(max-width:480px){
+      .hero { padding:72px 16px 40px; }
+      .hero-stat { min-width:100%; border-right:none !important; }
+      .hero-stat:nth-last-child(-n+2) { border-bottom:1px solid rgba(255,255,255,0.06); }
+      .hero-stat:last-child { border-bottom:none; }
+      .launch-circuit { grid-template-columns:1fr; }
+      .feature-card { padding:18px 14px; }
+      .format-card { padding:22px 16px; }
+    }
   </style>
 </head>
 <body>
