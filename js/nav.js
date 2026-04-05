@@ -182,6 +182,7 @@
     #globalNav .nav-links .nav-link:nth-child(3) { animation: rfFadeUp .4s ease 0.60s forwards; }
     #globalNav .nav-links .nav-link:nth-child(4) { animation: rfFadeUp .4s ease 0.68s forwards; }
     #globalNav .nav-links .nav-link:nth-child(5) { animation: rfFadeUp .4s ease 0.76s forwards; }
+    #globalNav .nav-links .nav-link:nth-child(6) { animation: rfFadeUp .4s ease 0.84s forwards; }
 
     /* Hover */
     #globalNav .nav-link:hover {
@@ -312,6 +313,7 @@
           '<a href="app.html"            class="nav-link" data-page="app">Приложение</a>' +
           '<a href="franchise.html"      class="nav-link" data-page="franchise">Франшиза</a>' +
           '<a href="delete-account.html" class="nav-link" data-page="delete-account">Удаление аккаунта</a>' +
+          '<a href="verify.html"         class="nav-link" data-page="verify">Проверка сертификата</a>' +
         '</div>' +
         '<button id="rfHamburger" aria-label="Меню">' +
           '<span></span><span></span><span></span>' +
@@ -334,6 +336,9 @@
       '<div class="rf-mm-divider"></div>' +
       '<a href="delete-account.html" class="rf-mm-link" data-page="delete-account">' +
         '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M6 20v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><line x1="17" y1="11" x2="23" y2="11"/></svg></span>Удаление аккаунта' +
+      '</a>' +
+      '<a href="verify.html" class="rf-mm-link" data-page="verify">' +
+        '<span class="rf-mm-icon"><svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><path d="M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z"/></svg></span>Проверка сертификата' +
       '</a>' +
     '</div>';
 
