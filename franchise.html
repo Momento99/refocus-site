@@ -41,9 +41,11 @@
     .hero-bright,.dark-section,.tech-ticker,.global-footer{position:relative;z-index:1;}
     /* Remove per-section solid backgrounds so canvas shows through */
     .dark-section{background:transparent!important;}
-    #partner-mega{background:transparent!important;}
+    #partner-mega,#apply{background:transparent!important;}
 
     #globalCanvas{display:none;}  /* replaced by js/wave-bg.js canvas */
+    /* Dim wave canvas globally — waves are atmospheric, not the star */
+    canvas[style*="position: fixed"],canvas[style*="position:fixed"]{opacity:0.5!important;}
     .brand-font{font-family:"RefocusDisplay",sans-serif;}
 
     /* Навигация управляется через js/nav.js */
@@ -81,6 +83,7 @@
     /* ═══════════════════ DARK BACKGROUND OVERRIDES ═══════════════════ */
     /* Hero is now dark — wave shows through */
     .hero-bright{background:transparent;color:#fff;position:relative;overflow:hidden;}
+    .hero-bright::after{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 80%, rgba(34,211,238,0.06) 0%, #07101e 50%, #07101e 100%);z-index:1;}
     .hero-transition{display:none;}
 
     .dark-section{background:transparent;color:white;position:relative;overflow:hidden;}
@@ -110,7 +113,7 @@
 
     .hero h1{font-size:clamp(46px,7vw,84px);line-height:1.05;font-weight:800;color:#FFFFFF;letter-spacing:-0.03em;margin:0 0 28px;max-width:1000px;position:relative;z-index:10;}
     .hero-highlight{position:relative;display:inline-block;white-space:nowrap;}
-    .hero-highlight::after{content:'';position:absolute;left:-6px;bottom:8px;width:calc(100% + 12px);height:18px;background:linear-gradient(90deg,rgba(34,211,238,0.4),rgba(6,182,212,0.25));z-index:-1;border-radius:4px;animation:highlightGrow 1s cubic-bezier(0.2,0.8,0.2,1) forwards;transform-origin:left;}
+    .hero-highlight::after{content:'';position:absolute;left:-6px;bottom:-4px;width:calc(100% + 12px);height:6px;background:linear-gradient(90deg,rgba(34,211,238,0.6),rgba(6,182,212,0.35));z-index:-1;border-radius:3px;animation:highlightGrow 1s cubic-bezier(0.2,0.8,0.2,1) forwards;transform-origin:left;}
     @keyframes highlightGrow{0%{transform:scaleX(0);}100%{transform:scaleX(1);}}
 
     .hero p.hero-sub{font-size:22px;color:#94A3B8;max-width:800px;margin:0 auto 48px;line-height:1.6;}
@@ -491,6 +494,341 @@
       .partner-criteria-grid { grid-template-columns: 1fr; }
     }
 
+    /* ═══════════════════ FAQ ═══════════════════ */
+    .faq-item {
+      background: rgba(7,16,30,0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.06);
+      border-radius: 16px;
+      overflow: hidden;
+      cursor: pointer;
+      transition: border-color .3s, box-shadow .3s;
+    }
+    .faq-item:hover {
+      border-color: rgba(34,211,238,0.2);
+    }
+    .faq-item.open {
+      border-color: rgba(34,211,238,0.15);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    }
+    .faq-q {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 22px 24px;
+      font-size: 16px;
+      font-weight: 700;
+      color: #E2E8F0;
+      line-height: 1.4;
+    }
+    .faq-icon {
+      font-size: 22px;
+      color: #22D3EE;
+      flex-shrink: 0;
+      transition: transform .3s;
+      width: 28px;
+      text-align: center;
+    }
+    .faq-item.open .faq-icon {
+      transform: rotate(45deg);
+    }
+    .faq-a {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height .35s ease, padding .35s ease;
+      padding: 0 24px;
+      font-size: 15px;
+      color: #94A3B8;
+      line-height: 1.65;
+    }
+    .faq-item.open .faq-a {
+      max-height: 300px;
+      padding: 0 24px 22px;
+    }
+
+    /* ═══════════════════ PORTAL SHOWCASE ═══════════════════ */
+    .portal-hero-frame {
+      position: relative;
+      max-width: 960px;
+      margin: 0 auto 48px;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(34,211,238,0.2);
+      box-shadow: 0 30px 80px rgba(0,0,0,0.5), 0 0 60px rgba(34,211,238,0.08);
+      transition: all .5s var(--ease-spring);
+    }
+    .portal-hero-frame:hover {
+      border-color: rgba(34,211,238,0.4);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 80px rgba(34,211,238,0.12);
+      transform: translateY(-4px);
+    }
+    .portal-browser-bar {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      background: rgba(15,23,42,0.95);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    .portal-browser-dot {
+      width: 10px; height: 10px; border-radius: 50%;
+    }
+    .portal-browser-url {
+      flex: 1;
+      margin-left: 8px;
+      padding: 5px 14px;
+      background: rgba(255,255,255,0.06);
+      border-radius: 8px;
+      font-size: 12px;
+      color: #64748B;
+      font-family: monospace;
+    }
+    .portal-hero-frame img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .portal-stats-row {
+      display: flex;
+      justify-content: center;
+      gap: 32px;
+      flex-wrap: wrap;
+      margin-bottom: 56px;
+    }
+    .portal-stat {
+      text-align: center;
+      padding: 0 16px;
+    }
+    .portal-stat .ps-num {
+      font-size: 36px;
+      font-weight: 800;
+      color: #fff;
+      letter-spacing: -0.03em;
+      line-height: 1;
+    }
+    .portal-stat .ps-num span { color: var(--brand-accent); }
+    .portal-stat .ps-label {
+      font-size: 12px;
+      color: #64748B;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      margin-top: 4px;
+    }
+
+    .portal-features-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+    @media(max-width:700px) { .portal-features-grid { grid-template-columns: 1fr; } }
+
+    .portal-feature-card {
+      background: rgba(7,16,30,0.78);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(255,255,255,0.09);
+      border-radius: 20px;
+      overflow: hidden;
+      transition: all .45s var(--ease-spring);
+      position: relative;
+      cursor: pointer;
+    }
+    .portal-feature-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--brand-accent), transparent);
+      opacity: 0;
+      transition: opacity .4s;
+    }
+    .portal-feature-card:hover {
+      transform: translateY(-8px);
+      border-color: rgba(34,211,238,0.3);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3), 0 0 30px rgba(34,211,238,0.06);
+    }
+    .portal-feature-card:hover::before { opacity: 1; }
+
+    .portal-feature-card .pf-img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      object-position: top left;
+      display: block;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      transition: object-position 1.8s cubic-bezier(0.25,0.1,0.25,1);
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+    }
+    .portal-feature-card:hover .pf-img {
+      object-position: bottom left;
+    }
+    .portal-feature-card .pf-body { padding: 20px 22px; }
+    .portal-feature-card .pf-title {
+      font-size: 17px;
+      font-weight: 800;
+      color: #fff;
+      margin: 0 0 6px;
+      letter-spacing: -0.01em;
+    }
+    .portal-feature-card .pf-desc {
+      font-size: 13px;
+      color: #94A3B8;
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    .portal-more-strip {
+      display: flex;
+      gap: 12px;
+      overflow-x: auto;
+      padding: 8px 0 16px;
+      margin-top: 32px;
+      scrollbar-width: thin;
+      scrollbar-color: rgba(34,211,238,0.2) transparent;
+    }
+    .portal-more-strip::-webkit-scrollbar { height: 4px; }
+    .portal-more-strip::-webkit-scrollbar-track { background: transparent; }
+    .portal-more-strip::-webkit-scrollbar-thumb { background: rgba(34,211,238,0.2); border-radius: 4px; }
+
+    .portal-mini-card {
+      flex: 0 0 200px;
+      background: rgba(7,16,30,0.75);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: 14px;
+      overflow: hidden;
+      transition: all .35s var(--ease-spring);
+    }
+    .portal-mini-card:hover {
+      border-color: rgba(34,211,238,0.3);
+      transform: translateY(-4px);
+    }
+    .portal-mini-card img {
+      width: 100%;
+      aspect-ratio: 16/9;
+      object-fit: cover;
+      object-position: top left;
+      display: block;
+      image-rendering: -webkit-optimize-contrast;
+      image-rendering: crisp-edges;
+      transition: object-position 1.5s cubic-bezier(0.25,0.1,0.25,1);
+    }
+    .portal-mini-card:hover img {
+      object-position: bottom left;
+    }
+    .portal-mini-card .pm-label {
+      padding: 10px 14px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #E2E8F0;
+    }
+
+    .portal-cta-box {
+      margin-top: 48px;
+      text-align: center;
+      padding: 32px;
+      background: linear-gradient(135deg, rgba(34,211,238,0.06), rgba(6,182,212,0.02));
+      border: 1px solid rgba(34,211,238,0.15);
+      border-radius: 20px;
+    }
+    .portal-cta-box p {
+      font-size: 16px;
+      color: #CBD5E1;
+      max-width: 680px;
+      margin: 0 auto 24px;
+      line-height: 1.65;
+    }
+
+    /* Zoom hint on cards */
+    .portal-feature-card .pf-img-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .portal-feature-card .pf-zoom {
+      position: absolute;
+      top: 12px; right: 12px;
+      width: 36px; height: 36px;
+      background: rgba(7,16,30,0.8);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(34,211,238,0.3);
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: scale(0.8);
+      transition: all .3s var(--ease-spring);
+      pointer-events: none;
+    }
+    .portal-feature-card:hover .pf-zoom {
+      opacity: 1;
+      transform: scale(1);
+    }
+    .portal-mini-card { cursor: pointer; }
+
+    /* Lightbox */
+    .portal-lightbox {
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      z-index: 9999;
+      background: rgba(2,6,14,0.88);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .3s ease;
+    }
+    .portal-lightbox.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .portal-lightbox img {
+      max-width: 100%;
+      max-height: 90vh;
+      border-radius: 16px;
+      border: 1px solid rgba(34,211,238,0.2);
+      box-shadow: 0 40px 100px rgba(0,0,0,0.6), 0 0 60px rgba(34,211,238,0.06);
+    }
+    .portal-lightbox .lb-close {
+      position: absolute;
+      top: 20px; right: 24px;
+      width: 44px; height: 44px;
+      background: rgba(255,255,255,0.1);
+      border: none;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      color: #94A3B8;
+      font-size: 22px;
+      transition: color .2s, background .2s;
+    }
+    .portal-lightbox .lb-close:hover {
+      background: rgba(255,255,255,0.2);
+      color: #fff;
+    }
+    .portal-lightbox .lb-caption {
+      position: absolute;
+      bottom: 24px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 15px;
+      font-weight: 700;
+      color: #E2E8F0;
+      background: rgba(15,23,42,0.9);
+      padding: 10px 24px;
+      border-radius: 12px;
+    }
+
     /* ═══════════════════════════════════════════
        franchise.html — МОБИЛЬНЫЕ УЛУЧШЕНИЯ (≤ 734px)
        ═══════════════════════════════════════════ */
@@ -537,9 +875,23 @@
       .dark-card { padding:24px 18px; }
       .dark-card h3 { font-size:17px; }
 
+      /* Scenarios 4-col → 2-col on mobile */
+      .scenarios-row { grid-template-columns: repeat(2,1fr) !important; }
+
+      /* Comparison → stack on mobile */
+      #why-optics + .dark-section .section-container > div:last-child { grid-template-columns:1fr !important; }
+
       /* Launch circuit */
       .launch-circuit { grid-template-columns:repeat(2,1fr); gap:12px; }
       .launch-step { padding:16px 12px; border-radius:14px; }
+
+      /* Portal */
+      .portal-stats-row { gap:16px; }
+      .portal-stat .ps-num { font-size:26px; }
+      .portal-hero-frame { border-radius:12px; }
+      .portal-feature-card .pf-body { padding:14px 16px; }
+      .portal-feature-card .pf-title { font-size:15px; }
+      .portal-feature-card .pf-desc { font-size:12px; }
 
       /* Contact form */
       .contact-grid { gap:24px; }
@@ -581,43 +933,33 @@
     </div>
 
     <div style="position:relative;z-index:2;width:100%;max-width:920px;margin:0 auto;">
-      <div class="hero-badge reveal"><span class="badge-dot"></span> Франшиза Refocus</div>
-      <h1 class="reveal" style="transition-delay:0.08s;">
-        Технологичная сеть оптик с <span class="hero-highlight gradient-text">собственной CRM</span> и AI-контролем качества
+      <h1 class="reveal" style="transition-delay:0.06s;">
+        Первая в мире оптика<br>с <span class="hero-highlight" style="color:#fff;">ИИ</span> и собственной <span class="hero-highlight" style="color:#fff;">CRM</span>
       </h1>
-      <p class="hero-sub reveal" style="transition-delay:0.16s;">
-        Открывайте оптику по готовой системе: бренд, запуск, поставщики, обучение, цифровая инфраструктура и стандарты работы — в одном решении.
-      </p>
 
-      <!-- Animated Stats Bar -->
-      <div class="hero-stats reveal-scale" style="transition-delay:0.22s;">
-        <div class="hero-stat">
-          <div class="stat-num"><span data-count="5">0</span></div>
-          <div class="stat-label">Магазинов</div>
-        </div>
-        <div class="hero-stat">
-          <div class="stat-num"><span data-count="3">0</span></div>
-          <div class="stat-label">Года на рынке</div>
-        </div>
-        <div class="hero-stat">
-          <div class="stat-num"><span data-count="1">0</span></div>
-          <div class="stat-label">CRM-система</div>
-        </div>
-        <div class="hero-stat">
-          <div class="stat-num"><span data-count="24">0</span>/7</div>
-          <div class="stat-label">Поддержка</div>
+      <div class="reveal" style="transition-delay:0.14s;margin-top:8px;margin-bottom:48px;max-width:820px;margin-left:auto;margin-right:auto;">
+        <div style="display:inline-block;padding:18px 40px;background:rgba(7,16,30,0.65);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(34,211,238,0.18);border-radius:18px;">
+          <span style="font-size:24px;font-weight:700;color:#E2E8F0;">Откройте свою точку под ключ.</span>
+          <span style="font-size:24px;font-weight:800;color:#22D3EE;"> Прибыль от $2 300/мес</span>
         </div>
       </div>
 
-      <div class="hero-facts reveal" style="transition-delay:0.28s;">
-        <div class="hero-fact"><span class="fact-dot"></span>Собственная CRM и кассовая система</div>
-        <div class="hero-fact"><span class="fact-dot"></span>Сайт, Android-приложение, прайс-листы</div>
-        <div class="hero-fact"><span class="fact-dot"></span>AI-контроль качества через аудиоанализ</div>
+      <div class="reveal" style="transition-delay:0.22s;display:flex;justify-content:center;gap:24px;flex-wrap:wrap;margin-bottom:52px;">
+        <span style="font-size:15px;font-weight:600;color:#CBD5E1;letter-spacing:0.01em;">ИИ-контроль качества</span>
+        <span style="color:rgba(34,211,238,0.3);">|</span>
+        <span style="font-size:15px;font-weight:600;color:#CBD5E1;">Тач-экраны</span>
+        <span style="color:rgba(34,211,238,0.3);">|</span>
+        <span style="font-size:15px;font-weight:600;color:#CBD5E1;">CRM и POS</span>
+        <span style="color:rgba(34,211,238,0.3);">|</span>
+        <span style="font-size:15px;font-weight:600;color:#CBD5E1;">Мобильное приложение</span>
       </div>
 
-      <div class="hero-buttons reveal" style="transition-delay:0.34s;">
-        <a href="#apply" class="btn btn-primary btn-pulse">Оставить заявку</a>
-        <a href="#formats" class="btn btn-secondary">Форматы франшизы</a>
+      <div class="hero-buttons reveal" style="transition-delay:0.30s;margin-bottom:32px;">
+        <a href="javascript:void(0)" onclick="document.getElementById('applyModal').style.display='flex'" class="btn btn-primary btn-pulse" style="font-size:19px;padding:22px 60px;border-radius:999px;box-shadow:0 6px 24px rgba(34,211,238,0.4),0 0 60px rgba(34,211,238,0.12);letter-spacing:0.02em;">Оставить заявку</a>
+      </div>
+
+      <div class="reveal" style="transition-delay:0.36s;">
+        <span style="font-size:13px;font-weight:500;color:#64748B;">Набор партнёров закрыт — открытие 1 июня</span>
       </div>
     </div>
   </header>
@@ -629,358 +971,627 @@
     </div>
   </div>
 
-  <!-- ═══ 2. ECOSYSTEM MEGA BLOCK ═══ -->
-  <section id="ecosystem" class="dark-section" style="padding-top:40px; padding-bottom:80px;">
-    <div class="grid-pattern"></div>
-    <div class="data-pipeline-container" style="opacity:0.2;"><div class="data-pipeline"></div><div class="data-pipeline"></div><div class="data-pipeline"></div><div class="data-pipeline"></div></div>
-    
-    <div class="section-container" style="max-width:1200px;">
+  <!-- ═══ 2. WHY OPTICS ═══ -->
+  <section id="why-optics" class="dark-section" style="padding-top:40px; padding-bottom:80px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.03) 0%, #07101e 40%);z-index:0;"></div>
+    <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
       <div class="section-header reveal">
-        <div class="section-tag">Экосистема Refocus</div>
-        <h2 class="section-title">Операционная система<br>вашей <span class="gradient-text">оптики</span></h2>
-        <p class="section-sub">Мы объединили розницу, медицину и технологии в единый работающий механизм. Вы получаете не просто вывеску, а готовую бизнес-модель.</p>
+        <div class="section-tag">Рынок</div>
+        <h2 class="section-title">Почему оптика — <span class="gradient-text">лучший бизнес</span></h2>
+        <p class="section-sub">Пока все открывают кофейни и барбершопы — умные инвесторы выбирают медицинский ритейл с высоким чеком и нулевой сезонностью.</p>
       </div>
-      
-      <div class="ecosystem-container reveal-scale">
-        <div class="eco-orbit eco-orbit-1"></div>
-        <div class="eco-orbit eco-orbit-2"></div>
-        <div class="eco-orbit eco-orbit-3"></div>
-        
-        <div class="eco-core">
-          <h3>Refocus OS</h3>
-          <p>Ядро системы</p>
+
+      <div class="features-grid" style="grid-template-columns:repeat(3,1fr);gap:20px;" class="reveal">
+
+        <!-- 1. Антикризисный -->
+        <div class="feature-card reveal" style="position:relative;overflow:hidden;">
+          <div style="position:absolute;top:16px;right:16px;display:flex;gap:4px;opacity:0.15;">
+            <div style="width:3px;height:20px;background:#10b981;border-radius:2px;"></div>
+            <div style="width:3px;height:28px;background:#10b981;border-radius:2px;"></div>
+            <div style="width:3px;height:16px;background:#10b981;border-radius:2px;"></div>
+            <div style="width:3px;height:32px;background:#10b981;border-radius:2px;"></div>
+            <div style="width:3px;height:22px;background:#10b981;border-radius:2px;"></div>
+            <div style="width:3px;height:30px;background:#10b981;border-radius:2px;"></div>
+          </div>
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 18px rgba(16,185,129,0.38);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Антикризисный спрос</h3>
+          <p>Люди всегда будут видеть плохо. Зрение не зависит от экономики, моды или сезона. Очки — это базовая потребность, а не прихоть.</p>
         </div>
-        
-        <div class="eco-node node-tl active">
-          <h4><div class="node-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 7l10 5 10-5-10-5z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 17l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M2 12l10 5 10-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" opacity="0.4"/></svg></div>Автоматизация</h4>
-          <p>Собственные CRM и POS системы интеграции. Учет пациентов, остатков, чеков и расписание врачей.</p>
+
+        <!-- 2. Средний чек -->
+        <div class="feature-card reveal" style="transition-delay:.06s;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(34,211,238,0.08),transparent 70%);"></div>
+          <div style="font-size:46px;font-weight:800;color:#22D3EE;letter-spacing:-0.03em;line-height:1;margin-bottom:4px;">$36</div>
+          <div style="font-size:12px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:18px;">средний чек</div>
+          <h3>Высокий чек</h3>
+          <p>В 15 раз выше, чем в кофейне. Один клиент — одна продажа, которая может окупить целый рабочий день точки.</p>
         </div>
-        
-        <div class="eco-node node-tr active" style="transition-delay:0.1s;">
-          <h4><div class="node-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z" stroke="currentColor" stroke-width="2"/><path d="M19 10v2a7 7 0 0 1-14 0v-2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>AI-Контроль качества</h4>
-          <p>Аудио-бейджи на сотрудниках. Нейросеть распознает речь и оценивает соблюдение скриптов стандартов продаж.</p>
+
+        <!-- 3. Конкуренция -->
+        <div class="feature-card reveal" style="transition-delay:.12s;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(255,255,255,0.04),transparent 70%);"></div>
+          <div style="font-size:46px;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1;margin-bottom:4px;">×10</div>
+          <div style="font-size:12px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:18px;">меньше конкурентов</div>
+          <h3>Свободный рынок</h3>
+          <p>В среднем городе 200+ кофеен и 3–5 оптик. Вы входите на рынок, где почти нет борьбы за клиента.</p>
         </div>
-        
-        <div class="eco-node node-bl active" style="transition-delay:0.2s;">
-          <h4><div class="node-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="2" y="7" width="20" height="14" rx="2" stroke="currentColor" stroke-width="2"/><path d="M16 7V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v2" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></div>Центральные поставки</h4>
-          <p>Лучшие цены от проверенных поставщиков. Оправы, линзы, расходники и брендированная упаковка.</p>
+
+        <!-- 4. Растущий рынок -->
+        <div class="feature-card reveal" style="transition-delay:.06s;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:16px;right:16px;opacity:0.12;">
+            <svg width="60" height="36" viewBox="0 0 60 36" fill="none"><path d="M2 34 L12 24 L22 28 L32 14 L42 18 L52 6 L58 2" stroke="#22D3EE" stroke-width="2" stroke-linecap="round" fill="none"/><path d="M2 34 L12 24 L22 28 L32 14 L42 18 L52 6 L58 2 L58 36 L2 36Z" fill="url(#wg)"/><defs><linearGradient id="wg" x1="30" y1="2" x2="30" y2="36"><stop offset="0%" stop-color="#22D3EE" stop-opacity="0.3"/><stop offset="100%" stop-color="#22D3EE" stop-opacity="0"/></linearGradient></defs></svg>
+          </div>
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#06B6D4);box-shadow:0 6px 18px rgba(34,211,238,0.38);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M23 6l-9.5 9.5-5-5L1 18" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M17 6h6v6" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h3>Растущий рынок</h3>
+          <p>Экраны, гаджеты, старение населения — каждый год всё больше людей нуждаются в коррекции зрения. Рынок растёт на 5–7% ежегодно.</p>
         </div>
-        
-        <div class="eco-node node-br active" style="transition-delay:0.3s;">
-          <h4><div class="node-icon"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="10" stroke="currentColor" stroke-width="2"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" stroke="currentColor" stroke-width="2"/><path d="M2 12h20" stroke="currentColor" stroke-width="2"/></svg></div>Маркетинг & Бренд</h4>
-          <p>Мобильное приложение, программа лояльности, дизайн-код сети и мощные федеральные рекламные кампании.</p>
+
+        <!-- 5. Повторные визиты -->
+        <div class="feature-card reveal" style="transition-delay:.12s;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;right:0;width:80px;height:80px;background:radial-gradient(circle at top right,rgba(245,158,11,0.06),transparent 70%);"></div>
+          <div style="font-size:46px;font-weight:800;color:#f59e0b;letter-spacing:-0.03em;line-height:1;margin-bottom:4px;">1–2</div>
+          <div style="font-size:12px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-bottom:18px;">года — и клиент вернётся</div>
+          <h3>Повторные визиты</h3>
+          <p>Зрение меняется. Клиент возвращается за новыми очками или проверкой. Вы строите базу постоянных клиентов, а не гонитесь за новыми.</p>
         </div>
+
+        <!-- 6. Медицина + Ритейл -->
+        <div class="feature-card reveal" style="transition-delay:.18s;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:16px;right:16px;opacity:0.1;">
+            <svg width="40" height="40" viewBox="0 0 40 40" fill="none"><path d="M20 4v32M4 20h32" stroke="#a78bfa" stroke-width="3" stroke-linecap="round"/><circle cx="20" cy="20" r="18" stroke="#a78bfa" stroke-width="1" stroke-dasharray="4 4"/></svg>
+          </div>
+          <div style="width:52px;height:52px;border-radius:50%;background:linear-gradient(135deg,#a78bfa,#8b5cf6);box-shadow:0 6px 18px rgba(167,139,250,0.38);display:flex;align-items:center;justify-content:center;margin-bottom:18px;">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M12 4v16M4 12h16" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/></svg>
+          </div>
+          <h3>Медицина + Ритейл</h3>
+          <p>Вы не просто продаёте товар — вы оказываете медицинскую услугу. Это повышает доверие, средний чек и лояльность клиентов.</p>
+        </div>
+
+      </div>
+
+      <!-- Bottom accent bar — full width -->
+      <div class="reveal" style="margin-top:40px;padding:24px 32px;background:rgba(34,211,238,0.04);border:1px solid rgba(34,211,238,0.15);border-radius:20px;text-align:center;">
+        <span style="font-size:18px;font-weight:600;color:#94A3B8;">И в этом рынке Refocus — </span>
+        <span style="font-size:18px;font-weight:700;color:#22D3EE;">единственная сеть с ИИ, собственной CRM и полной автоматизацией</span>
       </div>
     </div>
   </section>
 
-  <div class="section-divider"></div>
-
-  <!-- ═══ BENTO: TECH INFRASTRUCTURE ═══ -->
-  <section class="dark-section">
-    <div class="grid-pattern"></div>
-    <div class="data-pipeline-container" style="opacity:0.1;"><div class="data-pipeline"></div><div class="data-pipeline"></div><div class="data-pipeline"></div></div>
-    <div class="section-container">
-      <div class="section-header reveal">
-        <div class="section-tag">Технологии</div>
-        <h2 class="section-title">Работающая <span class="gradient-text">инфраструктура</span></h2>
-        <p class="section-sub">Не стартап-идея — живая система с реальными данными уже сегодня.</p>
+  <!-- ═══ 3. COMPARISON: САМИ vs REFOCUS ═══ -->
+  <section class="dark-section" style="padding-top:40px;padding-bottom:80px;position:relative;">
+    <!-- Top fade in -->
+    <div style="position:absolute;top:0;left:0;right:0;height:120px;background:linear-gradient(to top,#07101e 0%,transparent 100%);z-index:0;"></div>
+    <div style="position:absolute;top:120px;left:15%;right:15%;bottom:120px;background:#07101e;z-index:0;"></div>
+    <div style="position:absolute;top:0;left:0;width:15%;bottom:0;background:linear-gradient(to right,transparent 0%,#07101e 100%);z-index:0;"></div>
+    <div style="position:absolute;top:0;right:0;width:15%;bottom:0;background:linear-gradient(to left,transparent 0%,#07101e 100%);z-index:0;"></div>
+    <!-- Smooth fade out at bottom -->
+    <div style="position:absolute;bottom:0;left:0;right:0;height:120px;background:linear-gradient(to bottom,#07101e 0%,transparent 100%);z-index:0;"></div>
+    <div class="section-divider" style="margin-bottom:60px;position:relative;z-index:1;"></div>
+    <div class="section-container" style="max-width:1100px;position:relative;z-index:1;">
+      <div class="section-header reveal" style="margin-bottom:48px;">
+        <div class="section-tag">Зачем франшиза</div>
+        <h2 class="section-title" style="font-size:clamp(36px,5vw,56px);">Открыть самому <span style="color:#475569;">или</span> с <span class="brand-font gradient-text" style="letter-spacing:0.08em;">REFOCUS</span>?</h2>
+        <p class="section-sub">Можно разбираться во всём с нуля. А можно получить работающую систему и сразу начать зарабатывать.</p>
       </div>
-      <div class="bento-grid">
-        <!-- CRM big card -->
-        <div class="bento-card bento-a reveal-left">
-          <div class="bento-label">CRM-система</div>
-          <div class="bento-title">Клиентская база и продажи</div>
-          <div class="bento-sub">Единая база клиентов, история заказов, автоматические уведомления и сквозная аналитика по всем точкам сети.</div>
-          <div class="mini-bars">
-            <div class="mini-bar"></div><div class="mini-bar"></div><div class="mini-bar"></div>
-            <div class="mini-bar"></div><div class="mini-bar"></div><div class="mini-bar"></div>
-            <div class="mini-bar"></div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px;position:relative;z-index:1;" class="reveal-scale">
+
+        <!-- Левый столбец: Самостоятельно -->
+        <div style="background:rgba(239,68,68,0.04);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(239,68,68,0.15);border-radius:24px;padding:36px 32px;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#ef4444,#f87171);"></div>
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#f87171;margin-bottom:10px;">Открыть самому</div>
+          <div style="font-size:28px;font-weight:800;color:#fff;margin-bottom:28px;line-height:1.2;">Своя оптика с нуля</div>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Искать поставщиков оправ и линз самостоятельно — месяцы переговоров</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Заказать разработку CRM — от $10 000 и 6+ месяцев</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Нанять дизайнера, придумать бренд, вывеску, интерьер</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Разбираться в диагностике зрения и стандартах обслуживания</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Писать кассовую систему или платить за чужую ежемесячно</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Обучать персонал на ходу, учиться на своих ошибках</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Контролировать качество на слух и интуиции</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#ef4444;font-size:18px;line-height:1.4;flex-shrink:0;">✕</span><span style="color:#94A3B8;font-size:14px;line-height:1.55;">Мобильное приложение? Тач-экраны? Портал? — Забудьте</span></div>
           </div>
-          <div style="display:flex;gap:28px;margin-top:18px;">
-            <div><div class="bento-num"><span data-count="5">0</span></div><div class="bento-unit">Точек в сети</div></div>
-            <div><div class="bento-num"><span data-count="3">0</span></div><div class="bento-unit">Года работы</div></div>
-          </div>
-        </div>
-        <!-- AI card -->
-        <div class="bento-card bento-b reveal-right">
-          <div class="scan-line"></div>
-          <div class="live-badge"><span class="live-dot"></span>Live monitoring</div>
-          <div class="bento-label">AI-контроль</div>
-          <div class="bento-title">Качество обслуживания</div>
-          <div class="bento-sub">Каждый диалог с клиентом анализируется в реальном времени.</div>
-          <div class="ai-wave">
-            <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-          </div>
-          <div class="status-row"><span class="status-name">Аудиозапись</span><span class="status-val"><span class="status-dot"></span>Активно</span></div>
-          <div class="status-row"><span class="status-name">AI-анализ диалогов</span><span class="status-val"><span class="status-dot"></span>Работает</span></div>
-        </div>
-        <!-- POS card -->
-        <div class="bento-card bento-c reveal">
-          <div class="bento-label">POS-система</div>
-          <div class="bento-title">Кассы и чеки</div>
-          <div class="bento-num"><span data-count="24">0</span><span style="color:#64748B;font-size:26px;font-weight:600;">/7</span></div>
-          <div class="bento-unit">Режим работы</div>
-          <div class="bento-sub" style="margin-top:10px;">Фискальные чеки, отчёты, синхронизация с CRM в реальном времени.</div>
-        </div>
-        <!-- App card -->
-        <div class="bento-card bento-d reveal" style="transition-delay:0.08s;">
-          <div class="bento-label">Приложение</div>
-          <div class="bento-title">Android app</div>
-          <div class="bento-sub">Бонусы, история заказов и уведомления — прямо в смартфоне клиента.</div>
-          <div class="bento-tags">
-            <span class="bento-tag">Бонусы</span>
-            <span class="bento-tag">Заказы</span>
-            <span class="bento-tag">Аналитика</span>
+
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(239,68,68,0.1);">
+            <div style="font-size:13px;color:#64748B;">Итого вложений</div>
+            <div style="font-size:28px;font-weight:800;color:#f87171;">от 5 000 000 сом</div>
+            <div style="font-size:13px;color:#475569;margin-top:4px;">12–18 месяцев до запуска · без гарантий</div>
           </div>
         </div>
-        <!-- Supplies card -->
-        <div class="bento-card bento-e reveal" style="transition-delay:0.16s;">
-          <div class="bento-label">Поставки</div>
-          <div class="bento-title">Снабжение сети</div>
-          <div class="status-row"><span class="status-name">Оправы</span><span class="status-val"><span class="status-dot"></span>Партнёры</span></div>
-          <div class="status-row"><span class="status-name">Линзы</span><span class="status-val"><span class="status-dot"></span>Оптовые</span></div>
-          <div class="status-row"><span class="status-name">Расходники</span><span class="status-val"><span class="status-dot"></span>Стандарт</span></div>
+
+        <!-- Правый столбец: С Refocus -->
+        <div style="background:rgba(34,211,238,0.05);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.2);border-radius:24px;padding:36px 32px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(34,211,238,0.06);">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#22D3EE,#06B6D4);"></div>
+          <div style="font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#22D3EE;margin-bottom:10px;">С <span class="brand-font" style="letter-spacing:0.12em;">REFOCUS</span></div>
+          <div style="font-size:28px;font-weight:800;color:#fff;margin-bottom:28px;line-height:1.2;">Готовая оптика под ключ</div>
+
+          <div style="display:flex;flex-direction:column;gap:14px;">
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Проверенные поставщики оправ и линз по оптовым ценам — сразу</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Собственная CRM с 850+ клиентами и аналитикой — бесплатно</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Готовый бренд, дизайн-проект и стандарты интерьера</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Полное обучение: диагностика, продажи, управление — по стандартам</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">POS-касса на каждом терминале — своя, без абонплаты</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Пошаговый план запуска за 150 дней с контролем из HQ</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">ИИ-контроль качества — нейросеть проверяет каждый диалог</span></div>
+            <div style="display:flex;align-items:flex-start;gap:12px;"><span style="color:#22D3EE;font-size:18px;line-height:1.4;flex-shrink:0;">✓</span><span style="color:#E2E8F0;font-size:14px;line-height:1.55;">Портал управления, мобильное приложение и тач-экраны — всё включено</span></div>
+          </div>
+
+          <div style="margin-top:28px;padding-top:20px;border-top:1px solid rgba(34,211,238,0.12);">
+            <div style="font-size:13px;color:#64748B;">Итого вложений</div>
+            <div style="font-size:28px;font-weight:800;color:#22D3EE;">~2 500 000 сом</div>
+            <div style="font-size:13px;color:#94A3B8;margin-top:4px;">5 месяцев до запуска · прибыль с первого месяца</div>
+          </div>
         </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══ 3. FINANCE MEGA BLOCK (Форматы, Инвестиции, Экономика) ═══ -->
-  <section id="finance-mega" class="dark-section" style="padding-top:40px; padding-bottom:80px;">
-    <div class="section-divider" style="margin-bottom:60px;"></div>
-    <div class="grid-pattern"></div>
-    <div class="data-pipeline-container" style="opacity:0.15;"><div class="data-pipeline"></div><div class="data-pipeline"></div><div class="data-pipeline"></div><div class="data-pipeline"></div></div>
-    
-    <div class="section-container" style="max-width:1200px;">
+  <!-- ═══ 4. DIGITAL ECOSYSTEM ═══ -->
+  <section id="ecosystem" class="dark-section" style="padding-top:60px; padding-bottom:80px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 30%,rgba(34,211,238,0.04) 0%,#07101e 45%);z-index:0;"></div>
+
+    <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
       <div class="section-header reveal">
-        <div class="section-tag">Финансовая модель</div>
-        <h2 class="section-title">Вся экономика <span class="gradient-text">на одном экране</span></h2>
-        <p class="section-sub">Прозрачные инвестиции, роялти и прогнозируемая окупаемость. Выберите формат под ваш город без лишних таблиц.</p>
+        <div class="section-tag">Экосистема</div>
+        <h2 class="section-title">Цифровая инфраструктура <span class="gradient-text">Refocus</span></h2>
+        <p class="section-sub">Четыре собственных продукта, которые работают вместе. Вы получаете всё — без абонплаты и сторонних сервисов.</p>
       </div>
-      
-      <div class="finance-dashboard">
-        <!-- ROW 1 -->
-        <div class="dash-panel panel-formats reveal-left">
-           <div class="panel-head"><h3>Форматы & Инвестиции</h3></div>
-           
-           <div class="formats-tabs">
-             <div class="f-tab"><span class="ft-name">Compact</span><span class="ft-desc">от 25 кв.м (Базовый)</span></div>
-             <div class="f-tab active"><span class="ft-name">Standard</span><span class="ft-desc">от 30 кв.м (Основные города)</span></div>
-             <div class="f-tab"><span class="ft-name">Flagship</span><span class="ft-desc">от 40 кв.м (Премиум)</span></div>
-           </div>
-           
-           <div class="invest-summary">
-             <div class="inv-col">
-               <div class="inv-label">Стартовый товар (оправы/линзы)</div>
-               <div class="inv-val">от $4 000 до $6 000</div>
-             </div>
-             <div class="inv-col">
-               <div class="inv-label">Ремонт и Мебель</div>
-               <div class="inv-val">~$4 000</div>
-             </div>
-             <div class="inv-col">
-               <div class="inv-label">Полный комплект оборудования</div>
-               <div class="inv-val">~$7 900</div>
-             </div>
-           </div>
-        </div>
-        
-        <div class="dash-panel panel-fees reveal-right">
-           <div class="panel-head"><h3>Ежемесячная инфраструктура</h3></div>
-           <div class="fees-list">
-             <div class="fee-item">
-               <div class="dc-label">Роялти</div><div class="dc-value">Обсуждается</div>
-             </div>
-             <div class="fee-item">
-               <div class="dc-label"><span class="status-dot" style="display:inline-block;width:6px;height:6px;border-radius:50%;background:#22D3EE;box-shadow:0 0 6px rgba(34,211,238,0.6);animation:livePulse 2s ease-in-out infinite;"></span> CRM / Tech fee</div><div class="dc-value">Уточняется</div>
-             </div>
-             <div class="fee-item">
-               <div class="dc-label">Маркетинговый сбор</div><div class="dc-value">Уточняется</div>
-             </div>
-           </div>
-           <div class="franchise-fee-box">
-             <h4 style="color:#22D3EE; font-size:14px; margin-bottom:6px; font-weight:700; text-transform:uppercase; letter-spacing:0.05em;">Входной Franchise Fee покрывает:</h4>
-             <div class="ff-tags">
-               <span class="ff-tag">Бренд Refocus</span><span class="ff-tag">Подключение OS</span><span class="ff-tag">Снабжение</span><span class="ff-tag">Дизайн-проект</span><span class="ff-tag">Обучение</span><span class="ff-tag">Запуск</span>
-             </div>
-           </div>
-        </div>
-        
-        <!-- ROW 2 -->
-        <div class="dash-panel panel-scenarios reveal-scale" style="grid-column: 1 / -1;">
-          <div class="panel-head" style="display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:8px;">
-            <h3 style="margin:0;">Прогноз экономики</h3>
-            <span style="font-size:11px; background:rgba(34,211,238,0.08); color:#64748B; padding:4px 10px; border-radius:12px; border:1px solid rgba(255,255,255,0.08);">Примерные данные · уточняются под ваш город</span>
+
+      <!-- 4 product icons -->
+      <div class="reveal" style="display:flex;justify-content:center;gap:40px;margin-bottom:56px;flex-wrap:wrap;">
+        <a href="#eco-portal" style="text-decoration:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#22D3EE,#06B6D4);box-shadow:0 6px 20px rgba(34,211,238,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="3" width="20" height="14" rx="2" stroke="#fff" stroke-width="2"/><path d="M8 21h8M12 17v4" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
           </div>
-          <div class="scenarios-row" style="display:grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 16px; margin-top:20px;">
-             <!-- Sc1 -->
-             <div class="sc-mini-card">
-               <div class="sc-title" style="color:#94A3B8;">Консервативная модель</div>
-               <div class="sc-mini-row" style="margin-top:12px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Заказов в день:</span> <b style="color:#E2E8F0;">3</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Средний чек:</span> <b style="color:#E2E8F0;">~$55</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Выручка / мес:</span> <b style="color:#E2E8F0;">~$4 300</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;"><span style="color:#94A3B8;">Прибыль / мес:</span> <b style="color:#94A3B8;">~$800</b></div>
-             </div>
-             <!-- Sc2 -->
-             <div class="sc-mini-card featured-sc" style="background:rgba(255,255,255,0.04); border:1px solid rgba(34,211,238,0.3); padding:16px; border-radius:12px; position:relative; overflow:hidden;">
-               <div class="scan-line" style="animation:scan 3s linear infinite;"></div>
-               <div class="sc-title" style="color:#fff;font-weight:700;">Базовая модель</div>
-               <div class="sc-mini-row" style="margin-top:12px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Заказов в день:</span> <b style="color:#E2E8F0;">6</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Средний чек:</span> <b style="color:#E2E8F0;">~$60</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Выручка / мес:</span> <b style="color:#E2E8F0;">~$9 360</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;"><span style="color:#94A3B8;">Прибыль / мес:</span> <b style="color:#22D3EE;">~$2 500</b></div>
-               <div class="ai-wave" style="opacity:0.6; margin-top:16px; justify-content:center;">
-                 <div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div><div class="wave-bar"></div>
-               </div>
-             </div>
-             <!-- Sc3 -->
-             <div class="sc-mini-card">
-               <div class="sc-title" style="color:#22D3EE;">Сильная модель (Flagship)</div>
-               <div class="sc-mini-row" style="margin-top:12px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Заказов в день:</span> <b style="color:#E2E8F0;">15</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Средний чек:</span> <b style="color:#E2E8F0;">~$65</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;border-bottom:1px solid rgba(255,255,255,0.05);padding-bottom:6px;"><span style="color:#94A3B8;">Выручка / мес:</span> <b style="color:#E2E8F0;">~$25 350</b></div>
-               <div class="sc-mini-row" style="margin-top:6px;display:flex;justify-content:space-between;"><span style="color:#94A3B8;">Прибыль / мес:</span> <b style="color:#22D3EE;">~$9 000</b></div>
-             </div>
+          <span style="font-size:12px;font-weight:700;color:#94A3B8;">Портал</span>
+        </a>
+        <a href="#eco-pos" style="text-decoration:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#a78bfa,#8b5cf6);box-shadow:0 6px 20px rgba(167,139,250,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="1" y="4" width="22" height="16" rx="2" stroke="#fff" stroke-width="2"/><path d="M1 10h22" stroke="#fff" stroke-width="2"/></svg>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:#94A3B8;">POS-касса</span>
+        </a>
+        <a href="#eco-kiosk" style="text-decoration:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#10b981,#059669);box-shadow:0 6px 20px rgba(16,185,129,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="2" width="20" height="20" rx="3" stroke="#fff" stroke-width="2"/><path d="M8 12h8M12 8v8" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:#94A3B8;">Тач-экран</span>
+        </a>
+        <a href="#eco-app" style="text-decoration:none;text-align:center;display:flex;flex-direction:column;align-items:center;gap:10px;">
+          <div style="width:56px;height:56px;border-radius:16px;background:linear-gradient(135deg,#f59e0b,#d97706);box-shadow:0 6px 20px rgba(245,158,11,0.3);display:flex;align-items:center;justify-content:center;">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="5" y="2" width="14" height="20" rx="2" stroke="#fff" stroke-width="2"/><path d="M12 18h.01" stroke="#fff" stroke-width="2" stroke-linecap="round"/></svg>
+          </div>
+          <span style="font-size:12px;font-weight:700;color:#94A3B8;">Приложение</span>
+        </a>
+      </div>
+
+      <!-- ═══ PRODUCT 1: Портал франчайзи — Command Center ═══ -->
+      <div id="eco-portal" class="reveal" style="margin-bottom:64px;">
+        <!-- Title -->
+        <div style="text-align:center;margin-bottom:32px;">
+          <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#22D3EE;margin-bottom:10px;">Портал франчайзи</div>
+          <div style="font-size:24px;font-weight:800;color:#fff;margin-bottom:10px;">15 разделов для управления бизнесом 24/7</div>
+          <p style="font-size:15px;color:#94A3B8;margin:0;">Выручка, заказы, клиенты, склад, зарплаты, рейтинг, обучение, чат с HQ — всё в одном месте.</p>
+        </div>
+        <!-- 3 screens: side-center-side like command center -->
+        <div style="display:flex;align-items:center;justify-content:center;gap:16px;margin-bottom:24px;">
+          <div data-lb-src="assets/portal/stats.png" data-lb-title="Аналитика" style="cursor:pointer;flex:0 0 auto;">
+            <img src="assets/portal/stats.png" alt="Аналитика" loading="lazy" style="width:280px;border-radius:12px;border:1px solid rgba(34,211,238,0.15);box-shadow:0 12px 40px rgba(0,0,0,0.4);transform:perspective(800px) rotateY(8deg) scale(0.92);transition:transform .4s;">
+          </div>
+          <div class="portal-hero-frame" data-lb-src="assets/portal/dashboard-full.png" data-lb-title="Портал — Dashboard" style="cursor:pointer;margin:0;flex:0 0 560px;">
+            <div class="portal-browser-bar">
+              <div class="portal-browser-dot" style="background:#FF5F57;"></div>
+              <div class="portal-browser-dot" style="background:#FFBD2E;"></div>
+              <div class="portal-browser-dot" style="background:#28CA41;"></div>
+              <div class="portal-browser-url">portal.refocus.asia</div>
+            </div>
+            <img src="assets/portal/dashboard.png" alt="Dashboard" loading="lazy">
+          </div>
+          <div data-lb-src="assets/portal/finance.png" data-lb-title="Финансы" style="cursor:pointer;flex:0 0 auto;">
+            <img src="assets/portal/finance.png" alt="Финансы" loading="lazy" style="width:280px;border-radius:12px;border:1px solid rgba(34,211,238,0.15);box-shadow:0 12px 40px rgba(0,0,0,0.4);transform:perspective(800px) rotateY(-8deg) scale(0.92);transition:transform .4s;">
           </div>
         </div>
+        <!-- Mini gallery -->
+        <div style="display:flex;justify-content:center;gap:10px;">
+          <div class="portal-mini-card" data-lb-src="assets/portal/rating.png" data-lb-title="Рейтинг" style="flex:0 0 100px;"><img src="assets/portal/rating.png" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Рейтинг</div></div>
+          <div class="portal-mini-card" data-lb-src="assets/portal/launch.png" data-lb-title="План" style="flex:0 0 100px;"><img src="assets/portal/launch.png" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">План</div></div>
+          <div class="portal-mini-card" data-lb-src="assets/portal/training.png" data-lb-title="Обучение" style="flex:0 0 100px;"><img src="assets/portal/training.png" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Обучение</div></div>
+          <div class="portal-mini-card" data-lb-src="assets/portal/warehouse.png" data-lb-title="Склад" style="flex:0 0 100px;"><img src="assets/portal/warehouse.png" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Склад</div></div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,0.12),transparent);margin-bottom:64px;"></div>
+
+      <!-- ═══ PRODUCT 2: POS-касса — Fanned cards ═══ -->
+      <div id="eco-pos" class="reveal" style="margin-bottom:64px;">
+        <div style="display:grid;grid-template-columns:1fr 55%;gap:40px;align-items:center;">
+          <!-- Info left -->
+          <div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#a78bfa;margin-bottom:10px;">POS-касса</div>
+            <div style="font-size:24px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.25;">Собственная кассовая система на каждом терминале</div>
+            <p style="font-size:15px;color:#94A3B8;line-height:1.6;margin:0 0 24px;">Заказы, оплаты, чеки, смены, клиенты — синхронизация с CRM в реальном времени. Без абонплаты.</p>
+            <div style="display:flex;gap:6px;flex-wrap:wrap;">
+              <span style="font-size:12px;font-weight:600;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);padding:5px 14px;border-radius:99px;">Заказы</span>
+              <span style="font-size:12px;font-weight:600;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);padding:5px 14px;border-radius:99px;">Оплаты</span>
+              <span style="font-size:12px;font-weight:600;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);padding:5px 14px;border-radius:99px;">Чеки</span>
+              <span style="font-size:12px;font-weight:600;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);padding:5px 14px;border-radius:99px;">Смены</span>
+              <span style="font-size:12px;font-weight:600;color:#a78bfa;background:rgba(167,139,250,0.1);border:1px solid rgba(167,139,250,0.2);padding:5px 14px;border-radius:99px;">850+ клиентов</span>
+            </div>
+          </div>
+          <!-- Fanned cards right — spread open -->
+          <div style="position:relative;height:440px;">
+            <!-- Card 4 (far left) — My Shift -->
+            <div data-lb-src="assets/pos/my-shift.png" data-lb-title="Моя смена" style="cursor:pointer;position:absolute;top:60px;left:0;width:300px;transform:rotate(-12deg);z-index:1;transition:transform .4s;">
+              <img src="assets/pos/my-shift.png" alt="Смена" loading="lazy" style="width:100%;border-radius:14px;border:1px solid rgba(167,139,250,0.1);box-shadow:0 8px 30px rgba(0,0,0,0.3);">
+              <div style="text-align:center;margin-top:8px;font-size:11px;font-weight:700;color:#64748B;">Моя смена</div>
+            </div>
+            <!-- Card 3 (center-left) — Customers -->
+            <div data-lb-src="assets/pos/customers.png" data-lb-title="Клиенты" style="cursor:pointer;position:absolute;top:30px;left:120px;width:320px;transform:rotate(-4deg);z-index:2;transition:transform .4s;">
+              <img src="assets/pos/customers.png" alt="Клиенты" loading="lazy" style="width:100%;border-radius:14px;border:1px solid rgba(167,139,250,0.12);box-shadow:0 10px 36px rgba(0,0,0,0.35);">
+              <div style="text-align:center;margin-top:8px;font-size:11px;font-weight:700;color:#64748B;">Клиенты</div>
+            </div>
+            <!-- Card 2 (center-right) — New Order -->
+            <div data-lb-src="assets/pos/new-order.png" data-lb-title="Новый заказ" style="cursor:pointer;position:absolute;top:10px;left:250px;width:330px;transform:rotate(3deg);z-index:3;transition:transform .4s;">
+              <img src="assets/pos/new-order.png" alt="Заказ" loading="lazy" style="width:100%;border-radius:14px;border:1px solid rgba(167,139,250,0.15);box-shadow:0 12px 40px rgba(0,0,0,0.4);">
+              <div style="text-align:center;margin-top:8px;font-size:11px;font-weight:700;color:#64748B;">Новый заказ</div>
+            </div>
+            <!-- Card 1 (far right, front) — Orders -->
+            <div data-lb-src="assets/pos/pos-full.png" data-lb-title="Заказы и оплаты" style="cursor:pointer;position:absolute;top:50px;left:380px;width:310px;transform:rotate(10deg);z-index:4;transition:transform .4s;">
+              <img src="assets/pos/orders.png" alt="Заказы" loading="lazy" style="width:100%;border-radius:14px;border:1px solid rgba(167,139,250,0.2);box-shadow:0 16px 48px rgba(0,0,0,0.5),0 0 20px rgba(167,139,250,0.06);">
+              <div style="text-align:center;margin-top:8px;font-size:11px;font-weight:700;color:#a78bfa;">Заказы и оплаты</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,0.12),transparent);margin-bottom:64px;"></div>
+
+      <!-- ═══ PRODUCT 3: Тач-экран ═══ -->
+      <div id="eco-kiosk" class="reveal" style="margin-bottom:64px;">
+        <div style="display:grid;grid-template-columns:60% 1fr;gap:32px;align-items:center;">
+          <!-- Kiosk screenshot — horizontal crop in device frame -->
+          <div class="portal-hero-frame" data-lb-src="assets/kiosk/kiosk-landscape.png" data-lb-title="Тач-экран: прайс на линзы" style="cursor:pointer;margin:0;border-color:rgba(16,185,129,0.2);">
+            <div class="portal-browser-bar" style="justify-content:center;gap:12px;">
+              <div style="font-size:12px;color:#10b981;font-weight:700;letter-spacing:0.06em;">REFOCUS · Тач-экран · Прайс на линзы</div>
+            </div>
+            <div style="overflow:hidden;aspect-ratio:16/9;">
+              <img src="assets/kiosk/kiosk-landscape.png" alt="Тач-экран" loading="lazy" style="width:100%;height:auto;display:block;object-fit:cover;object-position:top center;">
+            </div>
+          </div>
+          <!-- Info -->
+          <div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#10b981;margin-bottom:10px;">Тач-экран в зале</div>
+            <div style="font-size:24px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.25;">Интерактивный прайс на линзы</div>
+            <p style="font-size:15px;color:#94A3B8;line-height:1.6;margin:0 0 24px;">Клиент сам изучает виды линз, цены, характеристики и смотрит видеообзоры. Базовые, Специальные, Премиум — всё наглядно.</p>
+            <div style="display:flex;gap:10px;">
+              <div class="portal-mini-card" data-lb-src="assets/kiosk/kiosk-detail-landscape.png" data-lb-title="Детали линзы" style="flex:0 0 100px;"><img src="assets/kiosk/kiosk-detail-landscape.png" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Детали линзы</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="height:1px;background:linear-gradient(90deg,transparent,rgba(34,211,238,0.12),transparent);margin-bottom:64px;"></div>
+
+      <!-- ═══ PRODUCT 4: Мобильное приложение ═══ -->
+      <div id="eco-app" class="reveal" style="margin-bottom:0;">
+        <div style="display:grid;grid-template-columns:1fr 65%;gap:32px;align-items:center;">
+          <!-- Info -->
+          <div>
+            <div style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:0.1em;color:#f59e0b;margin-bottom:10px;">Мобильное приложение</div>
+            <div style="font-size:24px;font-weight:800;color:#fff;margin-bottom:14px;line-height:1.25;">Android-приложение для ваших клиентов</div>
+            <p style="font-size:15px;color:#94A3B8;line-height:1.6;margin:0 0 24px;">Заказ с видео-этапами, контроль зрения, бонусная лестница, прайс на линзы — в смартфоне каждого клиента.</p>
+            <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:8px;">
+              <div class="portal-mini-card" data-lb-src="assets/mobile/app-order.jpg" data-lb-title="Мои очки" style="flex:none;"><img src="assets/mobile/app-order.jpg" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Мои очки</div></div>
+              <div class="portal-mini-card" data-lb-src="assets/mobile/app-lenses.jpg" data-lb-title="Прайс линз" style="flex:none;"><img src="assets/mobile/app-lenses.jpg" alt="" loading="lazy"><div class="pm-label" style="font-size:11px;">Прайс линз</div></div>
+            </div>
+          </div>
+          <!-- 3 phone mockups -->
+          <div style="display:flex;align-items:center;justify-content:center;gap:16px;">
+            <div data-lb-src="assets/mobile/app-vision.jpg" data-lb-title="Моё зрение" style="cursor:pointer;flex:0 0 auto;">
+              <img src="assets/mobile/app-vision.jpg" alt="Зрение" loading="lazy" style="max-height:380px;width:auto;border-radius:24px;border:3px solid rgba(255,255,255,0.08);box-shadow:0 16px 48px rgba(0,0,0,0.4);transform:scale(0.9);">
+            </div>
+            <div data-lb-src="assets/mobile/app-main.jpg" data-lb-title="Главная" style="cursor:pointer;flex:0 0 auto;">
+              <img src="assets/mobile/app-main.jpg" alt="Главная" loading="lazy" style="max-height:440px;width:auto;border-radius:24px;border:3px solid rgba(245,158,11,0.25);box-shadow:0 20px 60px rgba(0,0,0,0.5),0 0 30px rgba(245,158,11,0.08);">
+            </div>
+            <div data-lb-src="assets/mobile/app-bonuses.jpg" data-lb-title="Бонусы" style="cursor:pointer;flex:0 0 auto;">
+              <img src="assets/mobile/app-bonuses.jpg" alt="Бонусы" loading="lazy" style="max-height:380px;width:auto;border-radius:24px;border:3px solid rgba(255,255,255,0.08);box-shadow:0 16px 48px rgba(0,0,0,0.4);transform:scale(0.9);">
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 5. LAUNCH STEPS ═══ -->
+  <section id="launch-steps" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 100%,rgba(34,211,238,0.03) 0%,#07101e 45%);z-index:0;"></div>
+
+    <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
+      <div class="section-header reveal">
+        <div class="section-tag">Запуск</div>
+        <h2 class="section-title">От заявки до открытия — <span class="gradient-text">5 шагов</span></h2>
+        <p class="section-sub">Мы ведём вас на каждом этапе. Средний срок запуска — 3 месяца.</p>
+      </div>
+
+      <!-- Timeline: 5 steps as cards -->
+      <div class="reveal-scale" style="display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-bottom:48px;">
+
+        <!-- Step 1 -->
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.15);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#22D3EE;"></div>
+          <div style="font-size:40px;font-weight:800;color:#22D3EE;line-height:1;margin-bottom:12px;">01</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;">Заявка</div>
+          <p style="font-size:13px;color:#94A3B8;line-height:1.55;margin:0 0 16px;">Оставляете заявку. Созвон, знакомство, оцениваем город и потенциал.</p>
+          <div style="font-size:11px;font-weight:700;color:#22D3EE;background:rgba(34,211,238,0.08);padding:5px 14px;border-radius:99px;display:inline-block;">1–3 дня</div>
+        </div>
+
+        <!-- Step 2 -->
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(167,139,250,0.15);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#a78bfa;"></div>
+          <div style="font-size:40px;font-weight:800;color:#a78bfa;line-height:1;margin-bottom:12px;">02</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;">Договор и обучение</div>
+          <p style="font-size:13px;color:#94A3B8;line-height:1.55;margin:0 0 16px;">Подписание, доступ к порталу. Обучение: стандарты, CRM, управление.</p>
+          <div style="font-size:11px;font-weight:700;color:#a78bfa;background:rgba(167,139,250,0.08);padding:5px 14px;border-radius:99px;display:inline-block;">~2 недели</div>
+        </div>
+
+        <!-- Step 3 -->
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(245,158,11,0.15);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#f59e0b;"></div>
+          <div style="font-size:40px;font-weight:800;color:#f59e0b;line-height:1;margin-bottom:12px;">03</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;">Помещение и дизайн</div>
+          <p style="font-size:13px;color:#94A3B8;line-height:1.55;margin:0 0 16px;">Находите помещение, мы проверяем. Дизайн-проект по стандартам Refocus.</p>
+          <div style="font-size:11px;font-weight:700;color:#f59e0b;background:rgba(245,158,11,0.08);padding:5px 14px;border-radius:99px;display:inline-block;">~3 недели</div>
+        </div>
+
+        <!-- Step 4 -->
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(16,185,129,0.15);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:#10b981;"></div>
+          <div style="font-size:40px;font-weight:800;color:#10b981;line-height:1;margin-bottom:12px;">04</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;">Ремонт и оснащение</div>
+          <p style="font-size:13px;color:#94A3B8;line-height:1.55;margin:0 0 16px;">Ремонт, мебель, оборудование. Закупка товара, найм и обучение персонала.</p>
+          <div style="font-size:11px;font-weight:700;color:#10b981;background:rgba(16,185,129,0.08);padding:5px 14px;border-radius:99px;display:inline-block;">~5 недель</div>
+        </div>
+
+        <!-- Step 5 -->
+        <div style="background:rgba(34,211,238,0.04);backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 24px rgba(34,211,238,0.08);">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#22D3EE,#10b981);"></div>
+          <div style="font-size:40px;font-weight:800;background:linear-gradient(135deg,#22D3EE,#10b981);-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:12px;">05</div>
+          <div style="font-size:16px;font-weight:800;color:#fff;margin-bottom:10px;line-height:1.3;">Открытие</div>
+          <p style="font-size:13px;color:#94A3B8;line-height:1.55;margin:0 0 16px;">Финальная проверка. Допуск от HQ. Реклама. Тест и официальное открытие.</p>
+          <div style="font-size:11px;font-weight:700;color:#22D3EE;background:rgba(34,211,238,0.08);padding:5px 14px;border-radius:99px;display:inline-block;">Прибыль с 1 месяца</div>
+        </div>
+
+      </div>
+
+      <!-- 3 metrics bar -->
+      <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:20px;">
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.12);border-radius:20px;padding:28px;text-align:center;">
+          <div style="font-size:36px;font-weight:800;color:#22D3EE;letter-spacing:-0.03em;line-height:1;">~3</div>
+          <div style="font-size:13px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;">месяца до открытия</div>
+        </div>
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px;text-align:center;">
+          <div style="font-size:36px;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1;">Под ключ</div>
+          <div style="font-size:13px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;">от заявки до прибыли</div>
+        </div>
+        <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px;text-align:center;">
+          <div style="font-size:36px;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1;">24/7</div>
+          <div style="font-size:13px;color:#64748B;font-weight:600;text-transform:uppercase;letter-spacing:0.06em;margin-top:6px;">поддержка на каждом этапе</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 6. FINANCE ═══ -->
+  <section id="finance-mega" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#07101e;z-index:0;"></div>
+
+    <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
+
+      <!-- Header -->
+      <div class="section-header reveal">
+        <div class="section-tag">Финансы</div>
+        <h2 class="section-title">Сколько стоит и сколько <span class="gradient-text">вы заработаете</span></h2>
+      </div>
+
+      <!-- Investment: one big number -->
+      <div class="reveal" style="text-align:center;margin-bottom:48px;">
+        <div style="display:inline-block;padding:40px 64px;background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.12);border-radius:28px;">
+          <div style="font-size:14px;color:#94A3B8;margin-bottom:8px;">Полный бюджет на открытие под ключ</div>
+          <div style="font-size:56px;font-weight:800;color:#fff;letter-spacing:-0.03em;line-height:1;">~$23 000</div>
+          <div style="font-size:14px;color:#64748B;margin-top:10px;">Ремонт · Оборудование · Товар · Обучение · CRM · POS · Запуск</div>
+          <div style="display:flex;justify-content:center;gap:8px;flex-wrap:wrap;margin-top:20px;">
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Бренд</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">CRM + POS</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Поставщики</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Дизайн</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Обучение</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">ИИ-контроль</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Портал 24/7</span>
+            <span style="font-size:12px;font-weight:600;color:#22D3EE;background:rgba(34,211,238,0.08);border:1px solid rgba(34,211,238,0.15);padding:5px 14px;border-radius:99px;">Тач-экран</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Profit scenarios: 4 cards with BIG profit numbers -->
+      <div class="reveal" style="margin-bottom:40px;">
+        <div style="text-align:center;margin-bottom:28px;">
+          <div style="font-size:22px;font-weight:800;color:#fff;">Прогноз чистой прибыли</div>
+          <div style="font-size:14px;color:#64748B;margin-top:6px;">После всех расходов · Средний чек ~$36</div>
+        </div>
+
+        <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;">
+
+          <!-- Старт -->
+          <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.06);border-radius:20px;padding:28px 20px;text-align:center;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#64748B;margin-bottom:20px;">Старт</div>
+            <div style="font-size:48px;font-weight:800;color:#64748B;letter-spacing:-0.03em;line-height:1;">$1 150</div>
+            <div style="font-size:13px;color:#475569;margin-top:4px;">в месяц</div>
+            <div style="margin:20px 0;height:1px;background:rgba(255,255,255,0.06);"></div>
+            <div style="font-size:14px;color:#94A3B8;"><span style="font-weight:700;color:#E2E8F0;">3–4</span> заказа/день</div>
+            <div style="font-size:13px;color:#475569;margin-top:8px;">Окупаемость ~24 мес</div>
+          </div>
+
+          <!-- Базовый -->
+          <div style="background:rgba(34,211,238,0.04);backdrop-filter:blur(14px);border:1px solid rgba(34,211,238,0.25);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 24px rgba(34,211,238,0.06);">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#22D3EE,#06B6D4);"></div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#22D3EE;margin-bottom:20px;">Базовый</div>
+            <div style="font-size:48px;font-weight:800;color:#22D3EE;letter-spacing:-0.03em;line-height:1;">$2 300</div>
+            <div style="font-size:13px;color:#64748B;margin-top:4px;">в месяц</div>
+            <div style="margin:20px 0;height:1px;background:rgba(34,211,238,0.12);"></div>
+            <div style="font-size:14px;color:#94A3B8;"><span style="font-weight:700;color:#fff;">5</span> заказов/день</div>
+            <div style="font-size:13px;color:#64748B;margin-top:8px;">Окупаемость ~12 мес</div>
+          </div>
+
+          <!-- Хороший -->
+          <div style="background:rgba(7,16,30,0.78);backdrop-filter:blur(14px);border:1px solid rgba(16,185,129,0.15);border-radius:20px;padding:28px 20px;text-align:center;">
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#10b981;margin-bottom:20px;">Хороший</div>
+            <div style="font-size:48px;font-weight:800;color:#10b981;letter-spacing:-0.03em;line-height:1;">$4 100</div>
+            <div style="font-size:13px;color:#64748B;margin-top:4px;">в месяц</div>
+            <div style="margin:20px 0;height:1px;background:rgba(255,255,255,0.06);"></div>
+            <div style="font-size:14px;color:#94A3B8;"><span style="font-weight:700;color:#E2E8F0;">8</span> заказов/день</div>
+            <div style="font-size:13px;color:#64748B;margin-top:8px;">Окупаемость ~8 мес</div>
+          </div>
+
+          <!-- Сильный -->
+          <div style="background:rgba(167,139,250,0.04);backdrop-filter:blur(14px);border:1px solid rgba(167,139,250,0.2);border-radius:20px;padding:28px 20px;text-align:center;position:relative;overflow:hidden;box-shadow:0 0 24px rgba(167,139,250,0.06);">
+            <div style="position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,#a78bfa,#8b5cf6);"></div>
+            <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:0.08em;color:#a78bfa;margin-bottom:20px;">Сильный</div>
+            <div style="font-size:48px;font-weight:800;color:#a78bfa;letter-spacing:-0.03em;line-height:1;">$6 200</div>
+            <div style="font-size:13px;color:#64748B;margin-top:4px;">в месяц</div>
+            <div style="margin:20px 0;height:1px;background:rgba(167,139,250,0.12);"></div>
+            <div style="font-size:14px;color:#94A3B8;"><span style="font-weight:700;color:#E2E8F0;">12+</span> заказов/день</div>
+            <div style="font-size:13px;color:#64748B;margin-top:8px;">Окупаемость ~5 мес</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Bottom CTA -->
+      <div class="reveal" style="text-align:center;">
+        <div style="font-size:15px;color:#94A3B8;margin-bottom:20px;">Точные цифры рассчитаем под ваш город на личной встрече</div>
+        <a href="javascript:void(0)" onclick="document.getElementById('applyModal').style.display='flex'" class="btn btn-primary btn-pulse" style="font-size:18px;padding:20px 56px;border-radius:999px;">Узнать расчёт для моего города</a>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ═══ 7. FAQ ═══ -->
+  <section id="faq" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#07101e;z-index:0;"></div>
+
+    <div class="section-container" style="max-width:900px;position:relative;z-index:1;">
+      <div class="section-header reveal">
+        <div class="section-tag">Вопросы</div>
+        <h2 class="section-title">Частые <span class="gradient-text">вопросы</span></h2>
+      </div>
+
+      <div class="reveal" style="display:flex;flex-direction:column;gap:12px;">
+
+        <!-- Q1 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Нужен ли опыт в оптике или медицине?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Нет. Мы обучаем всему с нуля: бизнес-модель, стандарты обслуживания, диагностика зрения, работа в CRM. Вы управляете бизнесом, а не проверяете зрение — для этого есть обученный персонал.</div>
+        </div>
+
+        <!-- Q2 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Сколько стоит открытие?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Полный бюджет под ключ — ~$23 000. Это включает ремонт, оборудование, стартовый товар, обучение, CRM, POS и запуск рекламы. Без скрытых платежей — вы платите один раз и начинаете работать.</div>
+        </div>
+
+        <!-- Q3 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Как быстро я выйду на прибыль?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Точка безубыточности — всего 3 заказа в день. Большинство точек выходят на чистую прибыль уже в первый месяц работы. Базовый сценарий (5 заказов/день) даёт ~$2 300 чистой прибыли в месяц.</div>
+        </div>
+
+        <!-- Q4 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>А если в моём городе уже есть оптики?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Это нормально и даже хорошо — значит, спрос есть. В среднем городе 200+ кофеен и всего 3–5 оптик. С нашей CRM, ИИ-контролем, мобильным приложением и брендом вы будете на совершенно другом уровне.</div>
+        </div>
+
+        <!-- Q5 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Что входит в стоимость франшизы?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Всё: бренд Refocus, собственная CRM, POS-касса, портал управления 24/7, тач-экраны, мобильное приложение, ИИ-контроль качества, обучение, дизайн-проект, поставщики по оптовым ценам и поддержка на каждом этапе.</div>
+        </div>
+
+        <!-- Q6 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Кто занимается ремонтом и дизайном?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Вы находите помещение — мы предоставляем готовый дизайн-проект по стандартам Refocus. Весь процесс контролируется через портал франчайзи. От заявки до открытия — ~3 месяца.</div>
+        </div>
+
+        <!-- Q7 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Есть ли роялти и скрытые платежи?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Условия обсуждаются индивидуально на личной встрече. Никаких скрытых сборов: CRM, POS, портал, мобильное приложение и ИИ-контроль — всё включено без дополнительной абонплаты.</div>
+        </div>
+
+        <!-- Q8 -->
+        <div class="faq-item" onclick="this.classList.toggle('open')">
+          <div class="faq-q">
+            <span>Можно ли открыть в моём городе?</span>
+            <span class="faq-icon">+</span>
+          </div>
+          <div class="faq-a">Скорее всего, да. Оставьте заявку с указанием города — мы оценим потенциал рынка, конкуренцию и дадим ответ в течение 1–2 дней. Приоритет — города с населением от 50 000 человек.</div>
+        </div>
+
       </div>
     </div>
   </section>
 
-  <!-- ═══ 4. INFRASTRUCTURE & LAUNCH MEGA BLOCK ═══ -->
-  <section id="ops-mega" class="dark-section" style="padding-bottom:80px;">
-    <div class="grid-pattern"></div>
-    <div class="data-pipeline-container"><div class="data-pipeline"></div><div class="data-pipeline"></div></div>
-    
-    <div class="section-container" style="max-width:1200px;">
-      <div class="section-header reveal">
-        <div class="section-tag">Инфраструктура</div>
-        <h2 class="section-title">Системный подход <span class="gradient-text">во всём</span></h2>
-        <p class="section-sub">От централизованных поставок до детального 12-шагового протокола запуска.</p>
+  <!-- ═══ 8. FINAL CTA ═══ -->
+  <section id="apply" class="dark-section" style="padding:100px 0 120px;position:relative;">
+    <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 50%,rgba(34,211,238,0.06) 0%,#07101e 50%);z-index:0;"></div>
+
+    <div class="section-container" style="max-width:800px;position:relative;z-index:1;text-align:center;">
+
+      <div class="reveal">
+        <div style="font-size:clamp(32px,5vw,52px);font-weight:800;color:#fff;margin-bottom:20px;letter-spacing:-0.02em;line-height:1.15;">
+          Готовы открыть свою<br><span class="gradient-text">оптику Refocus?</span>
+        </div>
+        <p style="font-size:18px;color:#94A3B8;margin:0 0 40px;line-height:1.6;">
+          Заполните короткую анкету — мы свяжемся в течение 24 часов,<br>ответим на вопросы и рассчитаем экономику под ваш город.
+        </p>
+        <a href="javascript:void(0)" onclick="document.getElementById('applyModal').style.display='flex'" class="btn btn-primary btn-pulse" style="font-size:20px;padding:24px 72px;border-radius:999px;box-shadow:0 8px 32px rgba(34,211,238,0.4),0 0 80px rgba(34,211,238,0.1);letter-spacing:0.02em;">
+          Оставить заявку
+        </a>
+        <div style="margin-top:24px;font-size:13px;color:#475569;">
+          Набор партнёров закрыт — открытие 1 июня
+        </div>
       </div>
 
-      <div class="ops-dashboard">
-        <!-- ROW 1: Supplies & Support side by side -->
-        <div class="ops-row">
-          <div class="dash-panel panel-supplies reveal-left">
-            <div class="panel-head"><h3>Централизованное снабжение</h3><span class="badge" style="background:rgba(255,255,255,0.1); border-radius:12px; padding:4px 10px; font-size:11px;">Опт</span></div>
-            <div class="supply-tags">
-              <div class="s-tag"><span class="ff-tag">Оправы</span></div>
-              <div class="s-tag"><span class="ff-tag">Линзы</span></div>
-              <div class="s-tag"><span class="ff-tag">Футляры</span></div>
-              <div class="s-tag"><span class="ff-tag">Фирменные пакеты</span></div>
-              <div class="s-tag"><span class="ff-tag">Микрофибра</span></div>
-              <div class="s-tag"><span class="ff-tag">Оборудование</span></div>
-              <div class="s-tag"><span class="ff-tag">POS-терминалы</span></div>
-            </div>
-            <p style="font-size:13px; color:#94A3B8; margin-top:16px;">Все поставки идут от проверенных дистрибьюторов УК. Вы не ищете поставщиков самостоятельно.</p>
-          </div>
-          
-          <div class="dash-panel panel-support reveal-right">
-            <div class="panel-head"><h3>Поддержка после открытия</h3></div>
-            <div class="support-list" style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
-              <div class="sup-item"><svg width="18" height="18" fill="none" stroke="#22D3EE" stroke-width="2" style="margin-bottom:8px;"><path d="M12 2L2 7l10 5 10-5-10-5z"/></svg><div style="font-size:13px; font-weight:700; color:#E2E8F0;">CRM и POS</div></div>
-              <div class="sup-item"><svg width="18" height="18" fill="none" stroke="#22D3EE" stroke-width="2" style="margin-bottom:8px;"><rect x="3" y="3" width="18" height="18" rx="2"/></svg><div style="font-size:13px; font-weight:700; color:#E2E8F0;">Анализ KPI</div></div>
-              <div class="sup-item"><svg width="18" height="18" fill="none" stroke="#22D3EE" stroke-width="2" style="margin-bottom:8px;"><circle cx="12" cy="12" r="10"/></svg><div style="font-size:13px; font-weight:700; color:#E2E8F0;">AI-контроль аудио</div></div>
-              <div class="sup-item"><svg width="18" height="18" fill="none" stroke="#22D3EE" stroke-width="2" style="margin-bottom:8px;"><path d="M5 12h14M12 5l7 7-7 7"/></svg><div style="font-size:13px; font-weight:700; color:#E2E8F0;">Операционная база</div></div>
-            </div>
-          </div>
-        </div>
-        
-        <!-- ROW 2: Launch Circuit (12 steps compact) -->
-        <div class="dash-panel panel-launch reveal-scale" style="margin-top:24px;">
-          <div class="panel-head"><h3>Протокол запуска (12 этапов)</h3></div>
-          <div class="launch-circuit">
-            <div class="l-node"><div class="l-num">01</div><div class="l-title">Заявка</div><div class="l-desc">Контакт с нами</div></div>
-            <div class="l-node"><div class="l-num">02</div><div class="l-title">Созвон</div><div class="l-desc">Знакомство и оценка</div></div>
-            <div class="l-node"><div class="l-num">03</div><div class="l-title">Формат</div><div class="l-desc">Выбор города и типа</div></div>
-            <div class="l-node"><div class="l-num">04</div><div class="l-title">Экономика</div><div class="l-desc">Расчёт инвестиций</div></div>
-            <div class="l-node"><div class="l-num">05</div><div class="l-title">Договор</div><div class="l-desc">Фиксация условий</div></div>
-            <div class="l-node"><div class="l-num">06</div><div class="l-title">Локация</div><div class="l-desc">Оценка помещения</div></div>
-            <div class="l-node"><div class="l-num">07</div><div class="l-title">Дизайн</div><div class="l-desc">Проект по стандартам</div></div>
-            <div class="l-node"><div class="l-num">08</div><div class="l-title">Закуп</div><div class="l-desc">Заказ оборудования</div></div>
-            <div class="l-node"><div class="l-num">09</div><div class="l-title">Обучение</div><div class="l-desc">Тренинг команды</div></div>
-            <div class="l-node"><div class="l-num">10</div><div class="l-title">Системы</div><div class="l-desc">Интеграция CRM/POS</div></div>
-            <div class="l-node"><div class="l-num">11</div><div class="l-title">Открытие</div><div class="l-desc">Маркетинговый старт</div></div>
-            <div class="l-node active-node"><div class="l-num">12</div><div class="l-title">Развитие</div><div class="l-desc">Постоянная поддержка</div></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ═══ 5. PARTNERSHIP & CTA MEGA BLOCK ═══ -->
-  <section id="partner-mega" class="dark-section" style="background:#0C1220; padding-bottom:100px;">
-    <div class="grid-pattern"></div>
-    <div class="data-pipeline-container" style="opacity:0.2;"><div class="data-pipeline"></div><div class="data-pipeline"></div></div>
-    
-    <div class="section-container" style="max-width:1200px;">
-      <div class="partner-dashboard">
-        
-        <!-- Left Side: Who we are looking for + Why Now -->
-        <div class="partner-info reveal-left">
-          <div class="section-tag" style="margin-bottom:16px;">Станьте партнёром</div>
-          <h2 class="section-title text-cyan" style="font-size:42px; text-align:left; margin-bottom:24px;">Готовы сделать<br>первый шаг?</h2>
-          <p class="section-sub" style="text-align:left; max-width:100%; margin-bottom:32px;">Мы ищем партнёров, готовых работать в системе и строить долгосрочный бизнес. Не нужно изобретать оптику с нуля — используйте готовую CRM, POS и стандарты.</p>
-          
-          <div class="partner-criteria-grid">
-            <div class="pc-item"><svg width="18" height="18" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="#22D3EE" stroke-width="2"/><path d="M22 4L12 14.01l-3-3" stroke="#22D3EE" stroke-width="2"/></svg><span>Готовность к инвестициям</span></div>
-            <div class="pc-item"><svg width="18" height="18" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="#22D3EE" stroke-width="2"/><path d="M22 4L12 14.01l-3-3" stroke="#22D3EE" stroke-width="2"/></svg><span>Работа по стандартам сети</span></div>
-            <div class="pc-item"><svg width="18" height="18" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="#22D3EE" stroke-width="2"/><path d="M22 4L12 14.01l-3-3" stroke="#22D3EE" stroke-width="2"/></svg><span>Использование единой CRM</span></div>
-            <div class="pc-item"><svg width="18" height="18" fill="none"><path d="M22 11.08V12a10 10 0 11-5.93-9.14" stroke="#22D3EE" stroke-width="2"/><path d="M22 4L12 14.01l-3-3" stroke="#22D3EE" stroke-width="2"/></svg><span>Длительное партнёрство</span></div>
-          </div>
-          
-          <div class="why-now-box">
-             <h4 style="color:#fff; margin-bottom:12px;">Почему оставить заявку именно сейчас?</h4>
-             <p style="font-size:13px; color:#94A3B8; margin-bottom:0;">Рынок оптики остаётся стабильным. Становясь одним из ранних партнёров технологичной сети Refocus, вы получаете приоритетные локации и эксклюзивные условия.</p>
-          </div>
-        </div>
-        
-        <!-- Right Side: Application Form -->
-        <div class="partner-form-col reveal-right" style="transition-delay:0.1s;">
-          <form class="apple-form" id="franchiseForm">
-            <h3 style="color:#fff; margin-bottom:24px; font-size:24px; font-weight:700;">Получить презентацию</h3>
-            <div class="form-row" style="grid-template-columns:1fr;">
-              <div class="form-group">
-                <label class="form-label" for="f-name">Имя *</label>
-                <input class="form-input" id="f-name" type="text" placeholder="Ваше имя" required>
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="f-phone">Телефон / WhatsApp *</label>
-                <input class="form-input" id="f-phone" type="tel" placeholder="+996..." required>
-              </div>
-            </div>
-            <div class="form-row" style="grid-template-columns:1fr;">
-              <div class="form-group">
-                <label class="form-label" for="f-city">Город</label>
-                <input class="form-input" id="f-city" type="text" placeholder="Укажите город">
-              </div>
-              <div class="form-group">
-                <label class="form-label" for="f-budget">Помещение / бюджет</label>
-                <select class="form-input" id="f-budget" style="color:#fff;">
-                  <option value="" style="color:#333;">Ваша ситуация</option>
-                  <option value="both" style="color:#333;">Есть помещение и бюджет</option>
-                  <option value="budget" style="color:#333;">Есть бюджет, ищу помещение</option>
-                  <option value="space" style="color:#333;">Есть помещение, ищу бюджет</option>
-                  <option value="none" style="color:#333;">Пока планирую</option>
-                </select>
-              </div>
-            </div>
-            <div class="form-group">
-              <label class="form-label" for="f-message">Комментарий (необязательно)</label>
-              <textarea class="form-input" id="f-message" placeholder="Ваш опыт или вопросы..." style="min-height:80px;"></textarea>
-            </div>
-            <button type="submit" class="btn btn-primary btn-pulse" style="width:100%;font-size:16px;padding:17px; margin-top:8px;">
-              Отправить заявку
-            </button>
-            <p style="font-size:12px;color:#475569;text-align:center;margin:16px 0 0;">
-              Нажимая кнопку, вы соглашаетесь с <a href="privacy.html" style="color:var(--brand-accent);">политикой конфиденциальности</a>
-            </p>
-          </form>
-        </div>
-        
-      </div>
     </div>
   </section>
 
@@ -1066,7 +1677,7 @@
       document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
 
       // ── Magnetic Glow Effect for Cards ──
-      document.querySelectorAll('.bento-card, .feature-card, .format-card, .dark-card, .scenario-card, .invest-block, .supply-item').forEach(card => {
+      document.querySelectorAll('.bento-card, .feature-card, .format-card, .dark-card, .scenario-card, .invest-block, .supply-item, .portal-feature-card').forEach(card => {
         card.style.position = 'relative';
         card.style.overflow = 'hidden';
         const glow = document.createElement('div');
@@ -1103,6 +1714,37 @@
         }
       });
 
+      // ── Portal Lightbox ──
+      const lb = document.getElementById('portalLightbox');
+      if (lb) {
+        const lbImg = lb.querySelector('img');
+        const lbCaption = lb.querySelector('.lb-caption');
+        const lbClose = lb.querySelector('.lb-close');
+
+        function openLb(src, title) {
+          lbImg.src = src;
+          lbCaption.textContent = title || '';
+          lb.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+        function closeLb() {
+          lb.classList.remove('open');
+          document.body.style.overflow = '';
+          setTimeout(() => { lbImg.src = ''; }, 350);
+        }
+
+        document.querySelectorAll('[data-lb-src]').forEach(el => {
+          el.addEventListener('click', (e) => {
+            e.preventDefault();
+            openLb(el.dataset.lbSrc, el.dataset.lbTitle);
+          });
+        });
+
+        lbClose.addEventListener('click', closeLb);
+        lb.addEventListener('click', (e) => { if (e.target === lb) closeLb(); });
+        document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && lb.classList.contains('open')) closeLb(); });
+      }
+
       // ── Smooth scroll for anchor links ──
       document.querySelectorAll('a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
@@ -1114,33 +1756,7 @@
         });
       });
 
-      // ── Franchise Form → WhatsApp ──
-      const form = document.getElementById('franchiseForm');
-      if (form) {
-        form.addEventListener('submit', function(e) {
-          e.preventDefault();
-          const name = document.getElementById('f-name').value.trim();
-          const phone = document.getElementById('f-phone').value.trim();
-          const city = document.getElementById('f-city').value.trim();
-          const email = document.getElementById('f-email').value.trim();
-          const exp = document.getElementById('f-experience');
-          const expLabel = exp.options[exp.selectedIndex].text;
-          const budget = document.getElementById('f-budget');
-          const budLabel = budget.options[budget.selectedIndex].text;
-          const message = document.getElementById('f-message').value.trim();
-          const text = [
-            '*Заявка на франшизу Refocus*','',
-            name ? `Имя: ${name}` : null,
-            phone ? `Телефон: ${phone}` : null,
-            city ? `Город: ${city}` : null,
-            email ? `Email: ${email}` : null,
-            exp.value ? `Опыт: ${expLabel}` : null,
-            budget.value ? `Помещение/бюджет: ${budLabel}` : null,
-            message ? `\nКомментарий:\n${message}` : null,
-          ].filter(Boolean).join('\n');
-          window.open('https://wa.me/996705244966?text=' + encodeURIComponent(text), '_blank');
-        });
-      }
+      // Old inline form removed — all submissions go through applyModal
     });
 
     // ── Canvas Background ──
@@ -1219,6 +1835,275 @@
       resize(); animate();
     }
   </script>
+  <!-- Lightbox (must be direct child of body, outside all sections) -->
+  <div class="portal-lightbox" id="portalLightbox">
+    <div class="lb-close">&times;</div>
+    <img src="" alt="">
+    <div class="lb-caption"></div>
+  </div>
+
+  <!-- ═══ МОДАЛЬНАЯ ФОРМА ЗАЯВКИ ═══ -->
+  <style>
+    #applyModal { display:none; position:fixed; inset:0; z-index:9999; align-items:center; justify-content:center; background:rgba(2,6,18,0.75); backdrop-filter:blur(20px); -webkit-backdrop-filter:blur(20px); padding:20px; }
+    .am-card { background:rgba(15,23,42,0.95); border-radius:28px; max-width:480px; width:100%; max-height:90vh; overflow-y:auto; border:1px solid rgba(34,211,238,0.12); box-shadow:0 0 0 1px rgba(34,211,238,0.05),0 40px 100px rgba(0,0,0,0.6),0 0 120px rgba(34,211,238,0.08); position:relative; }
+    .am-card::-webkit-scrollbar { width:4px; } .am-card::-webkit-scrollbar-thumb { background:rgba(34,211,238,0.2); border-radius:4px; }
+    .am-glow { position:absolute; top:-60px; left:50%; transform:translateX(-50%); width:300px; height:120px; background:radial-gradient(ellipse,rgba(34,211,238,0.12) 0%,transparent 70%); pointer-events:none; }
+    .am-input { width:100%; padding:13px 15px; background:rgba(30,41,59,0.6); border:1px solid rgba(255,255,255,0.07); border-radius:14px; color:#f1f5f9; font-size:14px; outline:none; transition:all 0.25s; font-family:inherit; box-sizing:border-box; }
+    .am-input:focus { border-color:rgba(34,211,238,0.4); background:rgba(30,41,59,0.9); box-shadow:0 0 0 3px rgba(34,211,238,0.08); }
+    .am-input::placeholder { color:#475569; }
+    .am-input option { background:#1e293b; color:#e2e8f0; padding:8px; }
+    .am-label { display:block; color:#64748b; font-size:10px; font-weight:700; text-transform:uppercase; letter-spacing:0.08em; margin-bottom:6px; }
+    .am-step { display:none; } .am-step.active { display:block; animation:amFadeIn 0.3s ease; }
+    @keyframes amFadeIn { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:none} }
+    .am-progress { display:flex; gap:4px; margin-bottom:24px; }
+    .am-progress-dot { flex:1; height:3px; border-radius:3px; background:rgba(255,255,255,0.06); transition:all 0.3s; }
+    .am-progress-dot.done { background:linear-gradient(90deg,#22d3ee,#06b6d4); box-shadow:0 0 8px rgba(34,211,238,0.3); }
+    .am-progress-dot.current { background:rgba(34,211,238,0.3); }
+    .am-btn { width:100%; padding:14px; background:linear-gradient(135deg,#22d3ee,#06b6d4); color:#0f172a; font-size:14px; font-weight:700; border:none; border-radius:14px; cursor:pointer; transition:all 0.2s; box-shadow:0 8px 32px rgba(34,211,238,0.2); letter-spacing:0.01em; }
+    .am-btn:hover { transform:translateY(-1px); box-shadow:0 12px 40px rgba(34,211,238,0.3); }
+    .am-btn:disabled { opacity:0.5; cursor:not-allowed; transform:none; }
+    .am-btn-ghost { background:none; border:1px solid rgba(255,255,255,0.08); color:#94a3b8; box-shadow:none; }
+    .am-btn-ghost:hover { border-color:rgba(255,255,255,0.15); color:#e2e8f0; box-shadow:none; }
+    .am-close { position:absolute; top:16px; right:16px; background:rgba(255,255,255,0.05); border:none; color:#475569; font-size:18px; width:34px; height:34px; border-radius:10px; cursor:pointer; display:flex; align-items:center; justify-content:center; transition:all 0.2s; z-index:10; }
+    .am-close:hover { background:rgba(255,255,255,0.1); color:#e2e8f0; }
+    .am-tag { display:inline-flex; align-items:center; gap:6px; padding:10px 14px; border-radius:12px; background:rgba(30,41,59,0.6); border:1px solid rgba(255,255,255,0.07); color:#94a3b8; font-size:13px; cursor:pointer; transition:all 0.2s; user-select:none; }
+    .am-tag:hover { border-color:rgba(34,211,238,0.3); color:#e2e8f0; }
+    .am-tag.selected { background:rgba(34,211,238,0.1); border-color:rgba(34,211,238,0.3); color:#22d3ee; }
+    .am-tag .am-check { width:16px; height:16px; border-radius:6px; border:1.5px solid rgba(255,255,255,0.15); display:flex; align-items:center; justify-content:center; transition:all 0.2s; flex-shrink:0; }
+    .am-tag.selected .am-check { background:#22d3ee; border-color:#22d3ee; }
+  </style>
+
+  <div id="applyModal" onclick="if(event.target===this)this.style.display='none'">
+    <div class="am-card">
+      <div class="am-glow"></div>
+      <button class="am-close" onclick="document.getElementById('applyModal').style.display='none'">&times;</button>
+
+      <!-- Шапка -->
+      <div style="padding:28px 28px 0;position:relative;">
+        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
+          <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#22d3ee,#06b6d4);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(34,211,238,0.25);flex-shrink:0;">
+            <svg width="18" height="18" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+          </div>
+          <div>
+            <h2 style="color:#f1f5f9;font-size:18px;font-weight:700;margin:0;line-height:1.2;" id="am-title">Контактные данные</h2>
+            <p style="color:#475569;font-size:12px;margin:2px 0 0;" id="am-subtitle">Шаг 1 из 3</p>
+          </div>
+        </div>
+        <div class="am-progress" id="am-progress">
+          <div class="am-progress-dot current"></div>
+          <div class="am-progress-dot"></div>
+          <div class="am-progress-dot"></div>
+        </div>
+      </div>
+
+      <!-- Форма -->
+      <form id="applyModalForm" style="padding:0 28px 28px;">
+
+        <!-- ШАГ 1: Контакты -->
+        <div class="am-step active" data-step="1">
+          <div style="margin-bottom:14px;">
+            <label class="am-label">Ваше имя *</label>
+            <input id="am-name" type="text" required placeholder="Как к вам обращаться" class="am-input">
+          </div>
+          <div style="margin-bottom:14px;">
+            <label class="am-label">Телефон / WhatsApp *</label>
+            <input id="am-phone" type="tel" required placeholder="+7, +996, +998, +77..." class="am-input">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label class="am-label">Город открытия</label>
+            <input id="am-city" type="text" placeholder="В каком городе планируете" class="am-input">
+          </div>
+          <button type="button" class="am-btn" onclick="amGoTo(2)">Далее</button>
+        </div>
+
+        <!-- ШАГ 2: О вас -->
+        <div class="am-step" data-step="2">
+          <div style="margin-bottom:16px;">
+            <label class="am-label">Опыт в бизнесе</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="am-exp-grid">
+              <div class="am-tag" data-val="none" onclick="amSelect(this,'am-experience')"><div class="am-check"></div>Первый бизнес</div>
+              <div class="am-tag" data-val="1-3" onclick="amSelect(this,'am-experience')"><div class="am-check"></div>1–3 года</div>
+              <div class="am-tag" data-val="3+" onclick="amSelect(this,'am-experience')"><div class="am-check"></div>Более 3 лет</div>
+              <div class="am-tag" data-val="franchise" onclick="amSelect(this,'am-experience')"><div class="am-check"></div>Работал по франшизе</div>
+            </div>
+            <input type="hidden" id="am-experience" value="">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label class="am-label">Помещение и бюджет</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="am-bud-grid">
+              <div class="am-tag" data-val="both" onclick="amSelect(this,'am-budget')"><div class="am-check"></div>Есть оба</div>
+              <div class="am-tag" data-val="budget" onclick="amSelect(this,'am-budget')"><div class="am-check"></div>Есть бюджет</div>
+              <div class="am-tag" data-val="space" onclick="amSelect(this,'am-budget')"><div class="am-check"></div>Есть помещение</div>
+              <div class="am-tag" data-val="none" onclick="amSelect(this,'am-budget')"><div class="am-check"></div>Пока планирую</div>
+            </div>
+            <input type="hidden" id="am-budget" value="">
+          </div>
+          <div style="margin-bottom:16px;">
+            <label class="am-label">Инвестиционный бюджет</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="am-inv-grid">
+              <div class="am-tag" data-val="under15k" onclick="amSelect(this,'am-invest')"><div class="am-check"></div>До $15 000</div>
+              <div class="am-tag" data-val="15-25k" onclick="amSelect(this,'am-invest')"><div class="am-check"></div>$15 000 – $25 000</div>
+              <div class="am-tag" data-val="25k+" onclick="amSelect(this,'am-invest')"><div class="am-check"></div>$25 000+</div>
+              <div class="am-tag" data-val="discussing" onclick="amSelect(this,'am-invest')"><div class="am-check"></div>Обсуждается</div>
+            </div>
+            <input type="hidden" id="am-invest" value="">
+          </div>
+          <div style="margin-bottom:20px;">
+            <label class="am-label">Когда планируете открытие</label>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px;" id="am-tl-grid">
+              <div class="am-tag" data-val="asap" onclick="amSelect(this,'am-timeline')"><div class="am-check"></div>Как можно скорее</div>
+              <div class="am-tag" data-val="3months" onclick="amSelect(this,'am-timeline')"><div class="am-check"></div>1–3 месяца</div>
+              <div class="am-tag" data-val="6months" onclick="amSelect(this,'am-timeline')"><div class="am-check"></div>3–6 месяцев</div>
+              <div class="am-tag" data-val="exploring" onclick="amSelect(this,'am-timeline')"><div class="am-check"></div>Изучаю варианты</div>
+            </div>
+            <input type="hidden" id="am-timeline" value="">
+          </div>
+          <div style="display:flex;gap:8px;">
+            <button type="button" class="am-btn am-btn-ghost" style="flex:0 0 auto;width:auto;padding:14px 20px;" onclick="amGoTo(1)">Назад</button>
+            <button type="button" class="am-btn" onclick="amGoTo(3)">Далее</button>
+          </div>
+        </div>
+
+        <!-- ШАГ 3: Финал -->
+        <div class="am-step" data-step="3">
+          <div style="margin-bottom:18px;">
+            <label class="am-label">Комментарий или вопросы</label>
+            <textarea id="am-comment" rows="3" placeholder="Расскажите о себе, задайте вопросы..." class="am-input" style="resize:vertical;min-height:80px;"></textarea>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:12px;">
+            <button type="button" class="am-btn am-btn-ghost" style="flex:0 0 auto;width:auto;padding:14px 20px;" onclick="amGoTo(2)">Назад</button>
+            <button type="submit" id="am-submit" class="am-btn">Отправить заявку</button>
+          </div>
+          <p style="text-align:center;color:#334155;font-size:10px;margin:0;">Мы свяжемся в течение 24 часов</p>
+        </div>
+
+        <!-- Экран успеха -->
+        <div class="am-step" data-step="done">
+          <div style="text-align:center;padding:20px 0 10px;">
+            <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 32px rgba(16,185,129,0.3);">
+              <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+            </div>
+            <h3 style="color:#f1f5f9;font-size:18px;font-weight:700;margin:0 0 8px;">Заявка отправлена</h3>
+            <p style="color:#64748b;font-size:13px;margin:0 0 20px;line-height:1.5;">Мы получили вашу анкету и свяжемся<br>в ближайшее время</p>
+            <button type="button" class="am-btn" onclick="document.getElementById('applyModal').style.display='none';amReset();">Закрыть</button>
+          </div>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <script>
+  // ── Multi-step modal logic ──
+  var amStep = 1;
+  var amStepTitles = {1:'Контактные данные',2:'О вашем бизнесе',3:'Почти готово'};
+  var amStepSubs = {1:'Шаг 1 из 3',2:'Шаг 2 из 3',3:'Шаг 3 из 3'};
+
+  function amGoTo(n) {
+    if (n === 2) {
+      var nm = document.getElementById('am-name').value.trim();
+      var ph = document.getElementById('am-phone').value.trim();
+      if (!nm || !ph) { document.getElementById(nm?'am-phone':'am-name').focus(); return; }
+    }
+    amStep = n;
+    document.querySelectorAll('.am-step').forEach(function(el){ el.classList.remove('active'); });
+    var target = document.querySelector('.am-step[data-step="'+n+'"]');
+    if (target) target.classList.add('active');
+    // Progress
+    document.querySelectorAll('.am-progress-dot').forEach(function(d,i){
+      d.className = 'am-progress-dot' + (i<n?' done':'') + (i===n-1?' current':'');
+    });
+    // Title
+    if (amStepTitles[n]) document.getElementById('am-title').textContent = amStepTitles[n];
+    if (amStepSubs[n]) document.getElementById('am-subtitle').textContent = amStepSubs[n];
+  }
+
+  function amSelect(el, hiddenId) {
+    el.parentElement.querySelectorAll('.am-tag').forEach(function(t){ t.classList.remove('selected'); });
+    el.classList.add('selected');
+    document.getElementById(hiddenId).value = el.dataset.val;
+  }
+
+  function amReset() {
+    amStep = 1;
+    document.getElementById('applyModalForm').reset();
+    document.querySelectorAll('.am-tag').forEach(function(t){ t.classList.remove('selected'); });
+    amGoTo(1);
+  }
+
+  // ── Submit → Supabase only (no WhatsApp) ──
+  (function() {
+    var SUPA_URL = 'https://hbvuwnzemdifaapktaol.supabase.co';
+    var SUPA_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImhidnV3bnplbWRpZmFhcGt0YW9sIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NTQ3MzM4MDgsImV4cCI6MjA3MDMwOTgwOH0.TtxcJIQXt4Quh96Rbe6U0bGlbsFyvs4mVkAgCS5Zvhg';
+
+    var form = document.getElementById('applyModalForm');
+    if (!form) return;
+
+    form.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      var btn = document.getElementById('am-submit');
+      btn.disabled = true;
+      btn.textContent = 'Отправка...';
+
+      var name = document.getElementById('am-name').value.trim();
+      var phone = document.getElementById('am-phone').value.trim();
+      var city = document.getElementById('am-city').value.trim() || null;
+      var experience = document.getElementById('am-experience').value || null;
+      var budgetSituation = document.getElementById('am-budget').value || null;
+      var invest = document.getElementById('am-invest').value || null;
+      var timeline = document.getElementById('am-timeline').value || null;
+      var comment = document.getElementById('am-comment').value.trim() || null;
+
+      var expLabels = {none:'Первый бизнес','1-3':'1-3 года','3+':'Более 3 лет',franchise:'Работал по франшизе'};
+      var budLabels = {both:'Есть помещение и бюджет',budget:'Есть бюджет',space:'Есть помещение',none:'Пока планирую'};
+      var invLabels = {'under15k':'До $15k','15-25k':'$15-25k','25k+':'$25k+',discussing:'Обсуждается'};
+      var tlLabels = {asap:'Как можно скорее','3months':'1-3 месяца','6months':'3-6 месяцев',exploring:'Изучаю варианты'};
+
+      var fullComment = [
+        experience ? 'Опыт: ' + (expLabels[experience]||experience) : null,
+        invest ? 'Бюджет инвестиций: ' + (invLabels[invest]||invest) : null,
+        timeline ? 'Сроки: ' + (tlLabels[timeline]||timeline) : null,
+        comment,
+      ].filter(Boolean).join('\n');
+
+      try {
+        var res = await fetch(SUPA_URL + '/rest/v1/franchise_applications', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'apikey': SUPA_KEY,
+            'Authorization': 'Bearer ' + SUPA_KEY,
+            'Prefer': 'return=minimal',
+          },
+          body: JSON.stringify({
+            name: name,
+            phone: phone,
+            city: city,
+            budget: budgetSituation ? (budLabels[budgetSituation]||budgetSituation) : null,
+            comment: fullComment || null,
+          }),
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+
+        // Показываем экран успеха
+        document.querySelectorAll('.am-step').forEach(function(el){ el.classList.remove('active'); });
+        document.querySelector('.am-step[data-step="done"]').classList.add('active');
+        document.querySelectorAll('.am-progress-dot').forEach(function(d){ d.className='am-progress-dot done'; });
+        document.getElementById('am-title').textContent = 'Готово!';
+        document.getElementById('am-subtitle').textContent = '';
+
+      } catch (err) {
+        console.error('Submit error:', err);
+        btn.textContent = 'Ошибка — попробуйте ещё';
+        btn.style.background = '#ef4444';
+        setTimeout(function() { btn.disabled = false; btn.textContent = 'Отправить заявку'; btn.style.background = ''; }, 3000);
+        return;
+      }
+      btn.disabled = false;
+      btn.textContent = 'Отправить заявку';
+    });
+  })();
+  </script>
+
   <script src="js/wave-bg.js"></script>
 </body>
 </html>
