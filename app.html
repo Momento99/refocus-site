@@ -15,6 +15,8 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
+  <link rel="preload" as="image" href="assets/app-screen.png" fetchpriority="high">
+
   <style>
     @font-face { font-family:"RefocusDisplay"; src:url("fonts/refocus-display.woff2") format("woff2"); font-weight:400; font-style:normal; font-display:swap; }
     @font-face { font-family:'Manrope'; src:url('fonts/Manrope-Regular.ttf') format('truetype'); font-weight:400; font-display:swap; }
@@ -259,8 +261,9 @@
     .hero-phone-mini-label{font-size:9px;color:#94A3B8;}
 
     @media(max-width:860px){
-      .app-hero{padding:76px 16px 48px;min-height:100svh;display:flex;align-items:center;}
-      .app-hero-content{grid-template-columns:1fr;text-align:center;gap:32px;width:100%;}
+      /* На мобильном hero — это два блока подряд: текст занимает весь первый экран, телефон ниже */
+      .app-hero{padding:0 16px;min-height:auto;display:block;}
+      .app-hero-content{display:block;width:100%;gap:0;}
       .app-hero h1{font-size:clamp(28px,7.5vw,40px);margin-bottom:12px;}
       .app-hero-desc{margin-left:auto;margin-right:auto;font-size:15px;line-height:1.55;margin-bottom:24px;max-width:340px;}
       /* Кнопки одинаковой ширины */
@@ -272,10 +275,19 @@
       .store-btn-sub{font-size:9px;}
       .hero-see-more{display:none;}
       .app-hero-badge{font-size:11px;padding:6px 12px;margin-bottom:14px;}
-      .hero-text-glass{padding:28px 20px;width:100%;}
+      /* Текстовый блок — на весь первый экран */
+      .hero-text-glass{
+        padding:84px 20px 32px;
+        width:100%;
+        min-height:100svh;
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        text-align:center;
+      }
       .app-hero-sub{font-size:11px;margin-top:12px;}
-      /* Телефон компактнее — он уходит ниже */
-      .app-hero-phone{order:1;}
+      /* Телефон уходит ниже первого экрана */
+      .app-hero-phone{padding:48px 0 24px;}
       .hero-phone{width:190px;height:390px;border-radius:30px;}
       .hero-phone-screen{border-radius:27px;}
       .hero-phone-glow{width:260px;height:260px;}
@@ -671,7 +683,7 @@
         <div class="hero-phone-glow"></div>
         <div class="hero-phone">
           <div class="hero-phone-screen">
-            <img src="assets/app-screen.png" alt="Приложение REFOCUS" style="width:100%;height:100%;object-fit:cover;border-radius:21px;">
+            <img src="assets/app-screen.png" alt="Приложение REFOCUS" width="294" height="614" fetchpriority="high" decoding="async" style="width:100%;height:100%;object-fit:cover;border-radius:21px;background:#0F172A;">
           </div>
         </div>
       </div>
