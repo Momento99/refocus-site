@@ -32,7 +32,7 @@
     }
 
     *{box-sizing:border-box;-webkit-font-smoothing:antialiased;}
-    html{scroll-behavior:smooth;background:#0F172A;}
+    html{scroll-behavior:smooth;background:#0F172A;overflow-x:hidden;}
     body{margin:0;font-family:'Manrope',-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;color:#fff;line-height:1.5;font-weight:400;letter-spacing:-0.022em;overflow-x:hidden;background:transparent;}
 
     /* Wave canvas sits behind everything */
@@ -103,6 +103,8 @@
       border-radius: 28px;
       padding: 44px 40px;
     }
+    /* Inner wrapper — on desktop transparent (parent has glass), on mobile becomes the glass card */
+    .hero-glass-inner { display: contents; }
 
     /* ── CTA card ── */
     .cta-card {
@@ -274,7 +276,7 @@
       .store-btn-name{font-size:15px;}
       .store-btn-sub{font-size:9px;}
       .app-hero-badge{font-size:11px;padding:6px 14px;margin:0 0 18px;}
-      /* Текстовый блок — на весь первый экран, без карточки, всё по центру */
+      /* Текстовый блок — на весь первый экран, фон прозрачный (карточка теперь внутри) */
       .hero-text-glass{
         padding:96px 20px 56px;
         width:100%;
@@ -289,6 +291,21 @@
         backdrop-filter:none;
         -webkit-backdrop-filter:none;
         border-radius:0;
+      }
+      /* Внутренняя карточка — лёгкий блюр по размеру контента */
+      .hero-glass-inner{
+        display:flex;
+        flex-direction:column;
+        align-items:center;
+        width:100%;
+        max-width:380px;
+        padding:32px 24px;
+        background:rgba(7,16,30,0.45);
+        backdrop-filter:blur(10px);
+        -webkit-backdrop-filter:blur(10px);
+        border:1px solid rgba(255,255,255,0.07);
+        border-radius:24px;
+        box-shadow:0 12px 40px rgba(0,0,0,0.25);
       }
       .app-hero-sub{font-size:12px;margin:14px 0 0;color:rgba(255,255,255,0.5);}
       /* Возвращаем индикатор скролла — стрелка вниз внизу первого экрана */
@@ -651,6 +668,7 @@
   <section class="app-hero">
     <div class="app-hero-content">
       <div class="hero-text-glass reveal">
+        <div class="hero-glass-inner">
         <div class="app-hero-badge" style="margin-bottom:20px;">
           <span class="app-hero-badge-dot"></span>
           Мобильное приложение
@@ -686,6 +704,7 @@
           </a>
         </div>
         <p class="app-hero-sub" style="transition-delay:.24s;">Бесплатно &middot; Вход по номеру телефона &middot; Без пароля</p>
+        </div>
         <a href="#stages" class="hero-see-more" style="transition-delay:.28s;">
           Посмотреть как работает приложение
           <svg viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
