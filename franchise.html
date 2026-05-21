@@ -833,81 +833,153 @@
        franchise.html — МОБИЛЬНЫЕ УЛУЧШЕНИЯ (≤ 734px)
        ═══════════════════════════════════════════ */
     @media(max-width:734px){
+      /* Общие контейнеры — меньше горизонтального и вертикального padding'а */
+      .section-container { padding:48px 16px !important; }
+
       /* Hero — главная проблема: 180px отступ сверху */
-      .hero { padding:82px 18px 56px; min-height:auto; }
-      .hero h1 { font-size:clamp(28px,8vw,44px); margin-bottom:20px; }
-      .hero p.hero-sub { font-size:16px; margin-bottom:28px; }
-      .hero-badge { font-size:12px; padding:8px 16px; margin-bottom:20px; }
+      .hero { padding:82px 16px 48px; min-height:auto; }
+      .hero h1 { font-size:clamp(28px,8vw,40px); margin-bottom:20px; line-height:1.12; max-width:100%; }
+      .hero-highlight { display:inline-block; vertical-align:baseline; }
+      .hero p.hero-sub { font-size:15px; margin-bottom:24px; }
+      .hero-badge { font-size:11px; padding:7px 14px; margin-bottom:18px; letter-spacing:0.08em; }
+
+      /* Hero «Прибыль $2 300/мес» — крупный inline-блок */
+      .hero h1 + .reveal > div { padding:14px 22px !important; border-radius:14px !important; max-width:100%; }
+      .hero h1 + .reveal > div > span { font-size:16px !important; display:inline; }
+      .hero h1 + .reveal > div > span:last-child { font-size:17px !important; }
+
+      /* Hero facts — без разделителей на мобильном, столбец */
+      .hero h1 + .reveal + .reveal { flex-direction:column !important; gap:8px !important; margin-bottom:36px !important; align-items:center; }
+      .hero h1 + .reveal + .reveal > span[style*="color:rgba(34,211,238,0.3)"] { display:none !important; }
+      .hero h1 + .reveal + .reveal > span:not([style*="color:rgba(34,211,238,0.3)"]) { font-size:13px !important; }
 
       /* Hero stats */
-      .hero-stats { padding:20px 16px; gap:12px; border-radius:20px; margin-bottom:28px; flex-wrap:wrap; }
-      .hero-stat { min-width:calc(50% - 12px); padding:0 12px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:12px; }
+      .hero-stats { padding:18px 14px; gap:12px; border-radius:18px; margin-bottom:24px; flex-wrap:wrap; }
+      .hero-stat { min-width:calc(50% - 12px); padding:0 10px; border-right:none; border-bottom:1px solid rgba(255,255,255,0.06); padding-bottom:12px; }
       .hero-stat:nth-child(odd) { border-right:1px solid rgba(255,255,255,0.06); }
       .hero-stat:nth-last-child(-n+2) { border-bottom:none; padding-bottom:0; }
-      .hero-stat .stat-num { font-size:30px; }
-      .hero-stat .stat-label { font-size:11px; }
+      .hero-stat .stat-num { font-size:28px; }
+      .hero-stat .stat-label { font-size:10px; letter-spacing:0.05em; }
 
       /* Hero buttons */
       .hero-buttons { flex-direction:column; align-items:center; gap:10px; }
-      .hero-buttons .btn { width:100%; max-width:320px; justify-content:center; padding:14px 24px; font-size:16px; }
+      .hero-buttons .btn { width:100%; max-width:320px; justify-content:center; padding:14px 24px; font-size:15px; }
 
-      /* Sections */
-      .section-title { font-size:clamp(24px,6vw,34px) !important; }
-      .section-sub { font-size:15px !important; }
+      /* Sections общие */
+      .section-title { font-size:clamp(26px,6.5vw,34px) !important; line-height:1.15 !important; }
+      .section-sub { font-size:14px !important; line-height:1.6 !important; }
+      .section-tag { font-size:11px !important; }
 
       /* About */
-      .about-lead { font-size:16px !important; }
+      .about-lead { font-size:15px !important; line-height:1.65 !important; }
+      .about-body { font-size:14px !important; }
       .about-grid { gap:24px; }
+      .about-list li { font-size:14px !important; padding:10px 14px !important; }
+      .about-visual { min-height:240px !important; }
+      .about-visual .av-ring-1 { width:200px !important; height:200px !important; }
+      .about-visual .av-ring-2 { width:150px !important; height:150px !important; }
+      .about-visual .av-center { width:100px !important; height:100px !important; }
+      .about-visual .av-center .av-num { font-size:32px !important; }
 
       /* Feature cards */
-      .feature-card { padding:24px 18px; border-radius:18px; }
-      .feature-card h3 { font-size:17px; }
-      .feature-card p { font-size:13px; }
+      .feature-card { padding:22px 18px; border-radius:18px; }
+      .feature-card h3 { font-size:16px; }
+      .feature-card p { font-size:13px; line-height:1.55; }
+      .feature-icon { width:44px; height:44px; margin-bottom:14px; }
+
+      /* Package items */
+      .package-item { padding:14px 16px !important; font-size:14px !important; gap:12px !important; }
+      .package-item .pkg-num { width:28px !important; height:28px !important; font-size:12px !important; }
 
       /* Format cards */
       .format-card { padding:28px 20px; border-radius:20px; }
-      .format-title { font-size:20px !important; }
+      .format-title { font-size:22px !important; }
+      .format-specs li { font-size:13px !important; padding:8px 0 !important; }
+      .format-specs li .spec-label { min-width:80px !important; }
 
       /* Invest blocks */
-      .invest-block { padding:24px 18px; border-radius:18px; }
+      .invest-block { padding:22px 16px; border-radius:18px; }
+      .invest-block h3 { font-size:17px !important; margin-bottom:14px !important; }
+      .invest-table td { padding:10px 6px !important; font-size:13px !important; }
 
       /* Dark cards */
-      .dark-card { padding:24px 18px; }
+      .dark-card { padding:22px 18px; border-radius:18px; }
       .dark-card h3 { font-size:17px; }
+      .dark-card .dc-value { font-size:22px !important; }
+      .dark-card .dc-desc { font-size:13px !important; }
 
-      /* Scenarios 4-col → 2-col on mobile */
+      /* Scenarios — карточки прогноза */
       .scenarios-row { grid-template-columns: repeat(2,1fr) !important; }
+      .scenario-card { padding:22px 18px !important; border-radius:18px !important; }
+      .scenario-card .sc-title { font-size:20px !important; margin-bottom:14px !important; }
+      .scenario-card .sc-row { font-size:13px !important; padding:10px 0 !important; }
+
+      /* Supplies */
+      .supply-item { padding:22px 14px !important; border-radius:16px !important; }
+      .supply-item .supply-icon { width:42px !important; height:42px !important; margin-bottom:12px !important; }
+      .supply-item h4 { font-size:14px !important; }
+      .supply-item p { font-size:12px !important; }
+
+      /* Timeline */
+      .timeline { padding-left:32px !important; }
+      .timeline::before { left:11px !important; }
+      .timeline-item { padding:0 0 28px 24px !important; }
+      .timeline-item .tl-dot { left:-32px !important; width:30px !important; height:30px !important; font-size:12px !important; }
+      .timeline-item .tl-content { padding:18px 16px !important; }
+      .timeline-item h4 { font-size:16px !important; }
+      .timeline-item p { font-size:13px !important; }
+      .timeline-item:hover .tl-content { transform:none !important; }
+
+      /* Partner list */
+      .partner-item { font-size:14px !important; padding:14px 18px !important; }
 
       /* Comparison → stack on mobile */
       #why-optics + .dark-section .section-container > div:last-child { grid-template-columns:1fr !important; }
 
       /* Launch circuit */
-      .launch-circuit { grid-template-columns:repeat(2,1fr); gap:12px; }
-      .launch-step { padding:16px 12px; border-radius:14px; }
+      .launch-circuit { grid-template-columns:repeat(2,1fr); gap:10px; }
+      .launch-step { padding:14px 10px; border-radius:14px; }
 
       /* Portal */
-      .portal-stats-row { gap:16px; }
-      .portal-stat .ps-num { font-size:26px; }
+      .portal-stats-row { gap:14px; }
+      .portal-stat .ps-num { font-size:24px; }
+      .portal-stat .ps-label { font-size:11px !important; }
       .portal-hero-frame { border-radius:12px; }
+      .portal-feature-card { border-radius:16px !important; }
       .portal-feature-card .pf-body { padding:14px 16px; }
       .portal-feature-card .pf-title { font-size:15px; }
       .portal-feature-card .pf-desc { font-size:12px; }
+      .portal-cta-box { padding:24px 18px !important; border-radius:18px !important; }
+      .portal-cta-box p { font-size:14px !important; }
 
       /* Contact form */
       .contact-grid { gap:24px; }
       .form-group input,
       .form-group textarea,
-      .form-group select { font-size:16px; } /* Предотвращает zoom на iOS */
+      .form-group select { font-size:16px; padding:12px 14px !important; } /* 16px = no iOS zoom */
+      .form-group label { font-size:13px !important; }
+
+      /* Bento split — спинки sticky убираем на мобильном */
+      .bento-split .section-header { position:static !important; margin-bottom:24px !important; }
     }
 
     @media(max-width:480px){
-      .hero { padding:72px 16px 40px; }
+      .section-container { padding:40px 14px !important; }
+      .hero { padding:72px 14px 36px; }
+      .hero h1 { font-size:clamp(24px,8.5vw,34px); }
+      .hero h1 + .reveal > div > span { font-size:15px !important; }
+      .hero h1 + .reveal > div > span:last-child { font-size:16px !important; }
       .hero-stat { min-width:100%; border-right:none !important; }
       .hero-stat:nth-last-child(-n+2) { border-bottom:1px solid rgba(255,255,255,0.06); }
       .hero-stat:last-child { border-bottom:none; }
       .launch-circuit { grid-template-columns:1fr; }
+      .scenarios-row { grid-template-columns:1fr !important; }
       .feature-card { padding:18px 14px; }
       .format-card { padding:22px 16px; }
+      .invest-block { padding:18px 14px; }
+      .scenario-card { padding:18px 14px !important; }
+      .dark-card { padding:18px 14px; }
+      .timeline-item .tl-content { padding:14px 12px !important; }
     }
   </style>
 </head>
