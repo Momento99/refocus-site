@@ -981,6 +981,67 @@
       .dark-card { padding:18px 14px; }
       .timeline-item .tl-content { padding:14px 12px !important; }
     }
+
+    /* ═══════════════════════════════════════════════════════════
+       ГИБРИД-ТЕМА: СВЕТЛЫЕ СЕКЦИИ (.light-band)
+       Тёмный текст на светлой подложке. Скоупится классом .light-band,
+       поэтому hero / экосистема / финальный CTA остаются тёмными.
+       Правила с !important перекрывают инлайн-стили (у инлайна !important нет).
+       ═══════════════════════════════════════════════════════════ */
+    .light-band{
+      background:#F4F8FC !important;          /* непрозрачно — перекрывает фикс-канвас с волной */
+      color:#1E293B !important;
+    }
+    /* Прячем внутренние тёмные подложки (#07101e, absolute, z-index:0) */
+    .light-band > div[style*="z-index:0"]{ display:none !important; }
+
+    /* Заголовки и подзаголовки секции */
+    .light-band .section-title{ color:#0B1B33 !important; }
+    .light-band .section-sub{ color:#52617A !important; }
+    .light-band .section-tag{ color:#0E7490 !important; }   /* тёмная бирюза — читаемо на белом */
+
+    /* Инлайн-цвета светлого текста → тёмные (атрибут-селекторы по style) */
+    .light-band [style*="color:#fff"],
+    .light-band [style*="color:#FFFFFF"],
+    .light-band [style*="color:white"]{ color:#0B1B33 !important; }
+    .light-band [style*="color:#E2E8F0"]{ color:#334155 !important; }
+    .light-band [style*="color:#CBD5E1"]{ color:#475569 !important; }
+    .light-band [style*="color:#94A3B8"]{ color:#5B6A82 !important; }
+
+    /* Тёмные «стеклянные» карточки → белые карточки с мягкой тенью */
+    .light-band [style*="rgba(7,16,30"]{
+      background:#FFFFFF !important;
+      box-shadow:0 2px 14px rgba(15,23,42,0.06) !important;
+    }
+    /* Белые границы (невидимы на светлом) → светло-серые */
+    .light-band [style*="rgba(255,255,255,0.09)"],
+    .light-band [style*="rgba(255,255,255,0.08)"],
+    .light-band [style*="rgba(255,255,255,0.07)"]{ border-color:#E4EAF1 !important; }
+    /* Тонкие белые линии-разделители → тёмно-серые */
+    .light-band [style*="background:rgba(255,255,255,0.06)"],
+    .light-band [style*="background:rgba(255,255,255,0.04)"],
+    .light-band [style*="background:rgba(255,255,255,0.03)"]{ background:rgba(15,23,42,0.08) !important; }
+
+    /* Классовые карточки — feature / faq */
+    .light-band .feature-card{
+      background:#FFFFFF !important; border-color:#E4EAF1 !important;
+      box-shadow:0 2px 14px rgba(15,23,42,0.05) !important;
+    }
+    .light-band .feature-card:hover{
+      background:#FFFFFF !important; border-color:rgba(34,211,238,0.45) !important;
+      box-shadow:0 16px 36px rgba(15,23,42,0.10) !important;
+    }
+    .light-band .feature-card h3{ color:#0B1B33 !important; }
+    .light-band .feature-card p{ color:#52617A !important; }
+
+    .light-band .faq-item{ background:#FFFFFF !important; border-color:#E4EAF1 !important; }
+    .light-band .faq-item:hover{ border-color:rgba(34,211,238,0.4) !important; }
+    .light-band .faq-item.open{ border-color:rgba(34,211,238,0.35) !important; box-shadow:0 4px 20px rgba(15,23,42,0.08) !important; }
+    .light-band .faq-q{ color:#0F2236 !important; }
+    .light-band .faq-a{ color:#52617A !important; }
+
+    /* Hover-glow (mix-blend screen) на белом не виден — гасим, чтобы не мерцал */
+    .light-band .mouse-glow{ display:none !important; }
   </style>
 </head>
 <body>
@@ -1069,7 +1130,7 @@
   </div>
 
   <!-- ═══ 2. WHY OPTICS ═══ -->
-  <section id="why-optics" class="dark-section" style="padding-top:40px; padding-bottom:80px;position:relative;">
+  <section id="why-optics" class="dark-section light-band" style="padding-top:40px; padding-bottom:80px;position:relative;">
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 0%, rgba(34,211,238,0.03) 0%, #07101e 40%);z-index:0;"></div>
     <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
       <div class="section-header reveal">
@@ -1159,7 +1220,7 @@
   </section>
 
   <!-- ═══ 3. COMPARISON: САМИ vs REFOCUS ═══ -->
-  <section class="dark-section" style="padding-top:40px;padding-bottom:80px;position:relative;">
+  <section class="dark-section light-band" style="padding-top:40px;padding-bottom:80px;position:relative;">
     <!-- Top fade in -->
     <div style="position:absolute;top:0;left:0;right:0;height:120px;background:linear-gradient(to top,#07101e 0%,transparent 100%);z-index:0;"></div>
     <div style="position:absolute;top:120px;left:15%;right:15%;bottom:120px;background:#07101e;z-index:0;"></div>
@@ -1409,7 +1470,7 @@
   </section>
 
   <!-- ═══ 5. LAUNCH STEPS ═══ -->
-  <section id="launch-steps" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+  <section id="launch-steps" class="dark-section light-band" style="padding-top:60px;padding-bottom:80px;position:relative;">
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at 50% 100%,rgba(34,211,238,0.03) 0%,#07101e 45%);z-index:0;"></div>
 
     <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
@@ -1489,7 +1550,7 @@
   </section>
 
   <!-- ═══ 6. FINANCE ═══ -->
-  <section id="finance-mega" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+  <section id="finance-mega" class="dark-section light-band" style="padding-top:60px;padding-bottom:80px;position:relative;">
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#07101e;z-index:0;"></div>
 
     <div class="section-container" style="max-width:1200px;position:relative;z-index:1;">
@@ -1601,7 +1662,7 @@
   </section>
 
   <!-- ═══ 7. FAQ ═══ -->
-  <section id="faq" class="dark-section" style="padding-top:60px;padding-bottom:80px;position:relative;">
+  <section id="faq" class="dark-section light-band" style="padding-top:60px;padding-bottom:80px;position:relative;">
     <div style="position:absolute;top:0;left:0;right:0;bottom:0;background:#07101e;z-index:0;"></div>
 
     <div class="section-container" style="max-width:900px;position:relative;z-index:1;">
@@ -1992,15 +2053,18 @@
       <div class="am-glow"></div>
       <button class="am-close" onclick="document.getElementById('applyModal').style.display='none'">&times;</button>
 
-      <!-- Шапка -->
-      <div style="padding:28px 28px 0;position:relative;">
-        <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;">
-          <div style="width:40px;height:40px;border-radius:12px;background:linear-gradient(135deg,#22d3ee,#06b6d4);display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(34,211,238,0.25);flex-shrink:0;">
-            <svg width="18" height="18" fill="none" stroke="#0f172a" stroke-width="2.2" stroke-linecap="round"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg>
+      <!-- Шапка с брендовой полосой -->
+      <div style="height:3px;background:linear-gradient(90deg,transparent 0%,#22D3EE 30%,#06B6D4 50%,#22D3EE 70%,transparent 100%);border-radius:28px 28px 0 0;"></div>
+      <div style="padding:24px 28px 4px;position:relative;">
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:18px;">
+          <!-- Лого «RE» в Pavelt -->
+          <div style="width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(34,211,238,0.35),inset 0 1px 0 rgba(255,255,255,0.2);flex-shrink:0;">
+            <span class="brand-font" style="font-family:'RefocusDisplay','Inter',sans-serif;font-size:22px;font-weight:400;color:#07101e;letter-spacing:0.02em;line-height:1;padding-top:2px;">RE</span>
           </div>
-          <div>
-            <h2 style="color:#f1f5f9;font-size:18px;font-weight:700;margin:0;line-height:1.2;" id="am-title">Оставить заявку</h2>
-            <p style="color:#475569;font-size:12px;margin:2px 0 0;" id="am-subtitle">Свяжемся в течение 1 рабочего дня</p>
+          <div style="min-width:0;flex:1;">
+            <div style="font-size:10px;color:#22D3EE;letter-spacing:0.14em;margin-bottom:3px;"><span class="brand-font" style="font-family:'RefocusDisplay','Inter',sans-serif;font-weight:400;font-size:13px;letter-spacing:0.06em;">REFOCUS</span> · <span style="font-weight:700;text-transform:uppercase;">франшиза</span></div>
+            <h2 style="color:#FFFFFF;font-size:20px;font-weight:800;margin:0;line-height:1.2;letter-spacing:-0.01em;" id="am-title">Оставить заявку</h2>
+            <p style="color:#94A3B8;font-size:12px;margin:4px 0 0;line-height:1.4;" id="am-subtitle">Свяжемся в течение 1 рабочего дня</p>
           </div>
         </div>
       </div>
@@ -2031,17 +2095,51 @@
 
         <!-- Экран успеха -->
         <div class="am-step" data-step="done">
-          <div style="text-align:center;padding:20px 0 10px;">
-            <div style="width:56px;height:56px;border-radius:50%;background:linear-gradient(135deg,#10b981,#059669);display:inline-flex;align-items:center;justify-content:center;margin-bottom:16px;box-shadow:0 8px 32px rgba(16,185,129,0.3);">
-              <svg width="24" height="24" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          <div style="text-align:center;padding:8px 0 4px;position:relative;">
+            <!-- Атмосферный свет позади чекмарка -->
+            <div style="position:absolute;top:-12px;left:50%;transform:translateX(-50%);width:200px;height:200px;background:radial-gradient(circle,rgba(34,211,238,0.16),transparent 70%);pointer-events:none;"></div>
+
+            <!-- Иконка -->
+            <div style="position:relative;width:84px;height:84px;border-radius:50%;background:linear-gradient(135deg,#22D3EE,#06B6D4);display:inline-flex;align-items:center;justify-content:center;margin-bottom:24px;box-shadow:0 12px 40px rgba(34,211,238,0.4),inset 0 1px 0 rgba(255,255,255,0.2);">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#07101e" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" style="display:block;"><polyline points="20 6 9 17 4 12"/></svg>
             </div>
-            <h3 style="color:#f1f5f9;font-size:18px;font-weight:700;margin:0 0 8px;">Заявка отправлена</h3>
-            <p style="color:#64748b;font-size:13px;margin:0 0 18px;line-height:1.5;">Менеджер свяжется в течение 1 рабочего дня.<br>А пока — изучите презентацию.</p>
-            <a href="presentation/refocus-franchise-ru.pdf" download="refocus-franchise.pdf" id="am-download" class="am-btn" style="display:inline-flex;align-items:center;justify-content:center;gap:10px;text-decoration:none;margin-bottom:10px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#0f172a" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-              Скачать презентацию (PDF, 20 стр.)
+
+            <h3 style="color:#FFFFFF;font-size:24px;font-weight:800;margin:0 0 10px;letter-spacing:-0.02em;position:relative;">Заявка принята</h3>
+            <p style="color:#94A3B8;font-size:14px;margin:0 0 24px;line-height:1.6;max-width:340px;margin-left:auto;margin-right:auto;position:relative;">Спасибо! Свяжемся с вами в течение 1 рабочего дня через WhatsApp. А пока — изучите презентацию.</p>
+
+            <!-- 3 шага «что дальше» -->
+            <div style="display:flex;gap:8px;margin-bottom:24px;text-align:left;position:relative;">
+              <div style="flex:1;padding:12px 10px;background:rgba(34,211,238,0.06);border:1px solid rgba(34,211,238,0.18);border-radius:12px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:#22D3EE;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">
+                  <span style="width:16px;height:16px;border-radius:50%;background:#22D3EE;color:#07101e;display:inline-flex;align-items:center;justify-content:center;font-size:9px;">1</span>
+                  Сейчас
+                </div>
+                <div style="font-size:11px;color:#CBD5E1;line-height:1.4;">Изучите PDF-презентацию</div>
+              </div>
+              <div style="flex:1;padding:12px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">
+                  <span style="width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.1);color:#CBD5E1;display:inline-flex;align-items:center;justify-content:center;font-size:9px;">2</span>
+                  1 раб. день
+                </div>
+                <div style="font-size:11px;color:#94A3B8;line-height:1.4;">Свяжемся по WhatsApp</div>
+              </div>
+              <div style="flex:1;padding:12px 10px;background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.08);border-radius:12px;">
+                <div style="display:flex;align-items:center;gap:6px;font-size:10px;font-weight:700;color:#94A3B8;letter-spacing:0.06em;text-transform:uppercase;margin-bottom:4px;">
+                  <span style="width:16px;height:16px;border-radius:50%;background:rgba(255,255,255,0.1);color:#CBD5E1;display:inline-flex;align-items:center;justify-content:center;font-size:9px;">3</span>
+                  Далее
+                </div>
+                <div style="font-size:11px;color:#94A3B8;line-height:1.4;">Встреча и разбор финмодели</div>
+              </div>
+            </div>
+
+            <!-- Кнопка скачивания -->
+            <a href="presentation/refocus-franchise-ru.pdf" download="refocus-franchise.pdf" id="am-download" class="am-btn"
+               style="display:flex;align-items:center;justify-content:center;gap:12px;text-decoration:none;font-size:16px;padding:18px;font-weight:700;letter-spacing:-0.005em;background:linear-gradient(135deg,#22D3EE,#06B6D4);color:#07101e;box-shadow:0 6px 24px rgba(34,211,238,0.35);position:relative;overflow:hidden;">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              Скачать презентацию (PDF · 20 стр.)
             </a>
-            <button type="button" class="am-btn am-btn-ghost" style="margin-top:6px;" onclick="document.getElementById('applyModal').style.display='none';amReset();">Закрыть</button>
+
+            <button type="button" style="margin-top:14px;background:none;border:none;color:#64748B;font-size:12px;cursor:pointer;padding:8px;font-family:inherit;" onclick="document.getElementById('applyModal').style.display='none';amReset();">Закрыть</button>
           </div>
         </div>
       </form>
@@ -2120,20 +2218,12 @@
         var result = await res.json();
         if (!result.ok) throw new Error(result.error || 'submit_failed');
 
-        // Если duplicate — показываем мягкое сообщение
+        // Если duplicate — показываем мягкое сообщение (без авто-скачивания)
         if (result.duplicate) {
           document.querySelectorAll('.am-step').forEach(function(el){ el.classList.remove('active'); });
           document.querySelector('.am-step[data-step="done"]').classList.add('active');
           document.getElementById('am-title').textContent = 'Уже получили вашу заявку';
           document.getElementById('am-subtitle').textContent = 'Скоро свяжемся';
-          setTimeout(function() {
-            var a = document.createElement('a');
-            a.href = 'presentation/refocus-franchise-ru.pdf';
-            a.download = 'refocus-franchise.pdf';
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-          }, 600);
           btn.disabled = false;
           btn.textContent = 'Отправить заявку';
           return;
@@ -2144,15 +2234,7 @@
         document.getElementById('am-title').textContent = 'Готово!';
         document.getElementById('am-subtitle').textContent = '';
 
-        // Авто-скачивание PDF через секунду — пользователь видит экран успеха, потом начинается download
-        setTimeout(function() {
-          var a = document.createElement('a');
-          a.href = 'presentation/refocus-franchise-ru.pdf';
-          a.download = 'refocus-franchise.pdf';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        }, 800);
+        // Авто-скачивание отключено — пользователь сам нажимает «Скачать презентацию»
 
       } catch (err) {
         console.error('Submit error:', err);
