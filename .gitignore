@@ -16,3 +16,11 @@ fix.js
 # OS
 Thumbs.db
 .DS_Store
+
+# Presentation: только готовый PDF идёт в репо.
+# Source HTML, скриншоты CRM и research-документы — приватные.
+presentation/_source/
+presentation/screenshots/
+presentation/franchise-ru.html
+presentation/franchise-en.html
+presentation/refocus-franchise-ru-v2.pdf
