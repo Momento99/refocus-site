@@ -4,22 +4,16 @@
  * Premium dark brand design: #0F172A + #22D3EE
  */
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
   const container = document.getElementById('lens-pricing-app');
-  if (!container) return;
+  if (!container || !window.LensData) return;
 
-  // Wait for LensData to be available
-  function init() {
-    if (!window.LensData) {
-      setTimeout(init, 50);
-      return;
-    }
-    renderApp();
-  }
-  init();
+  const { categories, lensDetails, ICONS, VIDEOS } = window.LensData;
+  const catalog = await window.loadRefocusLensCatalog(categories);
+  container.dataset.priceSource = catalog.source;
+  renderApp(catalog.categories);
 
-  function renderApp() {
-    const { categories, lensDetails, ICONS, VIDEOS } = window.LensData;
+  function renderApp(categories) {
 
     // ─── Tone Schemes (from RN getToneScheme) ────────────────────────────────
     function getToneScheme(tone) {
@@ -135,11 +129,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // ─── Render HTML ───────────────────────────────────────────────────────────
-    let html = '<div class="lp-hint-bar"><span class="lp-hint-icon">ℹ</span><span>Выбери уровень линз → нажми на позицию → откроется видео, плюсы, минусы и честная оценка</span></div>';
-    html += '<div class="lp-price-note"><span class="lp-price-note-label">Цены указаны за 1 линзу</span><div class="lp-diopter-badges"><span class="lp-diopter-badge lp-diopter-badge--from">до 2.75 дптр</span><span class="lp-diopter-separator">·</span><span class="lp-diopter-badge lp-diopter-badge--to">от 3.00 дптр</span></div></div>';
+    let html = '<div class="lp-hint-bar"><span class="lp-hint-icon">ℹ</span><span>Откройте нужный раздел, чтобы посмотреть цены и свойства линз.</span></div>';
+    html += '<div class="lp-price-note"><span class="lp-price-note-label">Цена за одну линзу</span><div class="lp-diopter-badges"><span class="lp-diopter-badge lp-diopter-badge--from">до 2,75</span><span class="lp-diopter-separator">·</span><span class="lp-diopter-badge lp-diopter-badge--to">от 3,00</span></div></div>';
 
     categories.forEach(cat => {
-      const visual = getCategoryVisual(cat.id);
+      const visual = getCategoryVisual(cat.accent);
       html += `
         <div class="lp-category" data-cat-id="${cat.id}">
           <button class="lp-category-header" type="button" aria-expanded="false">
@@ -343,11 +337,11 @@ document.addEventListener('DOMContentLoaded', () => {
             <h5>Что важно знать о цене</h5>
             <p>${detail.priceNote}</p>
           </div>
-          <div class="lp-consult-card" style="border-color: ${scheme.accent}30">
+          ${detail.consultantOpinion ? `<div class="lp-consult-card" style="border-color: ${scheme.accent}30">
             <h5 class="lp-consult-title">Мнение консультанта</h5>
             <p class="lp-consult-text">"${detail.consultantOpinion}"</p>
             <span class="lp-consult-badge">${detail.consultantName} · ${detail.consultantDate}</span>
-          </div>
+          </div>` : ''}
           <p class="lp-care-text">💡 ${detail.careTips.join(' • ')}</p>
         </div>
       `;
@@ -393,29 +387,32 @@ document.addEventListener('DOMContentLoaded', () => {
       `;
 
       // Scores
-      const totalScore = detail.scores.reduce((s, x) => s + x.value, 0);
-      const totalMeta = getTotalMeta(totalScore);
-      body += `
-        <div class="lp-modal-card">
-          <div class="lp-card-head"><div class="lp-glow-dot" style="background: ${scheme.accent}"></div><h4>Оценка по параметрам</h4></div>
-          ${detail.scores.map(s => `
-            <div class="lp-score-row">
-              <span class="lp-score-label">${s.label}</span>
-              <div class="lp-score-track">
-                <div class="lp-score-fill" style="width: ${s.value * 20}%; background: linear-gradient(90deg, ${scheme.accent}, ${scheme.accent2})"></div>
+      if (detail.scores?.length) {
+        const totalScore = detail.scores.reduce((s, x) => s + x.value, 0);
+        const totalMeta = getTotalMeta(totalScore);
+        body += `
+          <div class="lp-modal-card">
+            <div class="lp-card-head"><div class="lp-glow-dot" style="background: ${scheme.accent}"></div><h4>Оценка по параметрам</h4></div>
+            ${detail.scores.map(s => `
+              <div class="lp-score-row">
+                <span class="lp-score-label">${s.label}</span>
+                <div class="lp-score-track">
+                  <div class="lp-score-fill" style="width: ${s.value * 20}%; background: linear-gradient(90deg, ${scheme.accent}, ${scheme.accent2})"></div>
+                </div>
+                <span class="lp-score-val">${s.value}/5</span>
               </div>
-              <span class="lp-score-val">${s.value}/5</span>
+            `).join('')}
+            <div class="lp-total-card">
+              <div class="lp-total-top">
+                <h5 class="lp-total-title">${totalMeta.title}</h5>
+                <span class="lp-total-badge">${totalScore}/40</span>
+              </div>
+              <p class="lp-total-text">${totalMeta.text}</p>
             </div>
-          `).join('')}
-          <div class="lp-total-card">
-            <div class="lp-total-top">
-              <h5 class="lp-total-title">${totalMeta.title}</h5>
-              <span class="lp-total-badge">${totalScore}/40</span>
-            </div>
-            <p class="lp-total-text">${totalMeta.text}</p>
           </div>
-        </div>
-      `;
+        `;
+
+      }
 
       modalBody.innerHTML = body;
       document.body.style.overflow = 'hidden';

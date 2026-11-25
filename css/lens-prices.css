@@ -1034,3 +1034,19 @@
   .lp-item-icon-wrap { width: 46px; height: 46px; border-radius: 23px; }
   .lp-item-icon-wrap img { width: 36px; height: 36px; }
 }
+
+.lp-print-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px 24px;
+  padding: 18px 16px 0;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.lp-print-links a {
+  color: #0369a1;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}

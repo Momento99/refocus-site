@@ -15,7 +15,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <!-- Using San Francisco / Apple-like typography stack via Inter for broad compatibility -->
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=SF+Pro+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/lens-prices.css">
+  <link rel="stylesheet" href="css/lens-prices.css?v=20261125">
 
   <style>
     @font-face {
@@ -2693,10 +2693,14 @@
         Прайс-лист линз
       </div>
       <h2 class="lens-pricing-section-title">Выберите <span>свои линзы</span></h2>
-      <p class="lens-pricing-section-sub">15 позиций трёх уровней — базовые, специальные и премиальные. Нажмите на любую позицию, чтобы открыть видео, оценку и честное мнение консультанта.</p>
+      <p class="lens-pricing-section-sub">Единые цены на очковые линзы во всех филиалах Refocus.</p>
     </div>
     <!-- App Mount Point -->
     <div id="lens-pricing-app"></div>
+    <div class="lp-print-links" aria-label="Прайс-лист для печати">
+      <a href="assets/lens-price/print/refocus-prices-front.png" download>Скачать лицевую сторону</a>
+      <a href="assets/lens-price/print/refocus-prices-back.png" download>Скачать оборот</a>
+    </div>
   </section>
 
   <!-- Reviews -->
@@ -3079,7 +3083,7 @@
 
       <div class="faq-item">
         <div class="faq-question">Сколько времени занимает изготовление очков?<span class="faq-icon"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg></span></div>
-        <div class="faq-answer"><p>Стандартные заказы готовы за 1–3 дня. Для сложных рецептов (астигматизм, прогрессивные линзы) или фотохромных линз срок — до 7 рабочих дней.</p></div>
+        <div class="faq-answer"><p>Стандартные заказы готовы за 1–3 дня. Для сложных рецептов или фотохромных линз срок — до 7 рабочих дней.</p></div>
       </div>
 
       <div class="faq-item">
@@ -3175,8 +3179,6 @@
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="18 15 12 9 6 15"/></svg>
   </button>
 
-  <script src="js/lens-data.js"></script>
-  <script src="js/lens-prices.js"></script>
   <script>
     // Reveal Animations using Intersection Observer
     document.addEventListener("DOMContentLoaded", () => {
@@ -3291,30 +3293,9 @@
   </script>
 
   <!-- Lens Price List Scripts -->
-  <script src="js/lens-data.js"></script>
-  <script src="js/lens-prices.js"></script>
-
-  <script>
-    // Mobile hamburger menu
-    const hamburger = document.getElementById('navHamburger');
-    const mobileMenu = document.getElementById('mobileMenu');
-    hamburger.addEventListener('click', () => {
-      const isOpen = mobileMenu.classList.toggle('open');
-      hamburger.classList.toggle('open', isOpen);
-      document.body.style.overflow = isOpen ? 'hidden' : '';
-    });
-    function closeMobileMenu() {
-      mobileMenu.classList.remove('open');
-      hamburger.classList.remove('open');
-      document.body.style.overflow = '';
-    }
-    // Close on outside click
-    document.addEventListener('click', (e) => {
-      if (!hamburger.contains(e.target) && !mobileMenu.contains(e.target)) {
-        closeMobileMenu();
-      }
-    });
-  </script>
+  <script src="js/lens-data.js?v=20261125"></script>
+  <script src="js/lens-catalog.js?v=20261125"></script>
+  <script src="js/lens-prices.js?v=20261125"></script>
 
   <script>
   /* ── Section Wave Animation (stats + app sections) ── */
